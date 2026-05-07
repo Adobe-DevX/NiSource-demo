@@ -1,0 +1,88 @@
+{
+  "definitions": [
+    {
+      "title": "DependABill Promo",
+      "id": "dependabill-promo",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "DependABill Promo",
+              "model": "dependabill-promo",
+              "key-value": true,
+              "eyebrow": "Billing & Payment Options",
+              "greeting": "Hello Bowen!",
+              "bill-label": "Total Amount Due",
+              "amount-due": "$127.35",
+              "bill-cta-label": "Pay Bill",
+              "headline": "Want certainty on your monthly gas bill?",
+              "description": "DependABill is our billing program that helps you avoid surprises with a guaranteed fixed monthly gas bill for 12 months with no true-ups or adjustments. Get your personalized monthly cost today!",
+              "cta-label": "Take control"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "dependabill-promo",
+      "fields": [
+        {
+          "component": "text",
+          "name": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "component": "text",
+          "name": "greeting",
+          "label": "Greeting"
+        },
+        {
+          "component": "text",
+          "name": "bill-label",
+          "label": "Bill Label"
+        },
+        {
+          "component": "text",
+          "name": "amount-due",
+          "label": "Amount Due"
+        },
+        {
+          "component": "text",
+          "name": "bill-cta-label",
+          "label": "Bill CTA Label"
+        },
+        {
+          "component": "aem-content",
+          "name": "bill-cta-link",
+          "label": "Bill CTA Link"
+        },
+        {
+          "component": "text",
+          "name": "headline",
+          "label": "Headline"
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "name": "cta-label",
+          "label": "CTA Label"
+        },
+        {
+          "component": "aem-content",
+          "name": "cta-link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

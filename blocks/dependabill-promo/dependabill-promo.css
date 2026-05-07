@@ -1,0 +1,93 @@
+.dependabill-promo {
+  background: var(--color-neutral-100);
+  border: var(--shape-border-width-1) solid var(--color-neutral-300);
+  border-radius: var(--shape-border-radius-2);
+  padding: var(--spacing-medium);
+}
+
+.dependabill-promo__wrapper {
+  display: grid;
+  gap: var(--spacing-medium);
+}
+
+.dependabill-promo__top {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-small);
+  justify-content: space-between;
+}
+
+.dependabill-promo__eyebrow,
+.dependabill-promo__greeting {
+  font: var(--type-body-1-strong-font);
+  letter-spacing: var(--type-body-1-strong-letter-spacing);
+  margin: 0;
+}
+
+.dependabill-promo__greeting {
+  color: var(--color-brand-700);
+}
+
+.dependabill-promo__bill-card {
+  align-items: center;
+  background: var(--color-neutral-50);
+  border: var(--shape-border-width-1) solid var(--color-neutral-300);
+  border-radius: var(--shape-border-radius-2);
+  box-shadow: var(--shape-shadow-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  justify-content: space-between;
+  padding: var(--spacing-medium);
+}
+
+.dependabill-promo__bill-meta {
+  display: grid;
+  gap: var(--spacing-xxsmall);
+}
+
+.dependabill-promo__bill-label {
+  color: var(--color-neutral-700);
+  font: var(--type-body-2-strong-font);
+  letter-spacing: var(--type-body-2-strong-letter-spacing);
+  margin: 0;
+}
+
+.dependabill-promo__bill-amount {
+  color: var(--color-brand-700);
+  font: var(--type-display-3-font);
+  letter-spacing: var(--type-display-3-letter-spacing);
+  margin: 0;
+}
+
+.dependabill-promo__content h2 {
+  font: var(--type-headline-1-font);
+  letter-spacing: var(--type-headline-1-letter-spacing);
+  margin-bottom: var(--spacing-small);
+}
+
+.dependabill-promo__content p {
+  color: var(--color-neutral-800);
+  font: var(--type-body-1-default-font);
+  letter-spacing: var(--type-body-1-default-letter-spacing);
+  margin: 0;
+}
+
+.dependabill-promo__action {
+  margin-top: var(--spacing-medium);
+}
+
+.dependabill-promo .button.disabled {
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .dependabill-promo {
+    padding: var(--spacing-big);
+  }
+
+  .dependabill-promo__bill-card {
+    flex-direction: row;
+  }
+}
