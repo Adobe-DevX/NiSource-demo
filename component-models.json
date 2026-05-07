@@ -418,6 +418,45 @@
     ]
   },
   {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Banner Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-alt",
+        "label": "Banner Image Alt"
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "cta-label",
+        "label": "CTA Label"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta-link",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
     "id": "bill-card",
     "fields": [
       {

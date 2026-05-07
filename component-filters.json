@@ -19,6 +19,7 @@
       "button",
       "title",
       "hero",
+      "teaser",
       "bill-card",
       "cards",
       "columns",
@@ -405,7 +406,14 @@
       "image",
       "button",
       "title",
-      "bill-card"
+      "hero",
+      "teaser",
+      "bill-card",
+      "cards",
+      "columns",
+      "fragment",
+      "product-teaser",
+      "product-recommendations"
     ]
   }
 ]

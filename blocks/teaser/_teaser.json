@@ -1,0 +1,65 @@
+{
+  "definitions": [
+    {
+      "title": "Teaser",
+      "id": "teaser",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Teaser",
+              "model": "teaser",
+              "key-value": true,
+              "headline": "Shop our Marketplace",
+              "description": "Browse our Marketplace to find smart thermostats, energy-saving devices, and home solutions designed to improve comfort and lower your energy costs.",
+              "cta-label": "Take control"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "teaser",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Banner Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "image-alt",
+          "label": "Banner Image Alt"
+        },
+        {
+          "component": "text",
+          "name": "headline",
+          "label": "Headline"
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "name": "cta-label",
+          "label": "CTA Label"
+        },
+        {
+          "component": "aem-content",
+          "name": "cta-link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
