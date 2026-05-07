@@ -1,110 +1,49 @@
-import { decorateBlock, loadBlock } from '../../scripts/aem.js';
+import { getAemAuthorEnv } from '../../scripts/configs.js';
 
-const BILL_CARD_FIELDS = new Set([
-  'eyebrow',
-  'bill-label',
-  'amount-due',
-  'bill-cta-label',
-  'bill-cta-link',
-]);
+const AEM_DIV_EXTRA_CONTENT = ['text, grid-layout', 'icon, icon-layout', 'promo, promo-layout'];
 
-function normalizeNestedBlock(blockElement) {
-  if (blockElement.classList[0] !== 'bill-card') {
-    const otherClasses = [...blockElement.classList].filter((className) => className !== 'bill-card');
-    blockElement.className = `bill-card ${otherClasses.join(' ')}`.trim();
+export default function decorate(block) {
+  // this is for UE to use the same columns block no matter the layout
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < block.classList.length; i++) {
+    if (block.classList[i].includes('grid-placeholder-icons')) {
+      block.classList.remove('grid-placeholder-icons');
+      block.classList.add('grid');
+    }
   }
-}
-
-function convertBillCardPairsToBlock(container) {
-  const items = [...container.querySelectorAll(':scope > p')];
-  if (items.length < 6 || items.length % 2 !== 0) return null;
-
-  const pairs = [];
-  for (let i = 0; i < items.length; i += 2) {
-    const key = items[i].textContent?.trim().toLowerCase();
-    if (!BILL_CARD_FIELDS.has(key)) return null;
-
-    pairs.push({
-      key,
-      valueMarkup: items[i + 1].innerHTML,
-    });
+  if (block.firstElementChild && block.firstElementChild.children) {
+    const cols = [...block.firstElementChild.children];
+    block.classList.add(`columnsjo-${cols.length}-cols`);
   }
-
-  const hasRequiredFields = pairs.some((item) => item.key === 'bill-label')
-    && pairs.some((item) => item.key === 'amount-due')
-    && pairs.some((item) => item.key === 'bill-cta-label');
-
-  if (!hasRequiredFields) return null;
-
-  const billCardBlock = document.createElement('div');
-  billCardBlock.className = 'bill-card';
-
-  pairs.forEach(({ key, valueMarkup }) => {
-    const row = document.createElement('div');
-    const keyCell = document.createElement('div');
-    const valueCell = document.createElement('div');
-    keyCell.textContent = key;
-    valueCell.innerHTML = valueMarkup;
-    row.append(keyCell, valueCell);
-    billCardBlock.append(row);
-  });
-
-  return billCardBlock;
-}
-
-export default async function decorate(block) {
-  const cols = [...block.firstElementChild.children];
-  block.classList.add(`columns-${cols.length}-cols`);
-
-  const nestedBlocks = [];
 
   // setup image columns
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
-      [...col.children].forEach((child) => {
-        if (!child.classList.contains('bill-card')) {
-          const syntheticBillCard = convertBillCardPairsToBlock(child);
-          if (syntheticBillCard) {
-            child.replaceWith(syntheticBillCard);
-          }
-        }
-      });
-
-      [...col.children].forEach((child) => {
-        decorateBlock(child);
-        if (child.classList.contains('block')) {
-          nestedBlocks.push(child);
-        }
-      });
-
-      // Fallback for nested Bill Card blocks in column content.
-      col.querySelectorAll('.bill-card').forEach((billCardBlock) => {
-        normalizeNestedBlock(billCardBlock);
-
-        if (!billCardBlock.classList.contains('block')) {
-          decorateBlock(billCardBlock);
-        }
-
-        if (billCardBlock.classList.contains('block')) {
-          nestedBlocks.push(billCardBlock);
-        }
-      });
-
       const pic = col.querySelector('picture');
       if (pic) {
         const picWrapper = pic.closest('div');
         if (picWrapper && picWrapper.children.length === 1) {
           // picture is only content in column
-          picWrapper.classList.add('columns-img-col');
+          picWrapper.classList.add('columnsjo-img-col');
         }
+      }
+      // this is to remove empty <div></div> because of UE
+      // using the same columns block, only in PREVIEW/PUBLISH
+      if (!col.textContent.trim()) {
+        row.remove();
+      }
+      // this is to remove the info-only <div></div> listing the style
+      // chosen in UE because it's not an actual 'content' block
+      if (AEM_DIV_EXTRA_CONTENT.includes(col.textContent.trim())) {
+        col.remove();
       }
     });
   });
 
-  const uniqueNestedBlocks = [...new Set(nestedBlocks)];
-
-  for (let i = 0; i < uniqueNestedBlocks.length; i += 1) {
-    // eslint-disable-next-line no-await-in-loop
-    await loadBlock(uniqueNestedBlocks[i]);
+  const isAemAuthor = getAemAuthorEnv();
+  if (isAemAuthor && /^\s*\n\s*$/.test(block.innerHTML)) { // block.innerHTML.trim() === '' && block.childNodes && block.childNodes.length === 0) {
+    const authorBlock = document.createElement('div');
+    authorBlock.textContent = 'Columns JS Object container for enrichment';
+    block.appendChild(authorBlock);
   }
 }
