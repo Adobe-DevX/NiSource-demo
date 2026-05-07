@@ -16,6 +16,22 @@ export default async function decorate(block) {
         }
       });
 
+      // Fallback for nested Bill Card blocks in column content.
+      col.querySelectorAll('.bill-card').forEach((billCardBlock) => {
+        if (billCardBlock.classList[0] !== 'bill-card') {
+          const otherClasses = [...billCardBlock.classList].filter((className) => className !== 'bill-card');
+          billCardBlock.className = `bill-card ${otherClasses.join(' ')}`.trim();
+        }
+
+        if (!billCardBlock.classList.contains('block')) {
+          decorateBlock(billCardBlock);
+        }
+
+        if (billCardBlock.classList.contains('block')) {
+          nestedBlocks.push(billCardBlock);
+        }
+      });
+
       const pic = col.querySelector('picture');
       if (pic) {
         const picWrapper = pic.closest('div');
@@ -27,8 +43,10 @@ export default async function decorate(block) {
     });
   });
 
-  for (let i = 0; i < nestedBlocks.length; i += 1) {
+  const uniqueNestedBlocks = [...new Set(nestedBlocks)];
+
+  for (let i = 0; i < uniqueNestedBlocks.length; i += 1) {
     // eslint-disable-next-line no-await-in-loop
-    await loadBlock(nestedBlocks[i]);
+    await loadBlock(uniqueNestedBlocks[i]);
   }
 }
