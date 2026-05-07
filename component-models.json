@@ -418,17 +418,12 @@
     ]
   },
   {
-    "id": "dependabill-promo",
+    "id": "bill-card",
     "fields": [
       {
         "component": "text",
         "name": "eyebrow",
         "label": "Eyebrow"
-      },
-      {
-        "component": "text",
-        "name": "greeting",
-        "label": "Greeting"
       },
       {
         "component": "text",
@@ -449,28 +444,6 @@
         "component": "aem-content",
         "name": "bill-cta-link",
         "label": "Bill CTA Link"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "label": "Headline"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "cta-label",
-        "label": "CTA Label"
-      },
-      {
-        "component": "aem-content",
-        "name": "cta-link",
-        "label": "CTA Link"
       }
     ]
   },
