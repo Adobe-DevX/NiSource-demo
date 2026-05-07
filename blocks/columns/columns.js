@@ -13,7 +13,7 @@ export default function decorate(block) {
   }
   if (block.firstElementChild && block.firstElementChild.children) {
     const cols = [...block.firstElementChild.children];
-    block.classList.add(`columnsjo-${cols.length}-cols`);
+    block.classList.add(`columns-${cols.length}-cols`);
   }
 
   // setup image columns
@@ -24,7 +24,7 @@ export default function decorate(block) {
         const picWrapper = pic.closest('div');
         if (picWrapper && picWrapper.children.length === 1) {
           // picture is only content in column
-          picWrapper.classList.add('columnsjo-img-col');
+          picWrapper.classList.add('columns-img-col');
         }
       }
       // this is to remove empty <div></div> because of UE
