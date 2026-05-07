@@ -44,6 +44,9 @@
           "...": "../blocks/hero/_*.json#/definitions"
         },
         {
+          "...": "../blocks/dependabill-promo/_*.json#/definitions"
+        },
+        {
           "...": "../blocks/content-fragment/_*.json#/definitions"
         }
       ]

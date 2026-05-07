@@ -172,6 +172,30 @@
               }
             }
           }
+        },
+        {
+          "title": "DependABill Promo",
+          "id": "dependabill-promo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "DependABill Promo",
+                  "model": "dependabill-promo",
+                  "key-value": true,
+                  "eyebrow": "Billing & Payment Options",
+                  "greeting": "Hello Bowen!",
+                  "bill-label": "Total Amount Due",
+                  "amount-due": "$127.35",
+                  "bill-cta-label": "Pay Bill",
+                  "headline": "Want certainty on your monthly gas bill?",
+                  "description": "DependABill is our billing program that helps you avoid surprises with a guaranteed fixed monthly gas bill for 12 months with no true-ups or adjustments. Get your personalized monthly cost today!",
+                  "cta-label": "Take control"
+                }
+              }
+            }
+          }
         }
       ]
     },
