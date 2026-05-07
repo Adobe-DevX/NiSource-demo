@@ -17,7 +17,7 @@ function toText(value, fallback) {
 
 function normalizeConfig(config) {
   return {
-    eyebrow: toText(config.eyebrow, DEFAULTS.eyebrow),
+    eyebrow: toText(config.eyebrow),
     billLabel: toText(config['bill-label'], DEFAULTS['bill-label']),
     amountDue: toText(config['amount-due'], DEFAULTS['amount-due']),
     billCtaLabel: toText(config['bill-cta-label'], DEFAULTS['bill-cta-label']),
