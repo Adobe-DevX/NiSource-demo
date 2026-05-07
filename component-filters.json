@@ -404,7 +404,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "bill-card"
     ]
   }
 ]
