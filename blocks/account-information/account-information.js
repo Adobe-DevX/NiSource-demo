@@ -4,14 +4,14 @@ const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.
 
 const DEFAULTS = {
   'left-icon': 'fa-house',
-  greeting: 'Hi Angie M Prendergast !',
+  greeting: 'Hi Customer !',
   'account-label': 'Account#',
-  'account-number': '4096037000',
+  'account-number': '753534557000',
   'choice-label': 'Electric Choice ID',
-  'choice-number': '492602809',
+  'choice-number': '984302709',
   'amount-label': 'AMOUNT DUE',
   'amount-value': '$243.56',
-  'options-address': '601 N Oak St Hinsdale IL 60...',
+  'options-address': '932 Apple St # Z Frostburg...',
   'options-link-label': 'Account Options',
 };
 
