@@ -4,10 +4,10 @@ const DEFAULTS = {
   heading: 'Billing and Payment Options',
   'heading-icon': '',
   'left-top-label': 'Enroll in <strong>AutoPay</strong>',
-  'left-top-status': 'currency',
+  'left-top-status': 'disable',
   'left-bottom-label': 'Manage <strong>My Wallet</strong>',
   'right-top-label': 'Enrolled in <strong>eBill</strong>',
-  'right-top-status': 'check',
+  'right-top-status': 'disable',
   'right-bottom-label': 'Enroll in <strong>Budget Bill</strong>',
 };
 const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
@@ -22,8 +22,15 @@ function toMarkup(value, fallback = '') {
 
 function createStatusIcon(type) {
   const normalizedType = (type || '').toLowerCase().trim();
+  const showCheck = [
+    'enable',
+    'enabled',
+    'true',
+    'yes',
+    'check',
+  ].includes(normalizedType);
 
-  if (normalizedType === 'check') {
+  if (showCheck) {
     const status = document.createElement('span');
     status.className = 'billing-payment__status';
     status.setAttribute('aria-hidden', 'true');

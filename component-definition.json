@@ -305,10 +305,10 @@
                   "heading": "Billing and Payment Options",
                   "heading-icon": "",
                   "left-top-label": "Enroll in <strong>AutoPay</strong>",
-                  "left-top-status": "currency",
+                  "left-top-status": "disable",
                   "left-bottom-label": "Manage <strong>My Wallet</strong>",
                   "right-top-label": "Enrolled in <strong>eBill</strong>",
-                  "right-top-status": "check",
+                  "right-top-status": "disable",
                   "right-bottom-label": "Enroll in <strong>Budget Bill</strong>"
                 }
               }

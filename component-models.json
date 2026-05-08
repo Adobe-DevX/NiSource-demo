@@ -509,7 +509,7 @@
       {
         "component": "text",
         "name": "left-top-status",
-        "label": "Left Top Status (currency/check)"
+        "label": "Left Top Check (enable/disable)"
       },
       {
         "component": "aem-content",
@@ -531,7 +531,7 @@
       {
         "component": "text",
         "name": "left-bottom-status",
-        "label": "Left Bottom Status (currency/check)"
+        "label": "Left Bottom Check (enable/disable)"
       },
       {
         "component": "aem-content",
@@ -553,7 +553,7 @@
       {
         "component": "text",
         "name": "right-top-status",
-        "label": "Right Top Status (currency/check)"
+        "label": "Right Top Check (enable/disable)"
       },
       {
         "component": "aem-content",
@@ -575,7 +575,7 @@
       {
         "component": "text",
         "name": "right-bottom-status",
-        "label": "Right Bottom Status (currency/check)"
+        "label": "Right Bottom Check (enable/disable)"
       },
       {
         "component": "aem-content",
