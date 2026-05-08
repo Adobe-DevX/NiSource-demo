@@ -1,13 +1,14 @@
 .bill-card {
-  background: var(--color-neutral-100);
-  border: var(--shape-border-width-1) solid var(--color-neutral-300);
+  background: var(--nisource-color-bg-section);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
-  padding: var(--spacing-medium);
+  font-family: var(--nisource-font-body);
+  padding: var(--nisource-space-3);
 }
 
 .bill-card__wrapper {
   display: grid;
-  gap: var(--spacing-medium);
+  gap: var(--nisource-space-3);
 }
 
 .bill-card__top {
@@ -15,42 +16,71 @@
   display: flex;
 }
 
+/* H5 — minor heading (design.md §1.2) */
 .bill-card__eyebrow {
-  font: var(--type-body-1-strong-font);
-  letter-spacing: var(--type-body-1-strong-letter-spacing);
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
   margin: 0;
 }
 
 .bill-card__bill-card {
   align-items: center;
-  background: var(--color-neutral-50);
-  border: var(--shape-border-width-1) solid var(--color-neutral-300);
+  background: var(--nisource-color-bg-page);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
-  box-shadow: var(--shape-shadow-3);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-small);
+  gap: var(--nisource-space-3);
   justify-content: space-between;
-  padding: var(--spacing-medium);
+  padding: var(--nisource-space-3);
 }
 
 .bill-card__bill-meta {
   display: grid;
-  gap: var(--spacing-xxsmall);
+  gap: var(--nisource-space-1);
 }
 
+/* Small header / button — 14px bold (design.md §1.2) */
 .bill-card__bill-label {
-  color: var(--color-neutral-700);
-  font: var(--type-body-2-strong-font);
-  letter-spacing: var(--type-body-2-strong-letter-spacing);
+  color: var(--nisource-color-text-secondary);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
   margin: 0;
 }
 
+/* H4 — subsection emphasis for amount (design.md §1.2) */
 .bill-card__bill-amount {
-  color: var(--color-brand-700);
-  font: var(--type-display-3-font);
-  letter-spacing: var(--type-display-3-letter-spacing);
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 2rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
   margin: 0;
+}
+
+.bill-card .button:not(.secondary) {
+  background-color: var(--nisource-color-primary);
+  border-color: transparent;
+  color: var(--nisource-color-bg-page);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.25;
+}
+
+.bill-card .button:not(.secondary):hover,
+.bill-card .button:not(.secondary):focus {
+  background-color: var(--nisource-color-primary-hover);
 }
 
 .bill-card .button.disabled {
@@ -59,10 +89,12 @@
 
 @media (min-width: 900px) {
   .bill-card {
-    padding: var(--spacing-big);
+    padding: var(--nisource-space-4);
   }
 
   .bill-card__bill-card {
     flex-direction: row;
+    gap: var(--nisource-space-4);
+    padding: var(--nisource-space-3) var(--nisource-space-4);
   }
 }
