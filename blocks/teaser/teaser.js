@@ -32,7 +32,7 @@ function createCta(label, link) {
 export default function decorate(block) {
   const config = readBlockConfig(block);
 
-  const image = config.image;
+  const { image } = config.image;
   const imageAlt = toText(config['image-alt'], '');
   const headline = toText(config.headline, DEFAULTS.headline);
   const description = toText(config.description, DEFAULTS.description);
