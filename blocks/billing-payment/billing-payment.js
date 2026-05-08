@@ -1,4 +1,4 @@
-import { readBlockConfig } from '../../scripts/aem.js';
+import { loadCSS, readBlockConfig } from '../../scripts/aem.js';
 
 const DEFAULTS = {
   heading: 'Billing and Payment Options',
@@ -10,6 +10,7 @@ const DEFAULTS = {
   'right-top-status': 'check',
   'right-bottom-label': 'Enroll in <strong>Budget Bill</strong>',
 };
+const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
 
 function toMarkup(value, fallback = '') {
   if (Array.isArray(value)) {
@@ -41,19 +42,24 @@ function createHeadingIcon(iconValue) {
   const icon = document.createElement('span');
   icon.className = 'billing-payment__heading-icon';
   icon.setAttribute('aria-hidden', 'true');
+  const fontAwesomeIcon = document.createElement('i');
 
-  const iconType = normalized.toLowerCase();
-  if (iconType === 'check') {
-    icon.textContent = '✓';
-    return icon;
+  const tokens = normalized.split(/\s+/).filter(Boolean);
+  const hasStyleToken = tokens.some((token) => /^fa-(solid|regular|brands|light|thin|duotone)$/.test(token));
+  const hasIconToken = tokens.some((token) => token.startsWith('fa-') && !/^fa-(solid|regular|brands|light|thin|duotone)$/.test(token));
+
+  const classes = tokens.filter((token) => token.startsWith('fa-'));
+
+  if (!hasStyleToken) {
+    classes.unshift('fa-solid');
   }
 
-  if (iconType === 'currency') {
-    icon.textContent = '$';
-    return icon;
+  if (!hasIconToken) {
+    classes.push(tokens[0].startsWith('fa-') ? tokens[0] : `fa-${tokens[0]}`);
   }
 
-  icon.textContent = normalized;
+  fontAwesomeIcon.className = classes.join(' ');
+  icon.append(fontAwesomeIcon);
   return icon;
 }
 
@@ -135,7 +141,13 @@ function buildColumn(items) {
   return column;
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
+  try {
+    await loadCSS(FONT_AWESOME_CSS);
+  } catch (error) {
+    // Fail gracefully if CDN is blocked/unavailable.
+  }
+
   const config = normalizeConfig(readBlockConfig(block));
 
   const wrapper = document.createElement('div');

@@ -37,7 +37,7 @@
         {
           "component": "text",
           "name": "heading-icon",
-          "label": "Heading Icon (example: check, currency, or symbol)"
+          "label": "Heading Icon (Font Awesome class, e.g. fa-bell)"
         },
         {
           "component": "richtext",
