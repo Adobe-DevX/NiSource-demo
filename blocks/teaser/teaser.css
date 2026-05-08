@@ -1,11 +1,13 @@
 .teaser {
   border-radius: var(--shape-border-radius-2);
+  font-family: var(--nisource-font-body);
   overflow: hidden;
 }
 
 .teaser__wrapper {
-  background: var(--color-neutral-100);
-  border: var(--shape-border-width-1) solid var(--color-neutral-200);
+  background: var(--nisource-color-bg-section);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: inherit;
 }
 
 .teaser__media picture {
@@ -22,39 +24,62 @@
 
 .teaser__content {
   display: grid;
-  gap: var(--spacing-small);
-  padding: var(--spacing-medium);
+  gap: var(--nisource-space-2);
+  padding: var(--nisource-space-3);
 }
 
+/* H3 — section heading (design.md §1.2); semantic h2 in promos */
 .teaser__content h2 {
-  color: var(--color-neutral-900);
-  font: var(--type-headline-1-font);
-  letter-spacing: var(--type-headline-1-letter-spacing);
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 2.4rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
   margin: 0;
 }
 
-.teaser__content > p {
-  color: var(--color-neutral-900);
-  font: var(--type-body-1-default-font);
-  letter-spacing: var(--type-body-1-default-letter-spacing);
+/* Large paragraph — lead / intro copy (design.md §1.2) */
+.teaser__content > p:not(.teaser__cta) {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.5;
   margin: 0;
 }
 
 .teaser__cta {
-  margin-top: var(--spacing-small);
+  margin: 0;
+  margin-top: var(--nisource-space-1);
 }
 
 .teaser .button-container {
   margin: 0;
 }
 
-.teaser .button {
+.teaser .button:not(.secondary) {
+  background-color: var(--nisource-color-primary);
+  border-color: transparent;
   border-radius: var(--shape-border-radius-2);
-  padding: var(--spacing-small) var(--spacing-medium);
+  color: var(--nisource-color-bg-page);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.25;
+  padding: var(--nisource-space-2) var(--nisource-space-3);
+}
+
+.teaser .button:not(.secondary):hover,
+.teaser .button:not(.secondary):focus {
+  background-color: var(--nisource-color-primary-hover);
 }
 
 @media (min-width: 900px) {
   .teaser__content {
-    padding: var(--spacing-big);
+    gap: var(--nisource-space-3);
+    padding: var(--nisource-space-4);
   }
 }
