@@ -2,6 +2,7 @@ import { readBlockConfig } from '../../scripts/aem.js';
 
 const DEFAULTS = {
   heading: 'Billing and Payment Options',
+  'heading-icon': '',
   'left-top-label': 'Enroll in <strong>AutoPay</strong>',
   'left-top-status': 'currency',
   'left-bottom-label': 'Manage <strong>My Wallet</strong>',
@@ -20,24 +21,40 @@ function toMarkup(value, fallback = '') {
 
 function createStatusIcon(type) {
   const normalizedType = (type || '').toLowerCase().trim();
-  const status = document.createElement('span');
-  status.className = 'billing-payment__status';
-  status.setAttribute('aria-hidden', 'true');
 
   if (normalizedType === 'check') {
+    const status = document.createElement('span');
+    status.className = 'billing-payment__status';
+    status.setAttribute('aria-hidden', 'true');
     status.classList.add('billing-payment__status--check');
     status.textContent = '✓';
     return status;
   }
 
-  if (normalizedType === 'currency') {
-    status.classList.add('billing-payment__status--currency');
-    status.textContent = '$';
-    return status;
+  return null;
+}
+
+function createHeadingIcon(iconValue) {
+  const normalized = (iconValue || '').trim();
+  if (!normalized) return null;
+
+  const icon = document.createElement('span');
+  icon.className = 'billing-payment__heading-icon';
+  icon.setAttribute('aria-hidden', 'true');
+
+  const iconType = normalized.toLowerCase();
+  if (iconType === 'check') {
+    icon.textContent = '✓';
+    return icon;
   }
 
-  status.classList.add('billing-payment__status--empty');
-  return status;
+  if (iconType === 'currency') {
+    icon.textContent = '$';
+    return icon;
+  }
+
+  icon.textContent = normalized;
+  return icon;
 }
 
 function createHelpLink(link) {
@@ -66,6 +83,9 @@ function createActionItem({
   item.className = 'billing-payment__item';
 
   const statusIcon = createStatusIcon(status);
+  if (!statusIcon) {
+    item.classList.add('billing-payment__item--without-status');
+  }
 
   const action = link ? document.createElement('a') : document.createElement('span');
   action.className = 'billing-payment__action';
@@ -77,13 +97,18 @@ function createActionItem({
     action.classList.add('disabled');
   }
 
-  item.append(statusIcon, action, createHelpLink(helpLink));
+  if (statusIcon) {
+    item.append(statusIcon);
+  }
+
+  item.append(action, createHelpLink(helpLink));
   return item;
 }
 
 function normalizeConfig(config) {
   return {
     heading: toMarkup(config.heading, DEFAULTS.heading),
+    headingIcon: toMarkup(config['heading-icon'], DEFAULTS['heading-icon']),
     leftTopLabel: toMarkup(config['left-top-label'], DEFAULTS['left-top-label']),
     leftTopLink: config['left-top-link'],
     leftTopHelpLink: config['left-top-help-link'],
@@ -119,15 +144,18 @@ export default function decorate(block) {
   const headingRow = document.createElement('div');
   headingRow.className = 'billing-payment__heading-row';
 
-  const headingIcon = document.createElement('span');
-  headingIcon.className = 'billing-payment__heading-icon';
-  headingIcon.setAttribute('aria-hidden', 'true');
-  headingIcon.textContent = '$';
+  const headingIcon = createHeadingIcon(config.headingIcon);
+  if (!headingIcon) {
+    headingRow.classList.add('billing-payment__heading-row--without-icon');
+  }
 
   const heading = document.createElement('h2');
   heading.className = 'billing-payment__heading';
   heading.textContent = config.heading;
-  headingRow.append(headingIcon, heading);
+  if (headingIcon) {
+    headingRow.append(headingIcon);
+  }
+  headingRow.append(heading);
 
   const content = document.createElement('div');
   content.className = 'billing-payment__content';

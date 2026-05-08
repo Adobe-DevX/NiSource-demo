@@ -19,6 +19,10 @@
   padding-bottom: var(--nisource-space-2);
 }
 
+.billing-payment__heading-row--without-icon {
+  gap: 0;
+}
+
 .billing-payment__heading-icon {
   align-items: center;
   border: var(--shape-border-width-1) solid var(--nisource-color-primary);
@@ -58,6 +62,10 @@
   display: grid;
   gap: var(--nisource-space-1);
   grid-template-columns: auto 1fr auto;
+}
+
+.billing-payment__item--without-status {
+  grid-template-columns: 1fr auto;
 }
 
 .billing-payment__status {

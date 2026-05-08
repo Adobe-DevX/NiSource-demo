@@ -303,6 +303,7 @@
                   "model": "billing-payment",
                   "key-value": true,
                   "heading": "Billing and Payment Options",
+                  "heading-icon": "",
                   "left-top-label": "Enroll in <strong>AutoPay</strong>",
                   "left-top-status": "currency",
                   "left-bottom-label": "Manage <strong>My Wallet</strong>",
