@@ -1,0 +1,136 @@
+.account-information {
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+  font-family: var(--nisource-font-body);
+  padding: var(--nisource-space-3);
+}
+
+.account-information__wrapper {
+  display: grid;
+  gap: var(--nisource-space-3);
+}
+
+.account-information__profile {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--nisource-space-2);
+}
+
+.account-information__icon-box {
+  align-items: center;
+  border: var(--shape-border-width-1) solid var(--nisource-color-primary);
+  border-radius: var(--shape-border-radius-1);
+  color: var(--nisource-color-primary);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 1.8rem;
+  height: 3.2rem;
+  justify-content: center;
+  width: 3.2rem;
+}
+
+.account-information__profile-text {
+  display: grid;
+  gap: var(--nisource-space-1);
+}
+
+.account-information__greeting {
+  color: var(--nisource-color-primary);
+  font-family: var(--nisource-font-body);
+  font-size: 3rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.account-information__meta {
+  color: var(--nisource-color-text-body);
+  font-size: 2.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.account-information__meta strong {
+  color: var(--nisource-color-text-heading);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.account-information__actions {
+  display: grid;
+  gap: var(--nisource-space-2);
+}
+
+.account-information__card {
+  align-items: center;
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  color: inherit;
+  display: grid;
+  gap: var(--nisource-space-2);
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 8rem;
+  padding: var(--nisource-space-2);
+  text-decoration: none;
+}
+
+.account-information__card-copy {
+  display: grid;
+  gap: var(--nisource-space-1);
+}
+
+.account-information__card-eyebrow {
+  color: var(--nisource-color-text-heading);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.account-information__card-value {
+  color: var(--nisource-color-primary);
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.account-information__card-link {
+  color: var(--nisource-color-primary);
+  font-size: 2.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.account-information__card:first-child .account-information__card-value {
+  color: var(--nisource-color-primary);
+}
+
+.account-information__card:nth-child(2) .account-information__card-value {
+  color: var(--nisource-color-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-information__card-icon {
+  align-items: center;
+  color: var(--nisource-color-primary);
+  display: inline-flex;
+  font-size: 2rem;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .account-information__wrapper {
+    align-items: stretch;
+    grid-template-columns: 1fr auto;
+  }
+
+  .account-information__actions {
+    grid-template-columns: repeat(2, minmax(25rem, 1fr));
+  }
+}
