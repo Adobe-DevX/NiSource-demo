@@ -13,6 +13,7 @@
               "key-value": true,
               "heading": "Billing and Payment Options",
               "heading-icon": "",
+              "description": "",
               "left-top-label": "Enroll in <strong>AutoPay</strong>",
               "left-top-status": "disable",
               "left-bottom-label": "Manage <strong>My Wallet</strong>",
@@ -38,6 +39,13 @@
           "component": "text",
           "name": "heading-icon",
           "label": "Heading Icon (Font Awesome class, e.g. fa-bell)"
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Bottom Description",
+          "valueType": "string",
+          "value": ""
         },
         {
           "component": "richtext",

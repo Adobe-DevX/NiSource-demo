@@ -3,12 +3,9 @@ import { loadCSS, readBlockConfig } from '../../scripts/aem.js';
 const DEFAULTS = {
   heading: 'Billing and Payment Options',
   'heading-icon': '',
-  'left-top-label': 'Enroll in <strong>AutoPay</strong>',
+  description: '',
   'left-top-status': 'disable',
-  'left-bottom-label': 'Manage <strong>My Wallet</strong>',
-  'right-top-label': 'Enrolled in <strong>eBill</strong>',
   'right-top-status': 'disable',
-  'right-bottom-label': 'Enroll in <strong>Budget Bill</strong>',
 };
 const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
 
@@ -92,6 +89,11 @@ function createActionItem({
   helpLink,
   status,
 }) {
+  const labelText = (label || '').replace(/<[^>]*>/g, '').trim();
+  if (!labelText) {
+    return null;
+  }
+
   const item = document.createElement('div');
   item.className = 'billing-payment__item';
 
@@ -120,21 +122,22 @@ function createActionItem({
 
 function normalizeConfig(config) {
   return {
-    heading: toMarkup(config.heading, DEFAULTS.heading),
+    heading: toMarkup(config.heading),
     headingIcon: toMarkup(config['heading-icon'], DEFAULTS['heading-icon']),
-    leftTopLabel: toMarkup(config['left-top-label'], DEFAULTS['left-top-label']),
+    description: toMarkup(config.description, DEFAULTS.description),
+    leftTopLabel: toMarkup(config['left-top-label']),
     leftTopLink: config['left-top-link'],
     leftTopHelpLink: config['left-top-help-link'],
     leftTopStatus: toMarkup(config['left-top-status'], DEFAULTS['left-top-status']),
-    leftBottomLabel: toMarkup(config['left-bottom-label'], DEFAULTS['left-bottom-label']),
+    leftBottomLabel: toMarkup(config['left-bottom-label']),
     leftBottomLink: config['left-bottom-link'],
     leftBottomHelpLink: config['left-bottom-help-link'],
     leftBottomStatus: toMarkup(config['left-bottom-status']),
-    rightTopLabel: toMarkup(config['right-top-label'], DEFAULTS['right-top-label']),
+    rightTopLabel: toMarkup(config['right-top-label']),
     rightTopLink: config['right-top-link'],
     rightTopHelpLink: config['right-top-help-link'],
     rightTopStatus: toMarkup(config['right-top-status'], DEFAULTS['right-top-status']),
-    rightBottomLabel: toMarkup(config['right-bottom-label'], DEFAULTS['right-bottom-label']),
+    rightBottomLabel: toMarkup(config['right-bottom-label']),
     rightBottomLink: config['right-bottom-link'],
     rightBottomHelpLink: config['right-bottom-help-link'],
     rightBottomStatus: toMarkup(config['right-bottom-status']),
@@ -144,7 +147,12 @@ function normalizeConfig(config) {
 function buildColumn(items) {
   const column = document.createElement('div');
   column.className = 'billing-payment__column';
-  items.forEach((itemConfig) => column.append(createActionItem(itemConfig)));
+  items.forEach((itemConfig) => {
+    const item = createActionItem(itemConfig);
+    if (item) {
+      column.append(item);
+    }
+  });
   return column;
 }
 
@@ -211,5 +219,14 @@ export default async function decorate(block) {
 
   content.append(leftColumn, rightColumn);
   wrapper.append(headingRow, content);
+
+  const descriptionText = (config.description || '').replace(/<[^>]*>/g, '').trim();
+  if (descriptionText) {
+    const description = document.createElement('p');
+    description.className = 'billing-payment__description';
+    description.innerHTML = config.description;
+    wrapper.append(description);
+  }
+
   block.replaceChildren(wrapper);
 }

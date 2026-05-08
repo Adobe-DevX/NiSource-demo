@@ -142,6 +142,18 @@ a.billing-payment__action:focus {
   pointer-events: none;
 }
 
+.billing-payment__description {
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  color: var(--nisource-color-text-secondary);
+  font-family: var(--nisource-font-body);
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin: 0;
+  padding-top: var(--nisource-space-3);
+}
+
 @media (min-width: 900px) {
   .billing-payment {
     padding: var(--nisource-space-4);

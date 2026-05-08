@@ -501,6 +501,13 @@
       },
       {
         "component": "richtext",
+        "name": "description",
+        "label": "Bottom Description",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
         "name": "left-top-label",
         "label": "Left Top Label",
         "valueType": "string",
