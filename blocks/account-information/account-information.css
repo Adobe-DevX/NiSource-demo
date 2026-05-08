@@ -2,7 +2,7 @@
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
   font-family: var(--nisource-font-body);
-  padding: var(--nisource-space-2);
+  padding: var(--nisource-space-3) var(--nisource-space-2) var(--nisource-space-2);
 }
 
 .account-information__wrapper {

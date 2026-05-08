@@ -45,7 +45,13 @@ function createFaIcon(classValue, fallbackClass = 'fa-house') {
   return icon;
 }
 
-function createActionCard({ eyebrow, value, linkLabel, link, iconClass }) {
+function createActionCard({
+  eyebrow,
+  value,
+  linkLabel,
+  link,
+  iconClass,
+}) {
   const card = document.createElement(link ? 'a' : 'div');
   card.className = 'account-information__card';
   if (link) {
@@ -156,5 +162,6 @@ export default async function decorate(block) {
 
   actions.append(amountCard, optionsCard);
   wrapper.append(profile, actions);
+  block.style.marginTop = 'var(--nisource-space-3)';
   block.replaceChildren(wrapper);
 }
