@@ -1,0 +1,29 @@
+.two-column {
+  align-items: start;
+  display: grid;
+  gap: var(--nisource-space-3);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.two-column > div {
+  min-width: 0;
+}
+
+.two-column > div > *:first-child {
+  margin-top: 0;
+}
+
+.two-column > div > *:last-child {
+  margin-bottom: 0;
+}
+
+.two-column.stack-mobile {
+  gap: var(--nisource-space-2);
+}
+
+@media (max-width: 768px) {
+  .two-column,
+  .two-column.stack-mobile {
+    grid-template-columns: 1fr;
+  }
+}

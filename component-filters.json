@@ -29,6 +29,7 @@
       "cards",
       "columns",
       "grid-layout",
+      "two-column",
       "fragment",
       "product-teaser",
       "product-recommendations"
@@ -441,6 +442,7 @@
       "cards",
       "columns",
       "grid-layout",
+      "two-column",
       "fragment",
       "product-teaser",
       "product-recommendations"

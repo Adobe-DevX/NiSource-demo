@@ -207,6 +207,42 @@
     ]
   },
   {
+    "id": "two-column",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Layout",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Stack on mobile",
+            "value": "stack-mobile"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "left_content",
+        "label": "Left column",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "right_content",
+        "label": "Right column",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "commerce-account-header",
     "fields": [
       {
