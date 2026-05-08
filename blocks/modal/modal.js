@@ -1,7 +1,15 @@
 import { Render } from '@dropins/tools/lib.js';
-import { loadCSS, buildBlock } from '../../scripts/aem.js';
+import { loadCSS, buildBlock, readBlockConfig } from '../../scripts/aem.js';
 
-export default async function createModal(contentNodes) {
+function toText(value, fallback = '') {
+  if (Array.isArray(value)) {
+    return value.join(' ').trim() || fallback;
+  }
+
+  return value || fallback;
+}
+
+export async function createModal(contentNodes) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/modal/modal.css`);
   const dialog = document.createElement('dialog');
   dialog.setAttribute('tabindex', 1);
@@ -78,4 +86,35 @@ export default async function createModal(contentNodes) {
       document.body.classList.add('modal-open');
     },
   };
+}
+
+export default async function decorate(block) {
+  const config = readBlockConfig(block);
+  const triggerLabel = toText(config['trigger-label'], 'Open modal');
+  const modalTitle = toText(config.title);
+  const modalBody = toText(config.body);
+
+  const content = document.createElement('div');
+
+  if (modalTitle) {
+    const title = document.createElement('h3');
+    title.textContent = modalTitle;
+    content.append(title);
+  }
+
+  if (modalBody) {
+    const body = document.createElement('div');
+    body.innerHTML = modalBody;
+    content.append(body);
+  }
+
+  const { showModal } = await createModal([content]);
+
+  const trigger = document.createElement('button');
+  trigger.className = 'button secondary';
+  trigger.type = 'button';
+  trigger.textContent = triggerLabel;
+  trigger.addEventListener('click', showModal);
+
+  block.replaceChildren(trigger);
 }

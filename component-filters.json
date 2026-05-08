@@ -21,6 +21,10 @@
       "hero",
       "teaser",
       "bill-card",
+      "billing-payment",
+      "accordion",
+      "carousel",
+      "modal",
       "cards",
       "columns",
       "fragment",
@@ -400,6 +404,18 @@
     ]
   },
   {
+    "id": "accordion-items",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "carousel-slides",
+    "components": [
+      "carousel-slide"
+    ]
+  },
+  {
     "id": "column",
     "components": [
       "text",
@@ -409,6 +425,10 @@
       "hero",
       "teaser",
       "bill-card",
+      "billing-payment",
+      "accordion",
+      "carousel",
+      "modal",
       "cards",
       "columns",
       "fragment",

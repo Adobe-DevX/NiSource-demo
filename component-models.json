@@ -487,6 +487,162 @@
     ]
   },
   {
+    "id": "billing-payment",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "richtext",
+        "name": "left-top-label",
+        "label": "Left Top Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "left-top-status",
+        "label": "Left Top Status (currency/check)"
+      },
+      {
+        "component": "aem-content",
+        "name": "left-top-link",
+        "label": "Left Top Link"
+      },
+      {
+        "component": "aem-content",
+        "name": "left-top-help-link",
+        "label": "Left Top Help Link"
+      },
+      {
+        "component": "richtext",
+        "name": "left-bottom-label",
+        "label": "Left Bottom Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "left-bottom-status",
+        "label": "Left Bottom Status (currency/check)"
+      },
+      {
+        "component": "aem-content",
+        "name": "left-bottom-link",
+        "label": "Left Bottom Link"
+      },
+      {
+        "component": "aem-content",
+        "name": "left-bottom-help-link",
+        "label": "Left Bottom Help Link"
+      },
+      {
+        "component": "richtext",
+        "name": "right-top-label",
+        "label": "Right Top Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "right-top-status",
+        "label": "Right Top Status (currency/check)"
+      },
+      {
+        "component": "aem-content",
+        "name": "right-top-link",
+        "label": "Right Top Link"
+      },
+      {
+        "component": "aem-content",
+        "name": "right-top-help-link",
+        "label": "Right Top Help Link"
+      },
+      {
+        "component": "richtext",
+        "name": "right-bottom-label",
+        "label": "Right Bottom Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "right-bottom-status",
+        "label": "Right Bottom Status (currency/check)"
+      },
+      {
+        "component": "aem-content",
+        "name": "right-bottom-link",
+        "label": "Right Bottom Link"
+      },
+      {
+        "component": "aem-content",
+        "name": "right-bottom-help-link",
+        "label": "Right Bottom Help Link"
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Body",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "carousel-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "modal",
+    "fields": [
+      {
+        "component": "text",
+        "name": "trigger-label",
+        "label": "Trigger Label"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Modal Title"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Modal Body",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "product-details",
     "fields": []
   },

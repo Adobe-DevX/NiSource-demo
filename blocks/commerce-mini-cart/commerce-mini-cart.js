@@ -10,7 +10,7 @@ import {
 } from '@dropins/tools/components.js';
 import { h } from '@dropins/tools/preact.js';
 
-import createModal from '../modal/modal.js';
+import { createModal } from '../modal/modal.js';
 import createMiniPDP from '../../scripts/components/commerce-mini-pdp/commerce-mini-pdp.js';
 
 // Initializers

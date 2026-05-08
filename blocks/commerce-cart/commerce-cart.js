@@ -26,7 +26,7 @@ import { publishShoppingCartViewEvent } from '@dropins/storefront-cart/api.js';
 
 // Modal and Mini PDP
 import createMiniPDP from '../../scripts/components/commerce-mini-pdp/commerce-mini-pdp.js';
-import createModal from '../modal/modal.js';
+import { createModal } from '../modal/modal.js';
 
 // Initializers
 import '../../scripts/initializers/cart.js';

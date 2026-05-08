@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { ProgressSpinner, provider as UI } from '@dropins/tools/components.js';
 import { tryRenderAemAssetsImage } from '@dropins/tools/lib/aem/assets.js';
-import createModal from '../modal/modal.js';
+import { createModal } from '../modal/modal.js';
 
 /**
  * Displays an overlay spinner in the specified container
