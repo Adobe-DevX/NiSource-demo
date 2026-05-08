@@ -1,0 +1,73 @@
+{
+  "definitions": [
+    {
+      "title": "Grid Layout",
+      "id": "grid-layout",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/columns",
+            "template": {
+              "model": "grid-layout",
+              "filter": "grid-layout",
+              "columns": "3",
+              "rows": "1"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "grid-layout",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "columns",
+          "value": "",
+          "label": "Columns"
+        },
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "rows",
+          "value": "",
+          "label": "Rows"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "grid-layout",
+      "components": [
+        "column"
+      ]
+    },
+    {
+      "id": "column",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "hero",
+        "teaser",
+        "bill-card",
+        "billing-payment",
+        "account-information",
+        "accordion",
+        "carousel",
+        "modal",
+        "cards",
+        "columns",
+        "grid-layout",
+        "fragment",
+        "product-teaser",
+        "product-recommendations"
+      ]
+    }
+  ]
+}

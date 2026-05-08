@@ -28,6 +28,7 @@
       "modal",
       "cards",
       "columns",
+      "grid-layout",
       "fragment",
       "product-teaser",
       "product-recommendations"
@@ -405,6 +406,12 @@
     ]
   },
   {
+    "id": "grid-layout",
+    "components": [
+      "column"
+    ]
+  },
+  {
     "id": "accordion-items",
     "components": [
       "accordion-item"
@@ -433,6 +440,7 @@
       "modal",
       "cards",
       "columns",
+      "grid-layout",
       "fragment",
       "product-teaser",
       "product-recommendations"

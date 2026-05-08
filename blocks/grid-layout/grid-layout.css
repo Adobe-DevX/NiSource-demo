@@ -1,0 +1,23 @@
+.grid-layout > div {
+  display: grid;
+  gap: var(--nisource-space-2);
+  grid-template-columns: 1fr;
+}
+
+.grid-layout > div > div {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .grid-layout-2-cols > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-layout-3-cols > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid-layout-4-cols > div {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

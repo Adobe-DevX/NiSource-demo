@@ -204,6 +204,23 @@
           }
         },
         {
+          "title": "Grid Layout",
+          "id": "grid-layout",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/columns/v1/columns",
+                "template": {
+                  "columns": "3",
+                  "rows": "1",
+                  "model": "grid-layout",
+                  "filter": "grid-layout"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "plugins": {

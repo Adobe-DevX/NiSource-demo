@@ -1,6 +1,7 @@
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: var(--nisource-space-2);
 }
 
 .columns img {
@@ -23,7 +24,7 @@
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: var(--nisource-space-3);
   }
 
   .columns > div > div {
