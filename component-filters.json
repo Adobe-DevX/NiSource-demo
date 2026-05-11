@@ -413,6 +413,12 @@
     ]
   },
   {
+    "id": "two-column",
+    "components": [
+      "column"
+    ]
+  },
+  {
     "id": "accordion-items",
     "components": [
       "accordion-item"

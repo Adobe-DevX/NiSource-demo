@@ -1,14 +1,17 @@
 # Two Column
 
-Lightweight two-column layout block for placing two pieces of authored content side-by-side.
+Container block that lays out a fixed two-column grid. Each column is a Universal Editor cell that authors can populate with any allowed block (e.g. `bill-card`, `teaser`, `billing-payment`, default content).
 
 ## Authoring fields
 
 - `classes` — layout option (`Default`, `Stack on mobile`)
-- `left_content` — rich text rendered in the left column
-- `right_content` — rich text rendered in the right column
+
+## Authoring model
+
+- Built on the `core/franklin/components/columns/v1/columns` resource type, locked to 2 columns × 1 row.
+- Children are restricted to `column` cells; the `column` filter (in `component-filters.json`) controls which blocks may be dropped into each cell.
 
 ## Notes
 
-- Uses CSS Grid for the layout. Both columns get `min-width: 0` so long content (links, images) can shrink.
-- Below 768px viewport width, columns stack to a single column.
+- The decorator flattens the row + cells into direct children, so the CSS targets `.two-column > div` for each column.
+- Below 768px viewport width, the two columns stack vertically.

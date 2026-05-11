@@ -112,6 +112,10 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Two Column",
+            "value": "two-column"
           }
         ]
       }
@@ -225,20 +229,6 @@
             "value": "stack-mobile"
           }
         ]
-      },
-      {
-        "component": "richtext",
-        "name": "left_content",
-        "label": "Left column",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "richtext",
-        "name": "right_content",
-        "label": "Right column",
-        "valueType": "string",
-        "required": true
       }
     ]
   },

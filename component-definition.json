@@ -275,13 +275,14 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
                   "name": "Two Column",
                   "model": "two-column",
-                  "classes": "",
-                  "left_content": "<p>Left column content</p>",
-                  "right_content": "<p>Right column content</p>"
+                  "filter": "two-column",
+                  "columns": "2",
+                  "rows": "1",
+                  "classes": ""
                 }
               }
             }
