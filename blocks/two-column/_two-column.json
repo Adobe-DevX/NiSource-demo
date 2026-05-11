@@ -8,12 +8,10 @@
           "page": {
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
-              "name": "Two Column",
               "model": "two-column",
               "filter": "two-column",
               "columns": "2",
-              "rows": "1",
-              "classes": ""
+              "rows": "1"
             }
           }
         }
@@ -23,25 +21,7 @@
   "models": [
     {
       "id": "two-column",
-      "fields": [
-        {
-          "component": "select",
-          "name": "classes",
-          "value": "",
-          "label": "Layout",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Stack on mobile",
-              "value": "stack-mobile"
-            }
-          ]
-        }
-      ]
+      "fields": []
     }
   ],
   "filters": [
@@ -49,6 +29,30 @@
       "id": "two-column",
       "components": [
         "column"
+      ]
+    },
+    {
+      "id": "column",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "hero",
+        "teaser",
+        "bill-card",
+        "billing-payment",
+        "account-information",
+        "accordion",
+        "carousel",
+        "modal",
+        "cards",
+        "columns",
+        "grid-layout",
+        "two-column",
+        "fragment",
+        "product-teaser",
+        "product-recommendations"
       ]
     }
   ]

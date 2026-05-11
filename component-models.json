@@ -116,6 +116,10 @@
           {
             "name": "Two Column",
             "value": "two-column"
+          },
+          {
+            "name": "Reverse Columns",
+            "value": "reverse-columns"
           }
         ]
       }
@@ -212,25 +216,7 @@
   },
   {
     "id": "two-column",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Layout",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Stack on mobile",
-            "value": "stack-mobile"
-          }
-        ]
-      }
-    ]
+    "fields": []
   },
   {
     "id": "commerce-account-header",

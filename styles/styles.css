@@ -460,6 +460,15 @@ main .section.highlight {
   main .section.two-column > div {
     min-width: 0;
   }
+
+  /* Reverse Columns: flip the first two blocks across columns */
+  main .section.two-column.reverse-columns > div:nth-child(1) {
+    grid-column-start: 2;
+  }
+
+  main .section.two-column.reverse-columns > div:nth-child(2) {
+    grid-column-start: 1;
+  }
 }
 
 /* Base Design System Tokens */

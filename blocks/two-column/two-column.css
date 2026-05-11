@@ -17,13 +17,8 @@
   margin-bottom: 0;
 }
 
-.two-column.stack-mobile {
-  gap: var(--nisource-space-2);
-}
-
 @media (max-width: 768px) {
-  .two-column,
-  .two-column.stack-mobile {
+  .two-column {
     grid-template-columns: 1fr;
   }
 }

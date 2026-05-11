@@ -277,12 +277,10 @@
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
-                  "name": "Two Column",
                   "model": "two-column",
                   "filter": "two-column",
                   "columns": "2",
-                  "rows": "1",
-                  "classes": ""
+                  "rows": "1"
                 }
               }
             }
