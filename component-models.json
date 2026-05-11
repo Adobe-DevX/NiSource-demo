@@ -112,14 +112,6 @@
           {
             "name": "Highlight",
             "value": "highlight"
-          },
-          {
-            "name": "Two Column",
-            "value": "two-column"
-          },
-          {
-            "name": "Reverse Columns",
-            "value": "reverse-columns"
           }
         ]
       }
@@ -158,332 +150,84 @@
     ]
   },
   {
-    "id": "card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "columns",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "grid-layout",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "two-column",
-    "fields": []
-  },
-  {
-    "id": "commerce-account-header",
+    "id": "accordion-item",
     "fields": [
       {
         "component": "text",
         "name": "title",
-        "label": "Account Header",
-        "value": "My Account"
-      }
-    ]
-  },
-  {
-    "id": "commerce-addresses",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "minified-view",
-        "label": "Minified View",
-        "value": false
-      }
-    ]
-  },
-  {
-    "id": "commerce-cart",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "start-shopping-url",
-        "label": "Start Shopping URL",
-        "description": "Link to the start shopping page"
-      },
-      {
-        "component": "aem-content",
-        "name": "checkout-url",
-        "label": "Checkout URL",
-        "description": "Link to Checkout page"
-      },
-      {
-        "component": "boolean",
-        "name": "hide-heading",
-        "label": "Hide Heading",
-        "description": "Hide the heading of the cart"
-      },
-      {
-        "component": "boolean",
-        "name": "hide-attributes",
-        "label": "Hide Attributes",
-        "description": "Hide the attributes of the cart"
-      },
-      {
-        "component": "boolean",
-        "name": "enable-item-quantity-update",
-        "label": "Enable Item Quantity Update",
-        "description": "Enable the ability to update the quantity of items in the cart"
-      },
-      {
-        "component": "boolean",
-        "name": "enable-item-remove",
-        "label": "Enable Item Remove",
-        "description": "Enable the ability to remove items from the cart"
-      },
-      {
-        "component": "boolean",
-        "name": "enable-estimate-shipping",
-        "label": "Enable Estimate Shipping",
-        "description": "Enable the ability to estimate shipping costs"
-      },
-      {
-        "component": "boolean",
-        "name": "undo-remove-item",
-        "label": "Enable Undo Remove Item",
-        "description": "Enable the ability to undo the removal of an item from the cart"
-      },
-      {
-        "component": "number",
-        "name": "max-items",
-        "label": "Max Items",
-        "description": "Maximum number of items to display in the cart"
-      }
-    ]
-  },
-  {
-    "id": "commerce-mini-cart",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "start-shopping-url",
-        "label": "Start Shopping URL",
-        "description": "Link to the start shopping page"
-      },
-      {
-        "component": "aem-content",
-        "name": "cart-url",
-        "label": "Cart URL",
-        "description": "Link to full shopping Cart"
-      },
-      {
-        "component": "aem-content",
-        "name": "checkout-url",
-        "label": "Checkout URL",
-        "description": "Link to Checkout page"
-      },
-      {
-        "component": "boolean",
-        "name": "enable-updating-product",
-        "label": "Enable Updating Product",
-        "description": "Enable Updating Product"
-      },
-      {
-        "component": "boolean",
-        "name": "undo-remove-item",
-        "label": "Enable Undo Remove Item",
-        "description": "Enable the ability to undo the removal of an item from the cart"
-      }
-    ]
-  },
-  {
-    "id": "commerce-orders-list",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "minified-view",
-        "label": "Minified View",
-        "value": false
-      }
-    ]
-  },
-  {
-    "id": "commerce-returns-list",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "minified-view",
-        "label": "Minified View",
-        "value": false
-      }
-    ]
-  },
-  {
-    "id": "commerce-wishlist",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "start-shopping-url",
-        "label": "Start Shopping URL",
-        "description": "Start Shopping URL"
-      }
-    ]
-  },
-  {
-    "id": "enrichment",
-    "fields": [
-      {
-        "component": "select",
-        "name": "type",
-        "label": "Type",
-        "description": "What enrichment type to match with",
-        "options": [
-          {
-            "name": "Product",
-            "value": "product"
-          },
-          {
-            "name": "Category",
-            "value": "category"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "position",
-        "label": "Position",
-        "description": "Position to match with",
-        "options": [
-          {
-            "name": "Below Product",
-            "value": "below-product"
-          },
-          {
-            "name": "Above Product",
-            "value": "above-product"
-          },
-          {
-            "name": "Below Category",
-            "value": "below-category"
-          },
-          {
-            "name": "Above Category",
-            "value": "above-category"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "fragment",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "reference",
-        "label": "Reference"
-      }
-    ]
-  },
-  {
-    "id": "hero",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "label": "Title"
       },
       {
         "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "name": "body",
+        "label": "Body",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
   {
-    "id": "teaser",
+    "id": "account-information",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Banner Image",
-        "multi": false
+        "component": "text",
+        "name": "left-icon",
+        "label": "Left Icon (Font Awesome class, e.g. fa-house)"
       },
       {
         "component": "text",
-        "name": "image-alt",
-        "label": "Banner Image Alt"
+        "name": "greeting",
+        "label": "Greeting"
       },
       {
         "component": "text",
-        "name": "headline",
-        "label": "Headline"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description",
-        "valueType": "string",
-        "value": ""
+        "name": "account-label",
+        "label": "Account Label"
       },
       {
         "component": "text",
-        "name": "cta-label",
-        "label": "CTA Label"
+        "name": "account-number",
+        "label": "Account Number"
+      },
+      {
+        "component": "text",
+        "name": "choice-label",
+        "label": "Choice Label"
+      },
+      {
+        "component": "text",
+        "name": "choice-number",
+        "label": "Choice Number"
+      },
+      {
+        "component": "text",
+        "name": "amount-label",
+        "label": "Amount Label"
+      },
+      {
+        "component": "text",
+        "name": "amount-value",
+        "label": "Amount Value"
       },
       {
         "component": "aem-content",
-        "name": "cta-link",
-        "label": "CTA Link"
+        "name": "amount-link",
+        "label": "Amount Card Link"
+      },
+      {
+        "component": "text",
+        "name": "options-address",
+        "label": "Options Address"
+      },
+      {
+        "component": "text",
+        "name": "options-link-label",
+        "label": "Options Link Label"
+      },
+      {
+        "component": "aem-content",
+        "name": "options-link",
+        "label": "Options Card Link"
       },
       {
         "component": "select",
@@ -691,105 +435,21 @@
     ]
   },
   {
-    "id": "account-information",
+    "id": "card",
     "fields": [
       {
-        "component": "text",
-        "name": "left-icon",
-        "label": "Left Icon (Font Awesome class, e.g. fa-house)"
-      },
-      {
-        "component": "text",
-        "name": "greeting",
-        "label": "Greeting"
-      },
-      {
-        "component": "text",
-        "name": "account-label",
-        "label": "Account Label"
-      },
-      {
-        "component": "text",
-        "name": "account-number",
-        "label": "Account Number"
-      },
-      {
-        "component": "text",
-        "name": "choice-label",
-        "label": "Choice Label"
-      },
-      {
-        "component": "text",
-        "name": "choice-number",
-        "label": "Choice Number"
-      },
-      {
-        "component": "text",
-        "name": "amount-label",
-        "label": "Amount Label"
-      },
-      {
-        "component": "text",
-        "name": "amount-value",
-        "label": "Amount Value"
-      },
-      {
-        "component": "aem-content",
-        "name": "amount-link",
-        "label": "Amount Card Link"
-      },
-      {
-        "component": "text",
-        "name": "options-address",
-        "label": "Options Address"
-      },
-      {
-        "component": "text",
-        "name": "options-link-label",
-        "label": "Options Link Label"
-      },
-      {
-        "component": "aem-content",
-        "name": "options-link",
-        "label": "Options Card Link"
-      },
-      {
-        "component": "select",
-        "name": "classes_placement",
-        "label": "Column placement (in Two Column section)",
-        "value": "",
+        "component": "reference",
         "valueType": "string",
-        "options": [
-          {
-            "name": "Default (source order)",
-            "value": ""
-          },
-          {
-            "name": "Force Left Column",
-            "value": "place-left"
-          },
-          {
-            "name": "Force Right Column",
-            "value": "place-right"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
         "component": "richtext",
-        "name": "body",
-        "label": "Body",
-        "valueType": "string",
-        "value": ""
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -813,6 +473,274 @@
     ]
   },
   {
+    "id": "columns",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "",
+        "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "commerce-account-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Account Header",
+        "value": "My Account"
+      }
+    ]
+  },
+  {
+    "id": "commerce-addresses",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "minified-view",
+        "label": "Minified View",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "commerce-cart",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "start-shopping-url",
+        "label": "Start Shopping URL",
+        "description": "Link to the start shopping page"
+      },
+      {
+        "component": "aem-content",
+        "name": "checkout-url",
+        "label": "Checkout URL",
+        "description": "Link to Checkout page"
+      },
+      {
+        "component": "boolean",
+        "name": "hide-heading",
+        "label": "Hide Heading",
+        "description": "Hide the heading of the cart"
+      },
+      {
+        "component": "boolean",
+        "name": "hide-attributes",
+        "label": "Hide Attributes",
+        "description": "Hide the attributes of the cart"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-item-quantity-update",
+        "label": "Enable Item Quantity Update",
+        "description": "Enable the ability to update the quantity of items in the cart"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-item-remove",
+        "label": "Enable Item Remove",
+        "description": "Enable the ability to remove items from the cart"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-estimate-shipping",
+        "label": "Enable Estimate Shipping",
+        "description": "Enable the ability to estimate shipping costs"
+      },
+      {
+        "component": "boolean",
+        "name": "undo-remove-item",
+        "label": "Enable Undo Remove Item",
+        "description": "Enable the ability to undo the removal of an item from the cart"
+      },
+      {
+        "component": "number",
+        "name": "max-items",
+        "label": "Max Items",
+        "description": "Maximum number of items to display in the cart"
+      }
+    ]
+  },
+  {
+    "id": "commerce-mini-cart",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "start-shopping-url",
+        "label": "Start Shopping URL",
+        "description": "Link to the start shopping page"
+      },
+      {
+        "component": "aem-content",
+        "name": "cart-url",
+        "label": "Cart URL",
+        "description": "Link to full shopping Cart"
+      },
+      {
+        "component": "aem-content",
+        "name": "checkout-url",
+        "label": "Checkout URL",
+        "description": "Link to Checkout page"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-updating-product",
+        "label": "Enable Updating Product",
+        "description": "Enable Updating Product"
+      },
+      {
+        "component": "boolean",
+        "name": "undo-remove-item",
+        "label": "Enable Undo Remove Item",
+        "description": "Enable the ability to undo the removal of an item from the cart"
+      }
+    ]
+  },
+  {
+    "id": "commerce-orders-list",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "minified-view",
+        "label": "Minified View",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "commerce-returns-list",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "minified-view",
+        "label": "Minified View",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "commerce-wishlist",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "start-shopping-url",
+        "label": "Start Shopping URL",
+        "description": "Start Shopping URL"
+      }
+    ]
+  },
+  {
+    "id": "enrichment",
+    "fields": [
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Type",
+        "description": "What enrichment type to match with",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "Category",
+            "value": "category"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "position",
+        "label": "Position",
+        "description": "Position to match with",
+        "options": [
+          {
+            "name": "Below Product",
+            "value": "below-product"
+          },
+          {
+            "name": "Above Product",
+            "value": "above-product"
+          },
+          {
+            "name": "Below Category",
+            "value": "below-category"
+          },
+          {
+            "name": "Above Category",
+            "value": "above-category"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fragment",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "reference",
+        "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "grid-layout",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "",
+        "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "hero",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "modal",
     "fields": [
       {
@@ -831,6 +759,57 @@
         "label": "Modal Body",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "my-insights",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "text",
+        "name": "heading-icon",
+        "label": "Heading Icon (Font Awesome classes, e.g. fa-solid fa-chart-pie)"
+      },
+      {
+        "component": "text",
+        "name": "footer-text",
+        "label": "Footer description"
+      },
+      {
+        "component": "text",
+        "name": "footer-link-text",
+        "label": "Footer link label"
+      },
+      {
+        "component": "aem-content",
+        "name": "footer-link",
+        "label": "Footer link URL"
+      },
+      {
+        "component": "select",
+        "name": "classes_placement",
+        "label": "Column placement (in Two Column section)",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (source order)",
+            "value": ""
+          },
+          {
+            "name": "Force Left Column",
+            "value": "place-left"
+          },
+          {
+            "name": "Force Right Column",
+            "value": "place-right"
+          }
+        ]
       }
     ]
   },
@@ -867,6 +846,70 @@
         "required": true
       }
     ]
+  },
+  {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Banner Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-alt",
+        "label": "Banner Image Alt"
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "cta-label",
+        "label": "CTA Label"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta-link",
+        "label": "CTA Link"
+      },
+      {
+        "component": "select",
+        "name": "classes_placement",
+        "label": "Column placement (in Two Column section)",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (source order)",
+            "value": ""
+          },
+          {
+            "name": "Force Left Column",
+            "value": "place-left"
+          },
+          {
+            "name": "Force Right Column",
+            "value": "place-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "two-column",
+    "fields": []
   },
   {
     "id": "page-metadata",

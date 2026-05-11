@@ -161,6 +161,8 @@
   --nisource-color-bg-page: #fff;
   --nisource-color-primary: #0077da;
   --nisource-color-primary-hover: #0061af;
+  /* design.md App colors — Sky Blue for insights / accent icon */
+  --nisource-color-insights-icon: #4fa6ff;
 }
 
 /* fallback font */

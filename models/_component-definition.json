@@ -50,6 +50,9 @@
           "...": "../blocks/bill-card/_*.json#/definitions"
         },
         {
+          "...": "../blocks/my-insights/_*.json#/definitions"
+        },
+        {
           "...": "../blocks/content-fragment/_*.json#/definitions"
         }
       ]

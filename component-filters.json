@@ -21,15 +21,9 @@
       "hero",
       "teaser",
       "bill-card",
-      "billing-payment",
-      "account-information",
-      "accordion",
-      "carousel",
-      "modal",
+      "my-insights",
       "cards",
       "columns",
-      "grid-layout",
-      "two-column",
       "fragment",
       "product-teaser",
       "product-recommendations"
@@ -43,6 +37,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -58,6 +55,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -75,6 +75,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -92,6 +95,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -106,6 +112,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -122,6 +131,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -145,6 +157,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -159,6 +174,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -173,6 +191,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -187,6 +208,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -201,6 +225,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -215,6 +242,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -229,6 +259,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -248,6 +281,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -263,6 +299,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -278,6 +317,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -293,6 +335,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -314,6 +359,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -328,6 +376,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -346,6 +397,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -360,6 +414,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -374,6 +431,9 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
@@ -388,34 +448,13 @@
       "button",
       "title",
       "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "cards",
       "columns",
       "fragment",
       "commerce-wishlist"
-    ]
-  },
-  {
-    "id": "cards",
-    "components": [
-      "card"
-    ]
-  },
-  {
-    "id": "columns",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "grid-layout",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "two-column",
-    "components": [
-      "column"
     ]
   },
   {
@@ -425,9 +464,21 @@
     ]
   },
   {
+    "id": "cards",
+    "components": [
+      "card"
+    ]
+  },
+  {
     "id": "carousel-slides",
     "components": [
       "carousel-slide"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "column"
     ]
   },
   {
@@ -440,6 +491,61 @@
       "hero",
       "teaser",
       "bill-card",
+      "my-insights",
+      "cards",
+      "columns",
+      "fragment",
+      "product-teaser",
+      "product-recommendations"
+    ]
+  },
+  {
+    "id": "grid-layout",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
+      "billing-payment",
+      "account-information",
+      "accordion",
+      "carousel",
+      "modal",
+      "cards",
+      "columns",
+      "grid-layout",
+      "fragment",
+      "product-teaser",
+      "product-recommendations"
+    ]
+  },
+  {
+    "id": "two-column",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "teaser",
+      "bill-card",
+      "my-insights",
       "billing-payment",
       "account-information",
       "accordion",
