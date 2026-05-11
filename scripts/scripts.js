@@ -80,6 +80,51 @@ function buildAutoBlocks() {
 }
 
 /**
+ * Restructure `.section.two-column` so each visual column is an independent
+ * flex stack. By default CSS Grid couples row heights across columns, which
+ * causes uneven vertical gaps when one column has a taller block. Splitting
+ * the children into two flex containers makes each column flow independently
+ * with a unified gap.
+ *
+ * Placement rules per wrapper:
+ *   - block has `place-left`   → left column
+ *   - block has `place-right`  → right column
+ *   - otherwise                → alternating (1st unplaced left, 2nd right, …)
+ *
+ * @param {Element} main The main element
+ */
+function decorateTwoColumnSections(main) {
+  main.querySelectorAll('.section.two-column').forEach((section) => {
+    if (section.querySelector(':scope > .two-column__col')) return;
+
+    const wrappers = [...section.children];
+    if (!wrappers.length) return;
+
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'two-column__col two-column__col--left';
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'two-column__col two-column__col--right';
+
+    let unplacedIndex = 0;
+    wrappers.forEach((wrapper) => {
+      if (wrapper.querySelector(':scope > .place-right')) {
+        rightColumn.append(wrapper);
+      } else if (wrapper.querySelector(':scope > .place-left')) {
+        leftColumn.append(wrapper);
+      } else if (unplacedIndex % 2 === 0) {
+        leftColumn.append(wrapper);
+        unplacedIndex += 1;
+      } else {
+        rightColumn.append(wrapper);
+        unplacedIndex += 1;
+      }
+    });
+
+    section.replaceChildren(leftColumn, rightColumn);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -90,6 +135,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateTwoColumnSections(main);
 }
 
 /**

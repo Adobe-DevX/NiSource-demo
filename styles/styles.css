@@ -450,10 +450,11 @@ main .section.highlight {
 
 /* Two-column section style
  *
- * Section owns max-width / centering / padding so each wrapper can stretch to
- * fill its column. The section is always a CSS Grid (single column on mobile,
- * two columns on desktop) so `gap` gives consistent row + column spacing
- * between blocks without relying on margins.
+ * `scripts.js` restructures `.section.two-column` into two `.two-column__col`
+ * flex stacks so each column flows independently and a tall block on one side
+ * doesn't push blocks down on the other side. The section itself is a CSS
+ * Grid that places the two flex columns side-by-side on desktop and stacked
+ * on mobile.
  */
 main .section.two-column {
   display: grid;
@@ -464,10 +465,16 @@ main .section.two-column {
   padding-inline: var(--spacing-medium);
 }
 
-main .section.two-column > div {
+main .section.two-column .two-column__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-3);
+  min-width: 0;
+}
+
+main .section.two-column .two-column__col > div {
   margin-inline: 0;
   max-width: none;
-  min-width: 0;
   padding-inline: 0;
   width: 100%;
 }
@@ -479,22 +486,13 @@ main .section.two-column > div {
     padding-inline: var(--spacing-big);
   }
 
-  /* Reverse Columns: flip the first two blocks across columns */
-  main .section.two-column.reverse-columns > div:nth-child(1) {
+  /* Reverse Columns: swap which flex column lives in which grid track */
+  main .section.two-column.reverse-columns .two-column__col--left {
     grid-column-start: 2;
   }
 
-  main .section.two-column.reverse-columns > div:nth-child(2) {
+  main .section.two-column.reverse-columns .two-column__col--right {
     grid-column-start: 1;
-  }
-
-  /* Per-block column placement via the `classes_placement` block option */
-  main .section.two-column > div:has(> .place-left) {
-    grid-column-start: 1;
-  }
-
-  main .section.two-column > div:has(> .place-right) {
-    grid-column-start: 2;
   }
 }
 
