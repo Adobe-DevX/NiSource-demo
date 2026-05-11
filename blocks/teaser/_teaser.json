@@ -57,6 +57,27 @@
           "component": "aem-content",
           "name": "cta-link",
           "label": "CTA Link"
+        },
+        {
+          "component": "select",
+          "name": "classes_placement",
+          "label": "Column placement (in Two Column section)",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default (source order)",
+              "value": ""
+            },
+            {
+              "name": "Force Left Column",
+              "value": "place-left"
+            },
+            {
+              "name": "Force Right Column",
+              "value": "place-right"
+            }
+          ]
         }
       ]
     }

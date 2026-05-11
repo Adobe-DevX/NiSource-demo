@@ -469,6 +469,15 @@ main .section.highlight {
   main .section.two-column.reverse-columns > div:nth-child(2) {
     grid-column-start: 1;
   }
+
+  /* Per-block column placement via the `classes_placement` block option */
+  main .section.two-column > div:has(> .place-left) {
+    grid-column-start: 1;
+  }
+
+  main .section.two-column > div:has(> .place-right) {
+    grid-column-start: 2;
+  }
 }
 
 /* Base Design System Tokens */
