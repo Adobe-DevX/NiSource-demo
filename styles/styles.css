@@ -448,17 +448,35 @@ main .section.highlight {
   padding: var(--spacing-xbig) 0;
 }
 
-/* Two-column section style — children sit side-by-side on desktop */
+/* Two-column section style
+ *
+ * Section owns max-width / centering / padding so each wrapper can stretch to
+ * fill its column. The section is always a CSS Grid (single column on mobile,
+ * two columns on desktop) so `gap` gives consistent row + column spacing
+ * between blocks without relying on margins.
+ */
+main .section.two-column {
+  display: grid;
+  gap: var(--nisource-space-3);
+  grid-template-columns: 1fr;
+  margin-inline: auto;
+  max-width: 1200px;
+  padding-inline: var(--spacing-medium);
+}
+
+main .section.two-column > div {
+  margin-inline: 0;
+  max-width: none;
+  min-width: 0;
+  padding-inline: 0;
+  width: 100%;
+}
+
 @media (min-width: 900px) {
   main .section.two-column {
     align-items: start;
-    column-gap: var(--nisource-space-3);
-    display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-
-  main .section.two-column > div {
-    min-width: 0;
+    padding-inline: var(--spacing-big);
   }
 
   /* Reverse Columns: flip the first two blocks across columns */
