@@ -118,21 +118,25 @@
   margin: 0;
 }
 
-.my-insights__footer-link {
+/* Match billing-payment emphasis (e.g. .billing-payment__action strong); override main link tokens (--color-brand-500). */
+.my-insights a.my-insights__footer-link:any-link {
   color: var(--nisource-color-primary);
+  font-family: var(--nisource-font-body);
   font-size: 1.6rem;
   font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
   line-height: 1.5;
   text-decoration: none;
 }
 
-.my-insights__footer-link:hover,
-.my-insights__footer-link:focus-visible {
+.my-insights a.my-insights__footer-link:hover {
   color: var(--nisource-color-primary-hover);
   text-decoration: underline;
 }
 
-.my-insights__footer-link:focus-visible {
+.my-insights a.my-insights__footer-link:focus-visible {
+  color: var(--nisource-color-primary-hover);
   outline: 2px solid var(--nisource-color-primary);
   outline-offset: 2px;
+  text-decoration: underline;
 }
