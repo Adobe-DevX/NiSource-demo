@@ -55,6 +55,7 @@
 }
 
 .bill-card__bill-card {
+  align-items: stretch;
   background: var(--nisource-color-bg-page);
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
@@ -62,6 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--nisource-space-3);
+  min-width: 0;
   padding: var(--nisource-space-3);
 }
 
@@ -74,13 +76,248 @@
 }
 
 .bill-card__high-bill-alert {
+  align-self: stretch;
   background: var(--nisource-color-high-bill-alert-bg);
   border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
   color: var(--nisource-color-high-bill-alert-text);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: var(--nisource-space-1);
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.bill-card__high-bill-alert-bar {
+  box-sizing: border-box;
   display: grid;
   gap: var(--nisource-space-1);
-  margin-top: var(--nisource-space-1);
+  grid-template-columns: minmax(0, 1fr);
   padding: var(--nisource-space-3);
+  width: 100%;
+}
+
+.bill-card__high-bill-insights[hidden] {
+  display: none !important;
+}
+
+.bill-card__high-bill-insights {
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-high-bill-metric-divider);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-3);
+  min-width: 0;
+  padding: var(--nisource-space-3);
+  width: 100%;
+}
+
+.bill-card__high-bill-metrics {
+  display: grid;
+  gap: var(--nisource-space-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .bill-card__high-bill-metrics {
+    gap: var(--nisource-space-2);
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bill-card__high-bill-metric:not(:last-child) {
+    border-right: var(--shape-border-width-1) solid var(--nisource-color-high-bill-metric-divider);
+    padding-right: var(--nisource-space-2);
+  }
+}
+
+/* Table headers — 12px bold (design.md 1.2) */
+.bill-card__high-bill-metric-heading {
+  color: var(--nisource-color-high-bill-alert-muted);
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Body bold — 16px (design.md 1.2) */
+.bill-card__high-bill-metric-value {
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.bill-card .bill-card__high-bill-metric-link:any-link {
+  color: var(--nisource-color-high-bill-alert-link);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.4;
+  margin-top: var(--nisource-space-1);
+  text-decoration: underline;
+}
+
+.bill-card .bill-card__high-bill-metric-link:any-link:hover,
+.bill-card .bill-card__high-bill-metric-link:any-link:focus {
+  color: var(--nisource-color-high-bill-alert-link-hover);
+}
+
+.bill-card__high-bill-metric-link--disabled {
+  color: var(--nisource-color-high-bill-alert-muted);
+  cursor: default;
+  font-size: 1.4rem;
+  margin-top: var(--nisource-space-1);
+  text-decoration: underline;
+}
+
+/* Small header — 14px bold for chart title on light panel (design.md 1.2) */
+.bill-card__high-bill-chart {
+  display: grid;
+  gap: var(--nisource-space-2);
+}
+
+.bill-card__high-bill-chart-heading {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.bill-card__high-bill-chart-body {
+  background: var(--nisource-color-high-bill-chart-bg);
+  border-radius: var(--shape-border-radius-2);
+  overflow: hidden;
+  padding: var(--nisource-space-2);
+}
+
+.bill-card__high-bill-chart-body picture,
+.bill-card__high-bill-chart-body img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.bill-card__high-bill-chart-placeholder {
+  max-height: 16rem;
+}
+
+.bill-card__high-bill-chart-svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.bill-card__high-bill-chart-svg-bg {
+  fill: var(--nisource-color-bg-page);
+}
+
+/* Chart text — 10px bold for SVG axis feel (design.md 1.2); grid lines use token */
+.bill-card__high-bill-chart-grid {
+  stroke-width: 1;
+}
+
+.bill-card__high-bill-save {
+  background: var(--nisource-color-high-bill-chart-bg);
+  border-radius: var(--shape-border-radius-2);
+  display: grid;
+  gap: var(--nisource-space-3);
+  padding: var(--nisource-space-3);
+}
+
+@media (min-width: 600px) {
+  .bill-card__high-bill-save {
+    align-items: center;
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
+  }
+}
+
+.bill-card__high-bill-save-media picture,
+.bill-card__high-bill-save-media img {
+  border-radius: var(--shape-border-radius-2);
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+/* H4 — 20px black for promo title on light panel (design.md 1.2) */
+.bill-card__high-bill-save-heading {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 2rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+.bill-card__high-bill-save-heading > :first-child {
+  margin-top: 0;
+}
+
+.bill-card__high-bill-save-heading > :last-child {
+  margin-bottom: 0;
+}
+
+.bill-card__high-bill-save-copy {
+  display: grid;
+  gap: var(--nisource-space-3);
+  justify-items: start;
+}
+
+.bill-card__high-bill-insights-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--nisource-space-1);
+}
+
+.bill-card__high-bill-insights-collapse {
+  background: none;
+  border: none;
+  color: var(--nisource-color-high-bill-alert-link);
+  cursor: pointer;
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
+  padding: var(--nisource-space-1);
+  text-decoration: underline;
+}
+
+.bill-card__high-bill-insights-collapse:hover,
+.bill-card__high-bill-insights-collapse:focus {
+  color: var(--nisource-color-high-bill-alert-link-hover);
+}
+
+.bill-card__high-bill-alert-cta--toggle {
+  background: none;
+  border: none;
+  color: var(--nisource-color-high-bill-alert-link);
+  cursor: pointer;
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  justify-self: start;
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin-top: var(--nisource-space-1);
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.bill-card__high-bill-alert-cta--toggle:hover,
+.bill-card__high-bill-alert-cta--toggle:focus {
+  color: var(--nisource-color-high-bill-alert-link-hover);
 }
 
 /* Small text — 12px (design.md 1.2) */

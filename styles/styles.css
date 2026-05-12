@@ -171,6 +171,11 @@
   --nisource-color-high-bill-alert-muted: #e2e2e2;
   --nisource-color-high-bill-alert-link: #62b5e5;
   --nisource-color-high-bill-alert-link-hover: #eff3fc;
+  /* High bill expanded: chart on light panel (Gray 20), body text Gray 70 */
+  --nisource-color-high-bill-chart-bg: #f2f2f2;
+  --nisource-color-high-bill-chart-line: #0072ce;
+  --nisource-color-high-bill-chart-grid: #e2e2e2;
+  --nisource-color-high-bill-metric-divider: #535454;
 
   /* Black — heading text in header chrome */
   --nisource-color-header-text: #000;
