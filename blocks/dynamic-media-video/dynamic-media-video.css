@@ -1,0 +1,33 @@
+.dynamic-media-video {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.dynamic-media-video .dm-video-player-wrapper {
+  background: var(--nisource-color-text-heading);
+  border-radius: var(--shape-border-radius-2);
+  box-shadow: var(--shape-shadow-2);
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
+}
+
+.dynamic-media-video iframe,
+.dynamic-media-video video {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.dynamic-media-video-wrapper {
+  margin-inline: auto;
+  max-width: 100%;
+  text-align: center;
+  width: 100%;
+}

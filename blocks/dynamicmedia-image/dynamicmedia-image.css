@@ -1,0 +1,12 @@
+.dynamicmedia-image-wrapper {
+  margin-inline: auto;
+  max-width: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.dynamicmedia-image img {
+  border-radius: var(--shape-border-radius-2);
+  height: auto;
+  max-width: 100%;
+}

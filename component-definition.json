@@ -218,6 +218,25 @@
           }
         },
         {
+          "title": "My Insights",
+          "id": "my-insights",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "My Insights",
+                  "model": "my-insights",
+                  "heading": "My Insights",
+                  "heading-icon": "fa-solid fa-chart-pie",
+                  "footer-text": "Check to see how your usage has changed month to month.",
+                  "footer-link-text": "View Detailed Usage"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Energy Assistance Form",
           "id": "energy-assistance-form",
           "plugins": {
@@ -236,32 +255,82 @@
                   "household-hint-right": "Annual household income in dollars",
                   "customer-information-heading": "CUSTOMER INFORMATION",
                   "account-owner-subheading": "ACCOUNT OWNER",
-                  "owner-first-name-label": "First Name (Account Owner)",
-                  "owner-last-name-label": "Last Name (Account Owner)",
-                  "applicant-email-label": "Applicant Email Address",
-                  "applicant-phone-label": "Applicant Phone Number",
-                  "primary-holder-placeholder": "-- Select --",
-                  "submit-label": "Apply for Energy Assistance",
-                  "success-message": "Thank you. Your application has been received."
+                  "submit-label": "Apply for Energy Assistance"
                 }
               }
             }
           }
         },
         {
-          "title": "My Insights",
-          "id": "my-insights",
+          "title": "Content Fragment",
+          "id": "contentfragment",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "My Insights",
-                  "model": "my-insights",
-                  "heading": "My Insights",
-                  "heading-icon": "fa-solid fa-chart-pie",
-                  "footer-text": "Check to see how your usage has changed month to month.",
-                  "footer-link-text": "View Detailed Usage"
+                  "name": "Content Fragment",
+                  "model": "contentfragment"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dynamic Media(Image)",
+          "id": "dynamic-media-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Dynamic Media Image",
+                  "model": "dynamic-media-image"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dynamic Media (Video)",
+          "id": "dynamic-media-video",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Dynamic Media (Video)",
+                  "model": "dynamic-media-video"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "DynamicMedia Image",
+          "id": "dm-asset",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "DynamicMedia Image",
+                  "model": "dm-asset"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "DynamicMedia Template",
+          "id": "dm-template",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "DynamicMedia Template",
+                  "model": "dm-template"
                 }
               }
             }

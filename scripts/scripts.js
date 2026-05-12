@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 import {
   loadCommerceEager,
@@ -19,6 +20,18 @@ import {
   decorateLinks,
   loadErrorPage,
 } from './commerce.js';
+import { decorateDMImages } from './dynamic-media.js';
+import { runExperimentation, showExperimentationRail } from './experiment-load.js';
+
+function getExperimentationConfig() {
+  return {
+    prodHost: getMetadata('experiment-prod-host') || window.location.hostname,
+    audiences: {
+      mobile: () => window.innerWidth < 600,
+      desktop: () => window.innerWidth >= 600,
+    },
+  };
+}
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -136,6 +149,9 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateTwoColumnSections(main);
+  decorateDMImages(main).catch(() => {
+    /* DM decoration is best-effort */
+  });
 }
 
 /**
@@ -143,6 +159,7 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  await runExperimentation(doc, getExperimentationConfig());
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
 
@@ -190,6 +207,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  await showExperimentationRail(doc, getExperimentationConfig());
 }
 
 /**
