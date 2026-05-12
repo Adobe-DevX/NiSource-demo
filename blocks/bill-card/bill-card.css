@@ -1,11 +1,11 @@
 .bill-card {
   background: var(--nisource-color-bg-section);
-  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  /* border: var(--shape-border-width-1) solid var(--nisource-color-border); */
   border-radius: var(--shape-border-radius-2);
   box-sizing: border-box;
   font-family: var(--nisource-font-body);
   min-width: 0;
-  padding: var(--nisource-space-3);
+  /* padding: var(--nisource-space-3); */
   width: 100%;
 }
 
@@ -124,7 +124,7 @@
 
 @media (min-width: 900px) {
   .bill-card {
-    padding: var(--nisource-space-4);
+    /* padding: var(--nisource-space-4); */
   }
 
   .bill-card__bill-card {
