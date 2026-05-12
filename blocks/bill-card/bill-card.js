@@ -28,6 +28,12 @@ const STATIC_INSIGHTS = {
   saveCtaLabel: 'Shop marketplace',
 };
 
+/** Row labels for due date / billing period (wireframe). */
+const BILL_DATELINE_LABELS = {
+  dueDate: 'Due date',
+  billingPeriod: 'Billing period',
+};
+
 function toText(value, fallback) {
   if (Array.isArray(value)) {
     return value.join(' ').trim() || fallback;
@@ -46,6 +52,27 @@ function toMarkup(value, fallback = '') {
 
 function plainFromMarkup(html) {
   return String(html || '').replace(/<[^>]*>/g, '').trim();
+}
+
+function appendBillDateline(container, labelText, valueText) {
+  const value = String(valueText || '').trim();
+  if (!value) {
+    return;
+  }
+
+  const row = document.createElement('div');
+  row.className = 'bill-card__bill-dateline';
+
+  const label = document.createElement('span');
+  label.className = 'bill-card__bill-dateline-label';
+  label.textContent = labelText;
+
+  const val = document.createElement('span');
+  val.className = 'bill-card__bill-dateline-value';
+  val.textContent = value;
+
+  row.append(label, val);
+  container.append(row);
 }
 
 function normalizeConfig(config) {
@@ -325,6 +352,9 @@ export default function decorate(block) {
   const billSummary = document.createElement('div');
   billSummary.className = 'bill-card__bill-summary';
 
+  const billPrimary = document.createElement('div');
+  billPrimary.className = 'bill-card__bill-primary';
+
   const billLabel = document.createElement('p');
   billLabel.className = 'bill-card__bill-label';
   billLabel.textContent = config.billLabel;
@@ -333,17 +363,19 @@ export default function decorate(block) {
   billAmount.className = 'bill-card__bill-amount';
   billAmount.textContent = config.amountDue;
 
-  billSummary.append(billLabel, billAmount);
+  billPrimary.append(billLabel, billAmount);
+  billSummary.append(billPrimary);
 
-  const dueEl = document.createElement('p');
-  dueEl.className = 'bill-card__bill-due';
-  dueEl.textContent = config.dueDate;
-  billSummary.append(dueEl);
-
-  const periodEl = document.createElement('p');
-  periodEl.className = 'bill-card__bill-period';
-  periodEl.textContent = config.billingPeriod;
-  billSummary.append(periodEl);
+  const billDatelines = document.createElement('div');
+  billDatelines.className = 'bill-card__bill-datelines';
+  appendBillDateline(billDatelines, BILL_DATELINE_LABELS.dueDate, config.dueDate);
+  appendBillDateline(billDatelines, BILL_DATELINE_LABELS.billingPeriod, config.billingPeriod);
+  if (billDatelines.childElementCount > 0) {
+    if (billDatelines.childElementCount === 1) {
+      billDatelines.classList.add('bill-card__bill-datelines--single');
+    }
+    billSummary.append(billDatelines);
+  }
 
   const ctaWrap = document.createElement('div');
   ctaWrap.className = 'bill-card__bill-cta';

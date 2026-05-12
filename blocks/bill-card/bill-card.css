@@ -2,22 +2,31 @@
   background: var(--nisource-color-bg-section);
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
   font-family: var(--nisource-font-body);
+  min-width: 0;
   padding: var(--nisource-space-3);
+  width: 100%;
 }
 
 .bill-card__wrapper {
+  box-sizing: border-box;
   display: grid;
   gap: var(--nisource-space-3);
+  min-width: 0;
+  width: 100%;
 }
 
 /* Paragraph — default body copy (design.md 1.2) */
 .bill-card__content {
+  box-sizing: border-box;
   color: var(--nisource-color-text-body);
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
   font-weight: var(--font-weight-regular, 400);
   line-height: 1.5;
+  padding-inline: var(--nisource-space-3);
+  width: 100%;
 }
 
 .bill-card__content > :first-child {
@@ -40,7 +49,10 @@
 
 .bill-card__top {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
+  padding-inline: var(--nisource-space-3);
+  width: 100%;
 }
 
 /* H5 — minor heading (design.md §1.2) */
@@ -60,27 +72,42 @@
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
   box-shadow: none;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--nisource-space-3);
   min-width: 0;
-  padding: var(--nisource-space-3);
+  padding: var(--nisource-space-3) 0;
+  width: 100%;
 }
 
 .bill-card__bill-row {
   align-items: stretch;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--nisource-space-3);
   justify-content: space-between;
+  padding-inline: var(--nisource-space-3);
+  width: 100%;
 }
 
 .bill-card__bill-summary {
-  display: grid;
+  box-sizing: border-box;
+  display: flex;
   flex: 1;
-  gap: var(--nisource-space-2);
+  flex-direction: column;
+  gap: var(--nisource-space-1);
   min-width: 0;
   width: 100%;
+}
+
+/* Label + amount due — one visual group */
+.bill-card__bill-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-1);
+  min-width: 0;
 }
 
 .bill-card__bill-cta {
@@ -101,13 +128,22 @@
   }
 
   .bill-card__bill-card {
-    padding: var(--nisource-space-3) var(--nisource-space-4);
+    padding: var(--nisource-space-3) 0;
   }
 
   .bill-card__bill-row {
     align-items: flex-start;
     flex-direction: row;
     gap: var(--nisource-space-4);
+    padding-inline: var(--nisource-space-4);
+  }
+
+  .bill-card__top {
+    padding-inline: var(--nisource-space-4);
+  }
+
+  .bill-card__content {
+    padding-inline: var(--nisource-space-4);
   }
 
   .bill-card__bill-cta {
@@ -415,16 +451,60 @@
   text-decoration: underline;
 }
 
+/* Due date + billing period — two columns */
+.bill-card__bill-datelines {
+  box-sizing: border-box;
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  column-gap: var(--nisource-space-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-top: var(--nisource-space-1);
+  row-gap: var(--nisource-space-1);
+  width: 100%;
+}
+
+.bill-card__bill-datelines--single {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 599px) {
+  .bill-card__bill-datelines:not(.bill-card__bill-datelines--single) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bill-card__bill-dateline {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+/* Small header — 14px bold (design.md 1.2) */
+.bill-card__bill-dateline-label {
+  color: var(--nisource-color-text-secondary);
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  margin: 0;
+  text-transform: uppercase;
+}
+
 /* Small paragraph — 14px regular (design.md 1.2) */
-.bill-card__bill-due,
-.bill-card__bill-period {
+.bill-card__bill-dateline-value {
   color: var(--nisource-color-text-body);
   font-family: var(--nisource-font-body);
   font-size: 1.4rem;
   font-weight: var(--font-weight-regular, 400);
+  hyphens: auto;
   letter-spacing: normal;
-  line-height: 1.4;
+  line-height: 1.35;
   margin: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Small header / button — 14px bold (design.md §1.2) */
@@ -438,11 +518,11 @@
   margin: 0;
 }
 
-/* H4 — subsection emphasis for amount (design.md §1.2) */
+/* Amount due — slightly above H4 (20px) for scan emphasis */
 .bill-card__bill-amount {
   color: var(--nisource-color-text-heading);
   font-family: var(--nisource-font-display);
-  font-size: 2rem;
+  font-size: 2.8rem;
   font-weight: var(--font-weight-black, 900);
   letter-spacing: normal;
   line-height: 1.2;
