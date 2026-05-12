@@ -218,6 +218,41 @@
           }
         },
         {
+          "title": "Energy Assistance Form",
+          "id": "energy-assistance-form",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Energy Assistance Form",
+                  "model": "energy-assistance-form",
+                  "key-value": true,
+                  "heading": "Energy assistance",
+                  "contact-section-heading": "Your information",
+                  "first-name-label": "First name",
+                  "last-name-label": "Last name",
+                  "email-label": "Email",
+                  "phone-label": "Phone",
+                  "account-number-label": "Account number (optional)",
+                  "address-section-heading": "Service address",
+                  "street-label": "Street address",
+                  "city-label": "City",
+                  "state-label": "State",
+                  "zip-label": "ZIP code",
+                  "programs-section-heading": "How can we help?",
+                  "program-1-label": "Heating / energy bill assistance (LIHEAP)",
+                  "program-2-label": "Payment arrangement or budget billing",
+                  "program-3-label": "Weatherization or energy efficiency programs",
+                  "comments-label": "Additional details",
+                  "submit-label": "Submit request",
+                  "success-message": "Thank you. Your request has been received. We will contact you soon."
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "My Insights",
           "id": "my-insights",
           "plugins": {

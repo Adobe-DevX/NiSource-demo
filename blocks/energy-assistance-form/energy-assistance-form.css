@@ -1,0 +1,239 @@
+/* Energy Assistance Form — NiSource EDS (design.md foundations) */
+
+.energy-assistance-form {
+  font-family: var(--nisource-font-body);
+}
+
+.energy-assistance-form__wrapper {
+  background: var(--nisource-color-bg-page);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
+  max-width: 72rem;
+  padding: var(--nisource-space-3);
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .energy-assistance-form__wrapper {
+    padding: var(--nisource-space-4);
+  }
+}
+
+/* H3 — section heading (design.md 1.2) */
+.energy-assistance-form__heading {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 2.4rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+  margin: 0 0 var(--nisource-space-2);
+}
+
+/* Paragraph / lead */
+.energy-assistance-form__intro {
+  color: var(--nisource-color-text-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
+  margin: 0 0 var(--nisource-space-3);
+}
+
+.energy-assistance-form__intro p {
+  margin: 0 0 var(--nisource-space-2);
+}
+
+.energy-assistance-form__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.energy-assistance-form__intro a {
+  color: var(--nisource-color-primary);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.energy-assistance-form__status {
+  background: var(--color-informational-200, #eeeffb);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+  color: var(--nisource-color-text-body);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin-bottom: var(--nisource-space-3);
+  padding: var(--nisource-space-2) var(--nisource-space-3);
+}
+
+.energy-assistance-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-3);
+}
+
+.energy-assistance-form__fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-2);
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.energy-assistance-form__fieldset--programs {
+  gap: var(--nisource-space-2);
+}
+
+/* H4 — subsection (design.md 1.2) */
+.energy-assistance-form__legend {
+  color: var(--nisource-color-text-heading);
+  float: left;
+  font-family: var(--nisource-font-display);
+  font-size: 2rem;
+  font-weight: var(--font-weight-black, 900);
+  line-height: 1.2;
+  margin: 0 0 var(--nisource-space-1);
+  padding: 0;
+  width: 100%;
+}
+
+.energy-assistance-form__fieldset::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.energy-assistance-form__row {
+  display: grid;
+  gap: var(--nisource-space-2);
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .energy-assistance-form__row--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .energy-assistance-form__row--city {
+    grid-template-columns: minmax(0, 1fr) 8rem 10rem;
+  }
+}
+
+.energy-assistance-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-1);
+  min-width: 0;
+}
+
+.energy-assistance-form__field--full {
+  grid-column: 1 / -1;
+}
+
+/* Small header / label (design.md 1.2) */
+.energy-assistance-form__label {
+  color: var(--nisource-color-text-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.4;
+}
+
+.energy-assistance-form__input,
+.energy-assistance-form__textarea {
+  background: var(--nisource-color-bg-page);
+  border: var(--shape-border-width-1) solid var(--color-neutral-400, #c4c4c4);
+  border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  min-height: 4.8rem;
+  padding: var(--nisource-space-1) var(--nisource-space-2);
+  width: 100%;
+}
+
+.energy-assistance-form__textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.energy-assistance-form__input:hover,
+.energy-assistance-form__textarea:hover {
+  border-color: var(--nisource-color-text-secondary);
+}
+
+.energy-assistance-form__input:focus-visible,
+.energy-assistance-form__textarea:focus-visible {
+  border-color: var(--nisource-color-primary);
+  outline: var(--shape-border-width-2) solid var(--nisource-color-primary);
+  outline-offset: 2px;
+}
+
+.energy-assistance-form__input::placeholder,
+.energy-assistance-form__textarea::placeholder {
+  color: var(--nisource-color-text-secondary);
+}
+
+.energy-assistance-form__checks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-2);
+}
+
+@media (min-width: 900px) {
+  .energy-assistance-form__checks {
+    display: grid;
+    gap: var(--nisource-space-2) var(--nisource-space-3);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.energy-assistance-form__check {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--nisource-space-2);
+}
+
+.energy-assistance-form__checkbox {
+  flex-shrink: 0;
+  height: 2rem;
+  margin-top: 0;
+  width: 2rem;
+}
+
+.energy-assistance-form__check-label,
+.energy-assistance-form__consent-label {
+  color: var(--nisource-color-text-body);
+  flex: 1;
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
+}
+
+.energy-assistance-form__consent {
+  align-items: flex-start;
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  display: flex;
+  gap: var(--nisource-space-2);
+  padding-top: var(--nisource-space-2);
+}
+
+.energy-assistance-form__consent-label a {
+  color: var(--nisource-color-primary);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.energy-assistance-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nisource-space-2);
+}
+
+.energy-assistance-form .button {
+  margin: 0;
+}
+
+.energy-assistance-form .button.secondary {
+  color: var(--nisource-color-primary);
+}

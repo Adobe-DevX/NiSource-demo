@@ -341,6 +341,156 @@
     ]
   },
   {
+    "id": "energy-assistance-form",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "richtext",
+        "name": "intro",
+        "label": "Intro",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "contact-section-heading",
+        "label": "Contact Section Heading"
+      },
+      {
+        "component": "text",
+        "name": "first-name-label",
+        "label": "First Name Label"
+      },
+      {
+        "component": "text",
+        "name": "last-name-label",
+        "label": "Last Name Label"
+      },
+      {
+        "component": "text",
+        "name": "email-label",
+        "label": "Email Label"
+      },
+      {
+        "component": "text",
+        "name": "phone-label",
+        "label": "Phone Label"
+      },
+      {
+        "component": "text",
+        "name": "account-number-label",
+        "label": "Account Number Label"
+      },
+      {
+        "component": "text",
+        "name": "address-section-heading",
+        "label": "Address Section Heading"
+      },
+      {
+        "component": "text",
+        "name": "street-label",
+        "label": "Street Label"
+      },
+      {
+        "component": "text",
+        "name": "city-label",
+        "label": "City Label"
+      },
+      {
+        "component": "text",
+        "name": "state-label",
+        "label": "State Label"
+      },
+      {
+        "component": "text",
+        "name": "zip-label",
+        "label": "Zip Label"
+      },
+      {
+        "component": "text",
+        "name": "programs-section-heading",
+        "label": "Programs Section Heading"
+      },
+      {
+        "component": "text",
+        "name": "program-1-label",
+        "label": "Program 1 Label"
+      },
+      {
+        "component": "text",
+        "name": "program-2-label",
+        "label": "Program 2 Label"
+      },
+      {
+        "component": "text",
+        "name": "program-3-label",
+        "label": "Program 3 Label"
+      },
+      {
+        "component": "text",
+        "name": "comments-label",
+        "label": "Comments Label"
+      },
+      {
+        "component": "richtext",
+        "name": "consent",
+        "label": "Consent",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "consent-label",
+        "label": "Consent Label"
+      },
+      {
+        "component": "text",
+        "name": "submit-label",
+        "label": "Submit Label"
+      },
+      {
+        "component": "text",
+        "name": "reset-label",
+        "label": "Reset Label"
+      },
+      {
+        "component": "text",
+        "name": "success-message",
+        "label": "Success Message"
+      },
+      {
+        "component": "aem-content",
+        "name": "form-action",
+        "label": "Form Action"
+      },
+      {
+        "component": "select",
+        "name": "classes_placement",
+        "label": "Column placement (in Two Column section)",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (source order)",
+            "value": ""
+          },
+          {
+            "name": "Force Left Column",
+            "value": "place-left"
+          },
+          {
+            "name": "Force Right Column",
+            "value": "place-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "billing-payment",
     "fields": [
       {
