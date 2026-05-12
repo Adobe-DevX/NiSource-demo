@@ -141,7 +141,7 @@
   /* Additional tokens */
   --type-fixed-font-family: adobe-clean, "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
   --background-color: var(--color-neutral-50);
-  --nav-height: 6.4rem;
+  --nav-height: 7.6rem;
 
   /*
    * NiSource foundations (design.md §1.1, §1.2, §1.3 App palette)
@@ -161,8 +161,17 @@
   --nisource-color-bg-page: #fff;
   --nisource-color-primary: #0077da;
   --nisource-color-primary-hover: #0061af;
+
   /* design.md App colors — Sky Blue for insights / accent icon */
   --nisource-color-insights-icon: #4fa6ff;
+
+  /* Black — heading text in header chrome */
+  --nisource-color-header-text: #000;
+
+  /* design.md spacing scale (8px base), extended for layout */
+  --nisource-space-5: 40px;
+  --nisource-space-6: 48px;
+  --nisource-space-8: 64px;
 }
 
 /* fallback font */
@@ -212,6 +221,7 @@ header {
 
 main {
   grid-row: 2;
+  min-width: 0;
 }
 
 footer {

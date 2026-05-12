@@ -490,11 +490,14 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  navWrapper.addEventListener('mouseout', (e) => {
-    if (isDesktop.matches && !nav.contains(e.relatedTarget)) {
-      toggleAllNavSections(navSections);
-      overlay.classList.remove('show');
-    }
+  // mouseleave: no spurious close when moving between nav descendants (unlike mouseout).
+  // If relatedTarget is null, do not close (avoids false positives).
+  nav.addEventListener('mouseleave', (e) => {
+    if (!isDesktop.matches) return;
+    const { relatedTarget } = e;
+    if (!relatedTarget || nav.contains(relatedTarget)) return;
+    toggleAllNavSections(navSections);
+    overlay.classList.remove('show');
   });
 
   window.addEventListener('resize', () => {

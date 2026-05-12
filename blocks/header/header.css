@@ -4,30 +4,57 @@
   --desktop-large-panel-width: 900px;
   --desktop-panel-min-height: 200px;
   --desktop-panel-max-height: 600px;
+  --header-logo-width: 160px;
+
+  /* Two px smaller than the prior 1.8rem primary nav size */
+  --header-nav-primary-font-size: calc(1.8rem - 2px);
 }
 
-/* header and nav layout */
+/* header and nav layout — design.md menu type (§1.2) */
 header .nav-wrapper {
-  background-color: var(--background-color);
+  background-color: var(--nisource-color-bg-page);
+  left: 0;
+  right: 0;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   z-index: 3;
   position: fixed;
-  border-bottom: 1px solid var(--color-neutral-300);
+  border-bottom: var(--shape-border-width-1) solid rgb(0 0 0 / 12%);
 }
 
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-  'hamburger brand tools wrapperPopUpButton' var(--nav-height)
-  'sections sections sections ...' 1fr / auto 1fr auto auto;
+    'hamburger brand tools wrapperPopUpButton' var(--nav-height)
+    'sections sections sections sections' 1fr / auto 1fr auto auto;
   align-items: center;
-  gap: 0 16px;
+  gap: 0 var(--nisource-space-2);
   margin: auto;
-  max-width: 1248px;
+  width: 100%;
+  max-width: min(1264px, 100%);
+  min-width: 0;
   height: var(--nav-height);
-  padding: 0 24px;
-  font-family: var(--type-base-font-family);
+  padding: 0 var(--nisource-space-3);
+  font-family: var(--nisource-font-body);
+  color: var(--nisource-color-header-text);
+}
+
+/* All-caps nav chrome; panels and fields reset below */
+header nav .nav-brand,
+header nav .nav-sections,
+header nav .nav-tools {
+  text-transform: uppercase;
+}
+
+header nav .nav-tools-panel,
+header nav .wishlist-panel,
+header nav .minicart-panel,
+header nav input,
+header nav textarea,
+header nav select {
+  text-transform: none;
 }
 
 header nav[aria-expanded='true'] {
@@ -43,9 +70,13 @@ header nav[aria-expanded='true'] {
   header nav {
     display: flex;
     justify-content: space-between;
-    gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
+    gap: 0 var(--nisource-space-2);
+    width: 100%;
+    max-width: min(1264px, 100%);
+    min-width: 0;
+
+    /* Tighter right inset so tools sit closer to the viewport edge */
+    padding: 0 var(--nisource-space-2) 0 var(--nisource-space-4);
   }
 
   header nav[aria-expanded='true'] {
@@ -74,11 +105,16 @@ header nav .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: var(--color-neutral-50);
+  background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+}
+
+header nav .nav-hamburger button:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+  outline-offset: var(--nisource-space-1);
 }
 
 header nav .nav-hamburger-icon,
@@ -143,15 +179,19 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 
 /* brand */
 header nav .nav-brand {
-  min-width: 128px;
+  flex-shrink: 0;
+  min-width: var(--header-logo-width);
 }
 
 header nav .nav-brand a {
   grid-area: brand;
-  flex-basis: 128px;
-  font: var(--type-headline-1-font);
-  letter-spacing: var(--type-headline-1-letter-spacing);
-  font-weight: bold;
+  flex-basis: var(--header-logo-width);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.2;
+  color: inherit;
 }
 
 li.nav-drop img {
@@ -162,8 +202,9 @@ li.nav-drop img {
 }
 
 header nav .nav-brand img {
-  width: 128px;
+  width: var(--header-logo-width);
   height: auto;
+  object-fit: contain;
 }
 
 /* sections */
@@ -181,16 +222,22 @@ header nav[aria-expanded='true'] .nav-sections {
 }
 
 header nav .nav-sections ul {
-  font: var(--type-body-2-strong-font);
-  letter-spacing: var(--type-body-2-strong-letter-spacing);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.2;
   list-style: none;
   padding-left: 0;
 }
 
 header nav .nav-sections ul > li,
 header nav .nav-sections ul > li > a {
-  font: var(--type-body-2-strong-font);
-  letter-spacing: var(--type-body-2-strong-letter-spacing);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.2;
 }
 
 header nav .nav-brand a:hover {
@@ -211,33 +258,57 @@ header nav .nav-sections ul > li:empty {
 
 @media (min-width: 900px) {
   header nav .nav-sections {
-    display: block;
+    display: flex;
+    align-items: center;
     visibility: visible;
     white-space: nowrap;
+    min-width: 0;
+    overflow-x: visible;
+  }
+
+  header nav .nav-sections .default-content-wrapper {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
     align-self: unset;
   }
 
-  header .nav-drop {
-    align-self: center;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li,
-  header nav .nav-sections .nav-drop {
-    border-radius: 4px;
-    padding: 0 var(--spacing-small);
+  header nav .nav-sections .default-content-wrapper > ul > li {
+    border-radius: var(--shape-border-radius-2);
+    padding: 0 var(--nisource-space-1);
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    flex: 0 1 auto;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li a {
     text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.25;
   }
 
   header nav .nav-sections ul {
-    display: flex;
-    gap: 24px;
     margin: 0;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul {
+    display: flex;
+    align-items: center;
+    gap: var(--nisource-space-1);
+  }
+
+  /* Primary nav row — heavy weight reads bolder than 700 at this size */
+  header nav .nav-sections .default-content-wrapper > ul > li,
+  header nav .nav-sections .default-content-wrapper > ul > li > a {
+    font-size: var(--header-nav-primary-font-size);
+    font-weight: 900;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul {
@@ -247,24 +318,29 @@ header nav .nav-sections ul > li:empty {
 
   header nav .nav-sections .nav-drop[aria-expanded='true'] ul {
     flex-flow: column wrap;
-    max-height: calc(var(--desktop-panel-max-height) - 2 * var(--spacing-xbig));
-    min-height: calc(var(--desktop-panel-min-height) - 2 * var(--spacing-xbig));
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li {
-    flex: 0 1 auto;
+    max-height: calc(var(--desktop-panel-max-height) - 2 * var(--nisource-space-5));
+    min-height: calc(var(--desktop-panel-min-height) - 2 * var(--nisource-space-5));
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper {
-    background-color: var(--color-neutral-50);
+    background-color: var(--nisource-color-bg-page);
     box-sizing: border-box;
     left: 0;
     max-height: var(--desktop-panel-max-height);
     min-height: var(--desktop-panel-min-height);
-    padding: var(--spacing-xbig);
+
+    /* Grow past narrow parent `li` so labels stay inside the panel */
+    width: max-content;
+    min-width: max(100%, var(--desktop-item-panel-min-width));
+    max-width: min(var(--desktop-large-panel-width), calc(100vw - 2 * var(--nisource-space-4)));
+    padding: var(--nisource-space-5);
     position: absolute;
-    top: var(--spacing-large);
-    width: 100%;
+    /* Flush under the trigger `li` so the pointer never crosses “dead” space outside `nav` */
+    top: 100%;
+    color: var(--nisource-color-text-body);
+    border: var(--shape-border-width-1) solid var(--nisource-color-border);
+    border-radius: 0 0 var(--shape-border-radius-2) var(--shape-border-radius-2);
+    overflow-wrap: break-word;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li .submenu-header {
@@ -274,26 +350,33 @@ header nav .nav-sections ul > li:empty {
   header nav .nav-sections ul > li.nav-drop .submenu-title,
   header nav .nav-sections ul > li.nav-drop .submenu-header * {
     display: none;
-    font: var(--type-body-1-emphasized-font);
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.2;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] ul {
+    box-sizing: border-box;
     display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
-    overflow-x: auto;
-    width: var(--desktop-large-panel-width);
+    overflow-x: visible;
+    width: 100%;
+    max-width: min(var(--desktop-large-panel-width), 100%);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: 16px;
+    top: calc(-1 * var(--nisource-space-1));
+    left: var(--nisource-space-2);
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--color-neutral-500);
+    border-left: var(--nisource-space-1) solid transparent;
+    border-right: var(--nisource-space-1) solid transparent;
+    border-bottom: var(--nisource-space-1) solid var(--nisource-color-border);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul > li {
@@ -303,7 +386,21 @@ header nav .nav-sections ul > li:empty {
 
   header nav .nav-sections .default-content-wrapper > ul > li:hover,
   header nav .nav-sections .nav-drop[aria-expanded='true'] {
-    background-color: var(--color-neutral-200);
+    background-color: var(--nisource-color-bg-section);
+  }
+
+  /* Mega menu links — Paragraph 16 (design.md §1.2) */
+  header nav .nav-sections .default-content-wrapper > ul > li ul > li,
+  header nav .nav-sections .default-content-wrapper > ul > li ul > li a {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: var(--nisource-color-primary);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li ul > li a:hover {
+    color: var(--nisource-color-primary-hover);
   }
 }
 
@@ -312,7 +409,10 @@ header nav .nav-tools-panel {
   z-index: 100;
   position: absolute;
   box-shadow: var(--shape-shadow-2);
-  background: var(--background-color);
+  background: var(--nisource-color-bg-page);
+  color: var(--nisource-color-text-body);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-top: 0;
   top: var(--nav-height);
   right: 0;
   width: 100%;
@@ -328,20 +428,26 @@ header nav .nav-tools {
   grid-area: tools;
   display: flex;
   height: 100%;
-  gap: var(--spacing-small);
+  gap: var(--nisource-space-1);
   align-items: center;
-  background: var(--background-color);
+  flex-shrink: 0;
+  background: transparent;
   z-index: 3;
 }
 
 header nav .nav-tools-wrapper > button {
-  color: var(--color-brand-700);
+  color: var(--nisource-color-header-text);
   background: transparent;
-  padding: 10px;
+  padding: var(--nisource-space-2);
   border: unset;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
+  height: var(--nisource-space-5);
+  width: var(--nisource-space-5);
+}
+
+header nav .nav-tools-wrapper > button:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+  outline-offset: var(--nisource-space-1);
 }
 
 header nav .nav-tools button.nav-cart-button {
@@ -356,14 +462,17 @@ header nav .nav-tools button.nav-cart-button[data-count]::after {
   position: absolute;
   top: 0;
   right: -2px;
-  background-color: var(--color-brand-700);
-  color: var(--color-neutral-100);
+  background-color: var(--nisource-color-primary);
+  color: var(--nisource-color-bg-page);
   border-radius: 50%;
   width: 1.75em;
   height: 1.75em;
   display: flex;
   align-items: center;
-  font-size: 0.8em;
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
   justify-content: center;
 }
 
@@ -382,16 +491,22 @@ header nav .nav-tools button.nav-search-button {
 }
 
 header .nav-search-panel {
-  padding: var(--spacing-small);
+  padding: var(--nisource-space-2);
+  text-transform: none;
 }
 
 header .nav-search-panel input {
   width: 100%;
-  padding: 10px;
+  padding: var(--nisource-space-2);
   box-sizing: border-box;
-  font: var(--type-headline-2-default-font);
-  letter-spacing: var(--type-headline-2-default-letter-spacing);
-  border: 1px solid currentcolor;
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.5;
+  color: var(--nisource-color-text-body);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
   appearance: none;
 }
 
@@ -405,7 +520,7 @@ header .nav-search-panel .search-bar-result {
 }
 
 header .nav-search-panel .search-bar-result .product-discovery-product-list__grid {
-  margin-block: var(--spacing-small);
+  margin-block: var(--nisource-space-2);
 }
 
 /* Popover List */
@@ -447,7 +562,7 @@ header .nav-search-input .search_autocomplete .popover-container {
   }
 
   header nav .nav-tools-panel {
-    top: calc(-12px + var(--nav-height));
+    top: calc(-1 * var(--nisource-space-2) + var(--nav-height));
   }
 
   header nav .minicart-panel {
@@ -472,17 +587,17 @@ header .nav-search-input .search_autocomplete .popover-container {
   align-items: center;
   z-index: 10;
   overflow-y: auto;
-  padding: 10px 0;
+  padding: var(--nisource-space-2) 0;
   box-sizing: border-box;
 }
 
 #auth-combine-wrapper {
-  background-color: white;
+  background-color: var(--nisource-color-bg-page);
   border-radius: var(--shape-border-radius-2);
   width: 100%;
   max-width: 800px;
   min-height: max-content;
-  margin: 0 10px;
+  margin: 0 var(--nisource-space-2);
   box-sizing: border-box;
   max-height: 90vh;
   overflow-y: auto;
@@ -495,8 +610,12 @@ header .nav-search-input .search_autocomplete .popover-container {
 /* CSS for auth dropdown */
 
 .dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button {
-  font: var(--type-body-1-default-font) !important;
-  letter-spacing: var(--type-body-1-default-letter-spacing) !important;
+  font-family: var(--nisource-font-body) !important;
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  line-height: 1.25 !important;
+  color: var(--nisource-color-header-text) !important;
   background-color: transparent;
   margin: 0;
   padding: 0;
@@ -505,12 +624,20 @@ header .nav-search-input .search_autocomplete .popover-container {
   justify-content: center;
   align-items: center;
   width: auto;
-  min-width: 40px;
+  min-width: var(--nisource-space-5);
+}
+
+.dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+  outline-offset: var(--nisource-space-1);
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-auth-menu-panel {
-  font: var(--type-body-1-default-font) !important;
-  letter-spacing: var(--type-body-1-default-letter-spacing) !important;
+  font-family: var(--nisource-font-body) !important;
+  font-size: 1.6rem !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  line-height: 1.5 !important;
   width: 100%;
 }
 
@@ -535,10 +662,11 @@ header .nav-search-input .search_autocomplete .popover-container {
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-auth-menu-panel .authenticated-user-menu li > a {
-  padding: 12px 15px;
+  padding: var(--nisource-space-2) var(--nisource-space-3);
   display: inline-block;
   width: 100%;
   text-decoration: none;
+  color: var(--nisource-color-text-body);
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-auth-menu-panel .authenticated-user-menu li > a:hover,
@@ -547,19 +675,22 @@ header .nav-search-input .search_autocomplete .popover-container {
 .authenticated-user-menu
 li
 > .logoutButton:hover {
-  background-color: lightgray;
+  background-color: var(--nisource-color-bg-section);
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-auth-menu-panel .authenticated-user-menu li button {
   cursor: pointer;
   background-color: transparent !important;
-  color: currentcolor !important;
-  padding: 12px 15px !important;
+  color: var(--nisource-color-text-body) !important;
+  padding: var(--nisource-space-2) var(--nisource-space-3) !important;
   display: inline-block !important;
   width: 100% !important;
   text-decoration: none !important;
-  font: var(--type-body-1-strong-font) !important;
-  letter-spacing: var(--type-body-1-strong-letter-spacing) !important;
+  font-family: var(--nisource-font-body) !important;
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  line-height: 1.5 !important;
   margin: 0 !important;
   text-align: start !important;
   box-sizing: border-box !important;
@@ -568,12 +699,12 @@ li
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-auth-menu-panel .authenticated-user-menu li button:hover {
-  background-color: lightgray !important;
+  background-color: var(--nisource-color-bg-section) !important;
   border-radius: 0 !important;
 }
 
 .grecaptcha-badge {
-  margin-top: 20px;
+  margin-top: var(--nisource-space-3);
   z-index: 3;
 }
 
@@ -611,18 +742,18 @@ li
   }
 
   header nav[aria-expanded='true'] {
-    gap: var(--spacing-small);
+    gap: var(--nisource-space-2);
     overflow-x: hidden;
     width: 320px;
   }
 
   header nav[aria-expanded='true'] .nav-tools {
-    background: var(--background-color);
+    background: var(--nisource-color-bg-page);
     bottom: 0;
     height: auto;
     left: 0;
     overflow: hidden;
-    padding: var(--spacing-small) var(--spacing-medium);
+    padding: var(--nisource-space-2) var(--nisource-space-3);
     position: fixed;
     width: 272px;
   }
@@ -639,15 +770,23 @@ li
     margin: 0;
   }
 
+  /* design.md — Mobile Menu Text: Arial bold 16px */
   header nav .nav-sections ul li {
-    font: var(--type-headline-2-default-font);
-    letter-spacing: var(--type-headline-2-default-letter-spacing);
-    padding: var(--spacing-small) 0;
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.2;
+    padding: var(--nisource-space-2) 0;
   }
 
   header nav .nav-sections ul li a {
-    font: var(--type-headline-2-default-font);
-    letter-spacing: var(--type-headline-2-default-letter-spacing);
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.2;
+    color: var(--nisource-color-text-heading);
   }
 
   header nav .nav-sections ul > li ul {
@@ -655,19 +794,26 @@ li
   }
 
   header nav .nav-sections ul > li ul > li {
-    font: var(--type-headline-2-default-font);
-    letter-spacing: var(--type-headline-2-default-letter-spacing);
-    padding: var(--spacing-xsmall);
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    padding: var(--nisource-space-1);
     width: auto;
   }
 
   header nav .nav-sections ul > li ul > li a {
-    font: var(--type-headline-2-default-font);
-    letter-spacing: var(--type-headline-2-default-letter-spacing);
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    color: var(--nisource-color-primary);
   }
 
   header nav .nav-sections ul > li ul > li:has(img) {
-    margin: var(--spacing-small) 0;
+    margin: var(--nisource-space-2) 0;
     padding: 0;
   }
 
@@ -682,7 +828,7 @@ li
   header nav .nav-sections ul > li.nav-drop::before {
     content: '\276F';
     position: absolute;
-    right: var(--spacing-xxsmall);
+    right: var(--nisource-space-1);
   }
 
   header nav .nav-sections ul > li.nav-drop ul {
@@ -695,7 +841,7 @@ li
   }
 
   header nav .nav-sections ul > li.nav-drop.active .submenu-wrapper {
-    background: var(--background-color);
+    background: var(--nisource-color-bg-page);
     display: block;
     height: 100%;
     left: 0;
@@ -707,12 +853,12 @@ li
 
   header nav .nav-sections ul > li.nav-drop.active ul {
     display: block;
-    padding-bottom: var(--spacing-large);
+    padding-bottom: var(--nisource-space-8);
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header {
-    background: var(--background-color);
-    height: var(--spacing-large);
+    background: var(--nisource-color-bg-page);
+    height: var(--nisource-space-8);
     left: 0;
     position: fixed;
     top: 0;
@@ -721,29 +867,36 @@ li
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header .back-link {
-    font: var(--type-body-1-strong-font);
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: normal;
     height: 2.2em;
-    letter-spacing: var(--type-body-1-strong-letter-spacing);
     line-height: 2.2em;
-    padding: 0 var(--spacing-medium);
+    padding: 0 var(--nisource-space-3);
+    color: var(--nisource-color-text-heading);
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header hr {
     margin: 0;
     position: absolute;
-    top: var(--spacing-large);
+    top: var(--nisource-space-8);
     width: 320px;
   }
 
   header nav .nav-sections ul > li .submenu-header .back-link::before {
     content: '\276E';
-    margin-right: var(--spacing-xsmall);
+    margin-right: var(--nisource-space-1);
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-title {
-    font: var(--type-body-1-default-font);
-    letter-spacing: var(--type-body-1-default-letter-spacing);
-    margin-bottom: var(--spacing-small);
+    font-family: var(--nisource-font-body);
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.4;
+    color: var(--nisource-color-text-body);
+    margin-bottom: var(--nisource-space-2);
   }
 
   header nav .nav-sections ul li:empty {
@@ -752,12 +905,13 @@ li
 }
 
 .product-discovery--search-bar-results__grid {
-  padding: var(--spacing-xsmall);
+  padding: var(--nisource-space-1);
 }
 
 .product-discovery--search-bar-results__outer-container .product-discovery--search-bar-results__grid {
-  box-shadow: 2px 2px 2px lightgray;
-  border: 1px solid lightgray;
+  box-shadow: var(--shape-shadow-3);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
 }
 
 .product-discovery--product-item {
