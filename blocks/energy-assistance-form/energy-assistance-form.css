@@ -1,4 +1,4 @@
-/* Energy Assistance Form — NiSource EDS (design.md foundations) */
+/* Energy Assistance (SERV) form — NiSource EDS, design.md 1.1–1.3 */
 
 .energy-assistance-form {
   font-family: var(--nisource-font-body);
@@ -9,9 +9,26 @@
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
   box-sizing: border-box;
-  max-width: 72rem;
+  max-width: 80rem;
   padding: var(--nisource-space-3);
   width: 100%;
+}
+
+.energy-assistance-form__title {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 4rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+  margin: 0 0 var(--nisource-space-3);
+  text-align: left;
+}
+
+@media (max-width: 599px) {
+  .energy-assistance-form__title {
+    font-size: 2.4rem;
+  }
 }
 
 @media (min-width: 900px) {
@@ -20,21 +37,10 @@
   }
 }
 
-/* H3 — section heading (design.md 1.2) */
-.energy-assistance-form__heading {
-  color: var(--nisource-color-text-heading);
-  font-family: var(--nisource-font-display);
-  font-size: 2.4rem;
-  font-weight: var(--font-weight-black, 900);
-  letter-spacing: normal;
-  line-height: 1.2;
-  margin: 0 0 var(--nisource-space-2);
-}
-
-/* Paragraph / lead */
+/* Large paragraph — optional intro (design.md 1.2) */
 .energy-assistance-form__intro {
   color: var(--nisource-color-text-body);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: var(--font-weight-regular, 400);
   line-height: 1.5;
   margin: 0 0 var(--nisource-space-3);
@@ -67,7 +73,7 @@
 .energy-assistance-form__form {
   display: flex;
   flex-direction: column;
-  gap: var(--nisource-space-3);
+  gap: var(--nisource-space-4);
 }
 
 .energy-assistance-form__fieldset {
@@ -80,20 +86,22 @@
   padding: 0;
 }
 
-.energy-assistance-form__fieldset--programs {
+.energy-assistance-form__fieldset--radios {
   gap: var(--nisource-space-2);
 }
 
-/* H4 — subsection (design.md 1.2) */
-.energy-assistance-form__legend {
+/* Section title — H5 scale + uppercase (design.md 1.2) */
+.energy-assistance-form__section-title {
   color: var(--nisource-color-text-heading);
   float: left;
   font-family: var(--nisource-font-display);
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: var(--font-weight-black, 900);
+  letter-spacing: 0.04em;
   line-height: 1.2;
-  margin: 0 0 var(--nisource-space-1);
+  margin: 0 0 var(--nisource-space-2);
   padding: 0;
+  text-transform: uppercase;
   width: 100%;
 }
 
@@ -101,6 +109,17 @@
   clear: both;
   content: '';
   display: table;
+}
+
+/* Subheading — Small Header / Button 14px bold (design.md 1.2) */
+.energy-assistance-form__subheading {
+  color: var(--nisource-color-text-heading);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  margin: 0 0 var(--nisource-space-2);
+  text-transform: uppercase;
 }
 
 .energy-assistance-form__row {
@@ -112,10 +131,6 @@
 @media (min-width: 600px) {
   .energy-assistance-form__row--2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .energy-assistance-form__row--city {
-    grid-template-columns: minmax(0, 1fr) 8rem 10rem;
   }
 }
 
@@ -130,16 +145,29 @@
   grid-column: 1 / -1;
 }
 
-/* Small header / label (design.md 1.2) */
+/* Small Header / Button — 14px bold labels (design.md 1.2) */
 .energy-assistance-form__label {
-  color: var(--nisource-color-text-body);
+  color: var(--nisource-color-text-heading);
   font-size: 1.4rem;
   font-weight: var(--font-weight-bold, 700);
   line-height: 1.4;
 }
 
+.energy-assistance-form__label--legend {
+  float: none;
+  margin-bottom: var(--nisource-space-2);
+  padding: 0;
+  width: 100%;
+}
+
+.energy-assistance-form__required {
+  color: var(--nisource-color-required-indicator);
+  font-weight: var(--font-weight-bold, 700);
+}
+
 .energy-assistance-form__input,
 .energy-assistance-form__textarea {
+  appearance: none;
   background: var(--nisource-color-bg-page);
   border: var(--shape-border-width-1) solid var(--color-neutral-400, #c4c4c4);
   border-radius: var(--shape-border-radius-2);
@@ -153,57 +181,178 @@
   width: 100%;
 }
 
-.energy-assistance-form__textarea {
-  min-height: 10rem;
-  resize: vertical;
+.energy-assistance-form__select {
+  background: var(--nisource-color-bg-page);
+  border: var(--shape-border-width-1) solid var(--color-neutral-400, #c4c4c4);
+  border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  min-height: 4.8rem;
+  padding: var(--nisource-space-1) var(--nisource-space-2);
+  width: 100%;
 }
 
 .energy-assistance-form__input:hover,
+.energy-assistance-form__select:hover,
 .energy-assistance-form__textarea:hover {
   border-color: var(--nisource-color-text-secondary);
 }
 
 .energy-assistance-form__input:focus-visible,
+.energy-assistance-form__select:focus-visible,
 .energy-assistance-form__textarea:focus-visible {
   border-color: var(--nisource-color-primary);
   outline: var(--shape-border-width-2) solid var(--nisource-color-primary);
   outline-offset: 2px;
 }
 
-.energy-assistance-form__input::placeholder,
-.energy-assistance-form__textarea::placeholder {
+/* Small Paragraph — 14px helper (design.md 1.2) */
+.energy-assistance-form__hint {
   color: var(--nisource-color-text-secondary);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.4;
+  margin: 0;
 }
 
-.energy-assistance-form__checks {
+.energy-assistance-form__hints {
   display: flex;
   flex-direction: column;
-  gap: var(--nisource-space-2);
+  gap: var(--nisource-space-1);
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
 }
 
-@media (min-width: 900px) {
-  .energy-assistance-form__checks {
-    display: grid;
-    gap: var(--nisource-space-2) var(--nisource-space-3);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+@media (min-width: 600px) {
+  .energy-assistance-form__hints {
+    align-items: flex-end;
+    flex-direction: row;
+    gap: var(--nisource-space-2);
+  }
+
+  .energy-assistance-form__hint--left {
+    margin-right: auto;
+    text-align: left;
+  }
+
+  .energy-assistance-form__hint--right {
+    margin-left: auto;
+    text-align: right;
   }
 }
 
-.energy-assistance-form__check {
+.energy-assistance-form__hint--single {
+  margin-top: 0;
+}
+
+/* Terms — divider + details (design.md Gray 30 border) */
+.energy-assistance-form__terms-wrap {
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-3);
+  padding-top: var(--nisource-space-3);
+}
+
+.energy-assistance-form__terms-details {
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+  padding: 0 var(--nisource-space-2);
+}
+
+.energy-assistance-form__terms-summary {
+  color: var(--nisource-color-primary);
+  cursor: pointer;
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.4;
+  list-style: none;
+  padding: var(--nisource-space-2) 0;
+  position: relative;
+}
+
+.energy-assistance-form__terms-summary::-webkit-details-marker {
+  display: none;
+}
+
+.energy-assistance-form__terms-summary::after {
+  content: '▾';
+  display: inline-block;
+  margin-left: var(--nisource-space-1);
+  transition: transform 0.15s ease;
+}
+
+.energy-assistance-form__terms-details[open] .energy-assistance-form__terms-summary::after {
+  transform: rotate(-180deg);
+}
+
+.energy-assistance-form__terms-panel {
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  color: var(--nisource-color-text-body);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  padding: var(--nisource-space-2) 0 var(--nisource-space-3);
+}
+
+.energy-assistance-form__terms-panel p {
+  margin: 0 0 var(--nisource-space-2);
+}
+
+.energy-assistance-form__terms-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.energy-assistance-form__terms-panel a {
+  color: var(--nisource-color-primary);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+/* Terms & Conditions — 12px bold emphasis where used in rich text strong */
+.energy-assistance-form__terms-panel strong {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.energy-assistance-form__terms-agree {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-2);
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.energy-assistance-form__terms-agree-legend {
+  color: var(--nisource-color-text-heading);
+  float: none;
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.4;
+  padding: 0;
+  width: 100%;
+}
+
+.energy-assistance-form__terms-agree-row {
   align-items: flex-start;
   display: flex;
   gap: var(--nisource-space-2);
 }
 
-.energy-assistance-form__checkbox {
+.energy-assistance-form__checkbox,
+.energy-assistance-form__radio {
   flex-shrink: 0;
   height: 2rem;
-  margin-top: 0;
+  margin-top: var(--nisource-space-1);
   width: 2rem;
 }
 
-.energy-assistance-form__check-label,
-.energy-assistance-form__consent-label {
+.energy-assistance-form__terms-agree-label {
   color: var(--nisource-color-text-body);
   flex: 1;
   font-size: 1.4rem;
@@ -211,17 +360,18 @@
   line-height: 1.5;
 }
 
-.energy-assistance-form__consent {
+.energy-assistance-form__radio-row {
   align-items: flex-start;
-  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
   display: flex;
   gap: var(--nisource-space-2);
-  padding-top: var(--nisource-space-2);
 }
 
-.energy-assistance-form__consent-label a {
-  color: var(--nisource-color-primary);
-  font-weight: var(--font-weight-bold, 700);
+.energy-assistance-form__radio-label {
+  color: var(--nisource-color-text-body);
+  flex: 1;
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
 }
 
 .energy-assistance-form__actions {
@@ -230,10 +380,40 @@
   gap: var(--nisource-space-2);
 }
 
+.energy-assistance-form__actions--center {
+  justify-content: center;
+  padding-top: var(--nisource-space-2);
+}
+
+/* Primary CTA — Electric Blue (design.md App colors) */
 .energy-assistance-form .button {
+  background-color: var(--nisource-color-primary);
+  border-color: transparent;
+  border-radius: var(--shape-border-radius-2);
+  color: var(--nisource-color-bg-page);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.25;
   margin: 0;
+  min-width: min(100%, 28rem);
+  padding: var(--nisource-space-2) var(--nisource-space-4);
+  text-align: center;
+}
+
+.energy-assistance-form .button:hover,
+.energy-assistance-form .button:focus {
+  background-color: var(--nisource-color-primary-hover);
 }
 
 .energy-assistance-form .button.secondary {
+  background-color: transparent;
+  border: var(--shape-border-width-1) solid var(--nisource-color-primary);
   color: var(--nisource-color-primary);
+}
+
+.energy-assistance-form .button.secondary:hover,
+.energy-assistance-form .button.secondary:focus {
+  background-color: var(--nisource-color-bg-section);
 }

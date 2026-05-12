@@ -1,28 +1,47 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
 const DEFAULTS = {
-  heading: 'Energy assistance',
-  intro: 'Tell us how we can help. A specialist will follow up using the contact information you provide.',
-  'contact-section-heading': 'Your information',
-  'first-name-label': 'First name',
-  'last-name-label': 'Last name',
-  'email-label': 'Email',
-  'phone-label': 'Phone',
-  'account-number-label': 'Account number (optional)',
-  'address-section-heading': 'Service address',
-  'street-label': 'Street address',
-  'city-label': 'City',
-  'state-label': 'State',
-  'zip-label': 'ZIP code',
-  'programs-section-heading': 'How can we help?',
-  'program-1-label': 'Heating / energy bill assistance (LIHEAP)',
-  'program-2-label': 'Payment arrangement or budget billing',
-  'program-3-label': 'Weatherization or energy efficiency programs',
-  'comments-label': 'Additional details',
-  'consent-label': 'I understand this form is for assistance inquiries only and does not change my account balance. I agree to be contacted about my request.',
-  'submit-label': 'Submit request',
+  heading: 'Complete the SERV application below',
+  'eligibility-section-heading': 'ELIGIBILITY',
+  'household-income-label': 'Household Size and Income',
+  'household-income-options': [
+    '3-person household with annual income less than $66,625',
+    '4-person household with annual income less than $75,000',
+    '5-person household with annual income less than $84,000',
+  ].join('\n'),
+  'household-hint-left': 'Number of people in the household',
+  'household-hint-right': 'Annual household income in dollars',
+  'customer-information-heading': 'CUSTOMER INFORMATION',
+  'account-owner-subheading': 'ACCOUNT OWNER',
+  'owner-first-name-label': 'First Name (Account Owner)',
+  'owner-first-name-hint': 'First name of authorized account holder',
+  'owner-last-name-label': 'Last Name (Account Owner)',
+  'owner-last-name-hint': 'Last name of authorized account holder',
+  'spouse-section-heading': "ACCOUNT OWNER'S SPOUSE (IF APPLICABLE)",
+  'spouse-first-name-label': "First Name (Account Owner's Spouse)",
+  'spouse-first-name-hint': 'First name of authorized account holder',
+  'spouse-last-name-label': "Last Name (Account Owner's Spouse)",
+  'spouse-last-name-hint': 'Last name of authorized account holder',
+  'contact-section-heading': 'CUSTOMER INFORMATION',
+  'applicant-email-label': 'Applicant Email Address',
+  'applicant-email-hint': 'email@example.com',
+  'applicant-phone-label': 'Applicant Phone Number',
+  'applicant-phone-hint': '(XXX) XXX-XXXX',
+  'primary-holder-label': 'Are you the primary account holder?',
+  'primary-holder-hint': "Acceptable in spouse's name (proof may be required)",
+  'primary-holder-placeholder': '-- Select --',
+  'primary-holder-option-yes': 'Yes',
+  'primary-holder-option-no': 'No',
+  'terms-toggle-label': 'View Terms and Conditions',
+  'terms-body-fallback': '<p>NIPSCO energy assistance programs include SERV and SILVER. SERV and SILVER end annually on May 31. Review the full program terms before you apply.</p>',
+  'terms-checkbox-legend': 'I agree to the terms and conditions.',
+  'terms-checkbox-affirm-label': 'Yes, I agree',
+  'behalf-question-label': 'Are you submitting this form on behalf of the authorized account holder?',
+  'behalf-option-self-label': 'No, I am submitting this form on my own behalf; I am the primary authorized account holder',
+  'behalf-option-behalf-label': 'Yes, I am submitting this form on behalf of the authorized account holder',
+  'submit-label': 'Apply for Energy Assistance',
   'reset-label': '',
-  'success-message': 'Thank you. Your request has been received. We will contact you soon.',
+  'success-message': 'Thank you. Your application has been received.',
 };
 
 function toRowKey(text) {
@@ -52,37 +71,15 @@ function toText(value, fallback = '') {
   return (value && String(value).trim()) || fallback;
 }
 
-function plainFromHtml(html) {
-  return String(html || '').replace(/<[^>]*>/g, '').trim();
+function toMultiline(value, fallback) {
+  if (Array.isArray(value)) {
+    return value.map((l) => String(l).trim()).filter(Boolean).join('\n') || fallback;
+  }
+  return toText(value, fallback);
 }
 
-function normalizeConfig(config, introHtml, consentHtml) {
-  return {
-    heading: toText(config.heading, DEFAULTS.heading),
-    introHtml: introHtml || (toText(config.intro, DEFAULTS.intro) ? `<p>${escapeHtml(toText(config.intro, DEFAULTS.intro))}</p>` : ''),
-    contactSectionHeading: toText(config['contact-section-heading'], DEFAULTS['contact-section-heading']),
-    firstNameLabel: toText(config['first-name-label'], DEFAULTS['first-name-label']),
-    lastNameLabel: toText(config['last-name-label'], DEFAULTS['last-name-label']),
-    emailLabel: toText(config['email-label'], DEFAULTS['email-label']),
-    phoneLabel: toText(config['phone-label'], DEFAULTS['phone-label']),
-    accountNumberLabel: toText(config['account-number-label'], DEFAULTS['account-number-label']),
-    addressSectionHeading: toText(config['address-section-heading'], DEFAULTS['address-section-heading']),
-    streetLabel: toText(config['street-label'], DEFAULTS['street-label']),
-    cityLabel: toText(config['city-label'], DEFAULTS['city-label']),
-    stateLabel: toText(config['state-label'], DEFAULTS['state-label']),
-    zipLabel: toText(config['zip-label'], DEFAULTS['zip-label']),
-    programsSectionHeading: toText(config['programs-section-heading'], DEFAULTS['programs-section-heading']),
-    program1Label: toText(config['program-1-label'], DEFAULTS['program-1-label']),
-    program2Label: toText(config['program-2-label'], DEFAULTS['program-2-label']),
-    program3Label: toText(config['program-3-label'], DEFAULTS['program-3-label']),
-    commentsLabel: toText(config['comments-label'], DEFAULTS['comments-label']),
-    consentHtml: consentHtml
-      || `<span>${escapeHtml(toText(config['consent-label'], DEFAULTS['consent-label']))}</span>`,
-    submitLabel: toText(config['submit-label'], DEFAULTS['submit-label']),
-    resetLabel: toText(config['reset-label'], DEFAULTS['reset-label']),
-    successMessage: toText(config['success-message'], DEFAULTS['success-message']),
-    formAction: config['form-action'] || '',
-  };
+function plainFromHtml(html) {
+  return String(html || '').replace(/<[^>]*>/g, '').trim();
 }
 
 function escapeHtml(str) {
@@ -93,24 +90,107 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+function normalizeConfig(config, introHtml, termsBodyHtml) {
+  return {
+    heading: toText(config.heading, DEFAULTS.heading),
+    introHtml: introHtml || (toText(config.intro, '') ? `<p>${escapeHtml(toText(config.intro, ''))}</p>` : ''),
+    eligibilitySectionHeading: toText(config['eligibility-section-heading'], DEFAULTS['eligibility-section-heading']),
+    householdIncomeLabel: toText(config['household-income-label'], DEFAULTS['household-income-label']),
+    householdIncomeOptions: toMultiline(
+      config['household-income-options'],
+      DEFAULTS['household-income-options'],
+    ),
+    householdHintLeft: toText(config['household-hint-left'], DEFAULTS['household-hint-left']),
+    householdHintRight: toText(config['household-hint-right'], DEFAULTS['household-hint-right']),
+    customerInformationHeading: toText(config['customer-information-heading'], DEFAULTS['customer-information-heading']),
+    accountOwnerSubheading: toText(config['account-owner-subheading'], DEFAULTS['account-owner-subheading']),
+    ownerFirstNameLabel: toText(config['owner-first-name-label'], DEFAULTS['owner-first-name-label']),
+    ownerFirstNameHint: toText(config['owner-first-name-hint'], DEFAULTS['owner-first-name-hint']),
+    ownerLastNameLabel: toText(config['owner-last-name-label'], DEFAULTS['owner-last-name-label']),
+    ownerLastNameHint: toText(config['owner-last-name-hint'], DEFAULTS['owner-last-name-hint']),
+    spouseSectionHeading: toText(config['spouse-section-heading'], DEFAULTS['spouse-section-heading']),
+    spouseFirstNameLabel: toText(config['spouse-first-name-label'], DEFAULTS['spouse-first-name-label']),
+    spouseFirstNameHint: toText(config['spouse-first-name-hint'], DEFAULTS['spouse-first-name-hint']),
+    spouseLastNameLabel: toText(config['spouse-last-name-label'], DEFAULTS['spouse-last-name-label']),
+    spouseLastNameHint: toText(config['spouse-last-name-hint'], DEFAULTS['spouse-last-name-hint']),
+    contactSectionHeading: toText(config['contact-section-heading'], DEFAULTS['contact-section-heading']),
+    applicantEmailLabel: toText(config['applicant-email-label'], DEFAULTS['applicant-email-label']),
+    applicantEmailHint: toText(config['applicant-email-hint'], DEFAULTS['applicant-email-hint']),
+    applicantPhoneLabel: toText(config['applicant-phone-label'], DEFAULTS['applicant-phone-label']),
+    applicantPhoneHint: toText(config['applicant-phone-hint'], DEFAULTS['applicant-phone-hint']),
+    primaryHolderLabel: toText(config['primary-holder-label'], DEFAULTS['primary-holder-label']),
+    primaryHolderHint: toText(config['primary-holder-hint'], DEFAULTS['primary-holder-hint']),
+    primaryHolderPlaceholder: toText(config['primary-holder-placeholder'], DEFAULTS['primary-holder-placeholder']),
+    primaryHolderOptionYes: toText(config['primary-holder-option-yes'], DEFAULTS['primary-holder-option-yes']),
+    primaryHolderOptionNo: toText(config['primary-holder-option-no'], DEFAULTS['primary-holder-option-no']),
+    termsToggleLabel: toText(config['terms-toggle-label'], DEFAULTS['terms-toggle-label']),
+    termsBodyHtml: termsBodyHtml
+      || (toText(config['terms-body'], '').trim()
+        ? `<p>${escapeHtml(toText(config['terms-body'], ''))}</p>`
+        : '')
+      || DEFAULTS['terms-body-fallback'],
+    termsCheckboxLegend: toText(config['terms-checkbox-legend'], DEFAULTS['terms-checkbox-legend']),
+    termsCheckboxAffirmLabel: toText(config['terms-checkbox-affirm-label'], DEFAULTS['terms-checkbox-affirm-label']),
+    behalfQuestionLabel: toText(config['behalf-question-label'], DEFAULTS['behalf-question-label']),
+    behalfOptionSelfLabel: toText(config['behalf-option-self-label'], DEFAULTS['behalf-option-self-label']),
+    behalfOptionBehalfLabel: toText(config['behalf-option-behalf-label'], DEFAULTS['behalf-option-behalf-label']),
+    submitLabel: toText(config['submit-label'], DEFAULTS['submit-label']),
+    resetLabel: toText(config['reset-label'], DEFAULTS['reset-label']),
+    successMessage: toText(config['success-message'], DEFAULTS['success-message']),
+    formAction: config['form-action'] || '',
+  };
+}
+
 function createUid() {
   return (typeof crypto !== 'undefined' && crypto.randomUUID)
     ? crypto.randomUUID().replace(/-/g, '')
     : `eaf-${Date.now()}`;
 }
 
-function createFieldGroup({ legendText, className }) {
-  const fieldset = document.createElement('fieldset');
-  fieldset.className = className;
-  const legend = document.createElement('legend');
-  legend.className = 'energy-assistance-form__legend';
-  legend.textContent = legendText;
-  fieldset.append(legend);
-  return fieldset;
+function appendRequiredStar(labelEl) {
+  labelEl.appendChild(document.createTextNode(' '));
+  const star = document.createElement('span');
+  star.className = 'energy-assistance-form__required';
+  star.textContent = '*';
+  star.setAttribute('aria-hidden', 'true');
+  labelEl.appendChild(star);
+}
+
+function createHintsRow(leftText, rightText) {
+  const row = document.createElement('div');
+  row.className = 'energy-assistance-form__hints';
+  if (leftText) {
+    const left = document.createElement('span');
+    left.className = 'energy-assistance-form__hint energy-assistance-form__hint--left';
+    left.textContent = leftText;
+    row.append(left);
+  }
+  if (rightText) {
+    const right = document.createElement('span');
+    right.className = 'energy-assistance-form__hint energy-assistance-form__hint--right';
+    right.textContent = rightText;
+    row.append(right);
+  }
+  return row;
+}
+
+function createSingleHint(text) {
+  const el = document.createElement('p');
+  el.className = 'energy-assistance-form__hint energy-assistance-form__hint--single';
+  el.textContent = text;
+  return el;
 }
 
 function createTextField({
-  uid, name, labelText, required = true, autocomplete, type = 'text', inputMode, maxLength,
+  uid,
+  name,
+  labelText,
+  hint,
+  required = false,
+  type = 'text',
+  autocomplete,
+  inputMode,
+  maxLength,
 }) {
   const id = `${uid}-${name}`;
   const wrap = document.createElement('div');
@@ -120,6 +200,7 @@ function createTextField({
   label.className = 'energy-assistance-form__label';
   label.htmlFor = id;
   label.textContent = labelText;
+  if (required) appendRequiredStar(label);
 
   const input = document.createElement('input');
   input.className = 'energy-assistance-form__input';
@@ -132,14 +213,26 @@ function createTextField({
   if (maxLength != null) input.maxLength = maxLength;
 
   wrap.append(label, input);
+  if (hint) wrap.append(createSingleHint(hint));
   return wrap;
 }
 
-function createTextAreaField({
+function parseIncomeOptions(raw) {
+  return String(raw || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((label, index) => ({ value: `household-tier-${index}`, label }));
+}
+
+function createHouseholdSelect({
   uid,
   name,
   labelText,
-  rows = 4,
+  options,
+  hintLeft,
+  hintRight,
+  required = true,
 }) {
   const id = `${uid}-${name}`;
   const wrap = document.createElement('div');
@@ -149,47 +242,97 @@ function createTextAreaField({
   label.className = 'energy-assistance-form__label';
   label.htmlFor = id;
   label.textContent = labelText;
+  if (required) appendRequiredStar(label);
 
-  const ta = document.createElement('textarea');
-  ta.className = 'energy-assistance-form__textarea';
-  ta.id = id;
-  ta.name = name;
-  ta.rows = rows;
+  const select = document.createElement('select');
+  select.className = 'energy-assistance-form__input energy-assistance-form__select';
+  select.id = id;
+  select.name = name;
+  select.required = required;
 
-  wrap.append(label, ta);
+  if (options.length) {
+    options.forEach((opt, index) => {
+      const o = document.createElement('option');
+      o.value = opt.value;
+      o.textContent = opt.label;
+      if (index === 0) o.selected = true;
+      select.append(o);
+    });
+  } else {
+    const o = document.createElement('option');
+    o.value = '';
+    o.textContent = 'Add options in authoring (Household Income Options)';
+    select.append(o);
+  }
+
+  wrap.append(label, select);
+  if (hintLeft || hintRight) wrap.append(createHintsRow(hintLeft, hintRight));
   return wrap;
 }
 
-function createCheckboxRow({ uid, name, labelText }) {
-  if (!labelText.trim()) return null;
+function createPrimaryHolderSelect({
+  uid,
+  name,
+  labelText,
+  hint,
+  placeholderText,
+  yesLabel,
+  noLabel,
+  required = true,
+}) {
   const id = `${uid}-${name}`;
   const wrap = document.createElement('div');
-  wrap.className = 'energy-assistance-form__check';
-
-  const input = document.createElement('input');
-  input.className = 'energy-assistance-form__checkbox';
-  input.type = 'checkbox';
-  input.id = id;
-  input.name = name;
-  input.value = 'yes';
+  wrap.className = 'energy-assistance-form__field energy-assistance-form__field--full';
 
   const label = document.createElement('label');
-  label.className = 'energy-assistance-form__check-label';
+  label.className = 'energy-assistance-form__label';
   label.htmlFor = id;
   label.textContent = labelText;
+  if (required) appendRequiredStar(label);
 
-  wrap.append(input, label);
+  const select = document.createElement('select');
+  select.className = 'energy-assistance-form__input energy-assistance-form__select';
+  select.id = id;
+  select.name = name;
+  select.required = required;
+
+  const ph = document.createElement('option');
+  ph.value = '';
+  ph.disabled = true;
+  ph.selected = true;
+  ph.textContent = placeholderText;
+  select.append(ph);
+
+  [['yes', yesLabel], ['no', noLabel]].forEach(([value, text]) => {
+    const o = document.createElement('option');
+    o.value = value;
+    o.textContent = text;
+    select.append(o);
+  });
+
+  wrap.append(label, select);
+  if (hint) wrap.append(createSingleHint(hint));
   return wrap;
+}
+
+function createFieldsetSection(legendText, extraClass = '') {
+  const fs = document.createElement('fieldset');
+  fs.className = ['energy-assistance-form__fieldset', extraClass].filter(Boolean).join(' ');
+  const leg = document.createElement('legend');
+  leg.className = 'energy-assistance-form__section-title';
+  leg.textContent = legendText;
+  fs.append(leg);
+  return fs;
 }
 
 export default function decorate(block) {
-  /* First-column text becomes row key (see readBlockConfig / toClassName in aem.js). */
   const introHtml = readCellInnerHTML(block, 'intro', 'introduction');
-  const consentHtml = readCellInnerHTML(block, 'consent', 'consent-copy');
-  const config = normalizeConfig(readBlockConfig(block), introHtml, consentHtml);
+  const termsBodyHtml = readCellInnerHTML(block, 'terms-body', 'terms-body-copy');
+  const raw = readBlockConfig(block);
+  const config = normalizeConfig(raw, introHtml, termsBodyHtml);
 
   const placement = toText(
-    config['classes-placement'] || config['column-placement-in-two-column-section'],
+    raw['classes-placement'] || raw['column-placement-in-two-column-section'],
     '',
   );
   if (placement === 'place-left' || placement === 'place-right') {
@@ -202,10 +345,9 @@ export default function decorate(block) {
   const root = document.createElement('div');
   root.className = 'energy-assistance-form__wrapper';
 
-  const heading = document.createElement('h3');
-  heading.className = 'energy-assistance-form__heading';
+  const heading = document.createElement('h2');
+  heading.className = 'energy-assistance-form__title';
   heading.textContent = config.heading;
-
   root.append(heading);
 
   const introPlain = plainFromHtml(config.introHtml);
@@ -226,133 +368,202 @@ export default function decorate(block) {
   const form = document.createElement('form');
   form.className = 'energy-assistance-form__form';
   form.id = formId;
-
   if (config.formAction) {
     form.action = config.formAction;
     form.method = 'post';
   }
 
-  const contact = createFieldGroup({
-    legendText: config.contactSectionHeading,
-    className: 'energy-assistance-form__fieldset',
-  });
-  const nameRow = document.createElement('div');
-  nameRow.className = 'energy-assistance-form__row energy-assistance-form__row--2';
-  nameRow.append(
-    createTextField({
-      uid, name: 'firstName', labelText: config.firstNameLabel, autocomplete: 'given-name',
-    }),
-    createTextField({
-      uid, name: 'lastName', labelText: config.lastNameLabel, autocomplete: 'family-name',
-    }),
-  );
-  const contactRow2 = document.createElement('div');
-  contactRow2.className = 'energy-assistance-form__row energy-assistance-form__row--2';
-  contactRow2.append(
-    createTextField({
-      uid, name: 'email', labelText: config.emailLabel, type: 'email', autocomplete: 'email',
-    }),
-    createTextField({
-      uid, name: 'phone', labelText: config.phoneLabel, type: 'tel', autocomplete: 'tel', inputMode: 'tel',
+  const incomeOptions = parseIncomeOptions(config.householdIncomeOptions);
+
+  const eligibility = createFieldsetSection(config.eligibilitySectionHeading);
+  eligibility.append(
+    createHouseholdSelect({
+      uid,
+      name: 'householdIncome',
+      labelText: config.householdIncomeLabel,
+      options: incomeOptions.length ? incomeOptions : parseIncomeOptions(DEFAULTS['household-income-options']),
+      hintLeft: config.householdHintLeft,
+      hintRight: config.householdHintRight,
+      required: true,
     }),
   );
-  contact.append(
-    nameRow,
-    contactRow2,
+
+  const customerOwner = createFieldsetSection(config.customerInformationHeading);
+  const ownerSub = document.createElement('p');
+  ownerSub.className = 'energy-assistance-form__subheading';
+  ownerSub.textContent = config.accountOwnerSubheading;
+  customerOwner.append(ownerSub);
+
+  const ownerRow = document.createElement('div');
+  ownerRow.className = 'energy-assistance-form__row energy-assistance-form__row--2';
+  ownerRow.append(
     createTextField({
       uid,
-      name: 'accountNumber',
-      labelText: config.accountNumberLabel,
+      name: 'ownerFirstName',
+      labelText: config.ownerFirstNameLabel,
+      hint: config.ownerFirstNameHint,
+      required: true,
+      autocomplete: 'given-name',
+    }),
+    createTextField({
+      uid,
+      name: 'ownerLastName',
+      labelText: config.ownerLastNameLabel,
+      hint: config.ownerLastNameHint,
+      required: true,
+      autocomplete: 'family-name',
+    }),
+  );
+  customerOwner.append(ownerRow);
+
+  const spouseFs = createFieldsetSection(config.spouseSectionHeading);
+  const spouseRow = document.createElement('div');
+  spouseRow.className = 'energy-assistance-form__row energy-assistance-form__row--2';
+  spouseRow.append(
+    createTextField({
+      uid,
+      name: 'spouseFirstName',
+      labelText: config.spouseFirstNameLabel,
+      hint: config.spouseFirstNameHint,
+      required: false,
+      autocomplete: 'off',
+    }),
+    createTextField({
+      uid,
+      name: 'spouseLastName',
+      labelText: config.spouseLastNameLabel,
+      hint: config.spouseLastNameHint,
       required: false,
       autocomplete: 'off',
     }),
   );
+  spouseFs.append(spouseRow);
 
-  const address = createFieldGroup({
-    legendText: config.addressSectionHeading,
-    className: 'energy-assistance-form__fieldset',
-  });
-  address.append(
+  const contactFs = createFieldsetSection(config.contactSectionHeading);
+  const contactRow = document.createElement('div');
+  contactRow.className = 'energy-assistance-form__row energy-assistance-form__row--2';
+  contactRow.append(
     createTextField({
-      uid, name: 'street', labelText: config.streetLabel, autocomplete: 'street-address',
-    }),
-  );
-  const cityRow = document.createElement('div');
-  cityRow.className = 'energy-assistance-form__row energy-assistance-form__row--city';
-  cityRow.append(
-    createTextField({
-      uid, name: 'city', labelText: config.cityLabel, autocomplete: 'address-level2',
+      uid,
+      name: 'applicantEmail',
+      labelText: config.applicantEmailLabel,
+      hint: config.applicantEmailHint,
+      required: true,
+      type: 'email',
+      autocomplete: 'email',
     }),
     createTextField({
       uid,
-      name: 'state',
-      labelText: config.stateLabel,
-      autocomplete: 'address-level1',
-      inputMode: 'text',
-      maxLength: 2,
-    }),
-    createTextField({
-      uid,
-      name: 'zip',
-      labelText: config.zipLabel,
-      autocomplete: 'postal-code',
-      inputMode: 'numeric',
-      maxLength: 10,
+      name: 'applicantPhone',
+      labelText: config.applicantPhoneLabel,
+      hint: config.applicantPhoneHint,
+      required: true,
+      type: 'tel',
+      autocomplete: 'tel',
+      inputMode: 'tel',
     }),
   );
-  address.append(cityRow);
+  contactFs.append(
+    contactRow,
+    createPrimaryHolderSelect({
+      uid,
+      name: 'primaryAccountHolder',
+      labelText: config.primaryHolderLabel,
+      hint: config.primaryHolderHint,
+      placeholderText: config.primaryHolderPlaceholder,
+      yesLabel: config.primaryHolderOptionYes,
+      noLabel: config.primaryHolderOptionNo,
+      required: true,
+    }),
+  );
 
-  const checks = document.createElement('div');
-  checks.className = 'energy-assistance-form__checks';
-  [
-    createCheckboxRow({ uid, name: 'programInterest1', labelText: config.program1Label }),
-    createCheckboxRow({ uid, name: 'programInterest2', labelText: config.program2Label }),
-    createCheckboxRow({ uid, name: 'programInterest3', labelText: config.program3Label }),
-  ].forEach((el) => {
-    if (el) checks.append(el);
+  const termsWrap = document.createElement('div');
+  termsWrap.className = 'energy-assistance-form__terms-wrap';
+
+  const details = document.createElement('details');
+  details.className = 'energy-assistance-form__terms-details';
+
+  const summary = document.createElement('summary');
+  summary.className = 'energy-assistance-form__terms-summary';
+  summary.textContent = config.termsToggleLabel;
+
+  const panel = document.createElement('div');
+  panel.className = 'energy-assistance-form__terms-panel';
+  panel.innerHTML = config.termsBodyHtml;
+
+  details.append(summary, panel);
+  termsWrap.append(details);
+
+  const agreeFs = document.createElement('fieldset');
+  agreeFs.className = 'energy-assistance-form__terms-agree';
+
+  const agreeLegend = document.createElement('legend');
+  agreeLegend.className = 'energy-assistance-form__terms-agree-legend';
+  agreeLegend.textContent = config.termsCheckboxLegend;
+  appendRequiredStar(agreeLegend);
+
+  const agreeRow = document.createElement('div');
+  agreeRow.className = 'energy-assistance-form__terms-agree-row';
+  const agreeId = `${uid}-termsAgree`;
+  const agreeInput = document.createElement('input');
+  agreeInput.type = 'checkbox';
+  agreeInput.className = 'energy-assistance-form__checkbox';
+  agreeInput.id = agreeId;
+  agreeInput.name = 'termsAgree';
+  agreeInput.required = true;
+  agreeInput.value = 'yes';
+
+  const agreeLabel = document.createElement('label');
+  agreeLabel.className = 'energy-assistance-form__terms-agree-label';
+  agreeLabel.htmlFor = agreeId;
+  agreeLabel.textContent = config.termsCheckboxAffirmLabel;
+
+  agreeRow.append(agreeInput, agreeLabel);
+  agreeFs.append(agreeLegend, agreeRow);
+  termsWrap.append(agreeFs);
+
+  const behalfFs = document.createElement('fieldset');
+  behalfFs.className = 'energy-assistance-form__fieldset energy-assistance-form__fieldset--radios';
+
+  const behalfLegend = document.createElement('legend');
+  behalfLegend.className = 'energy-assistance-form__label energy-assistance-form__label--legend';
+  behalfLegend.textContent = config.behalfQuestionLabel;
+  appendRequiredStar(behalfLegend);
+  behalfFs.append(behalfLegend);
+
+  const radioName = 'submitOnBehalf';
+  [['self', config.behalfOptionSelfLabel], ['behalf', config.behalfOptionBehalfLabel]].forEach(([value, text], idx) => {
+    const rid = `${uid}-behalf-${value}`;
+    const row = document.createElement('div');
+    row.className = 'energy-assistance-form__radio-row';
+
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.className = 'energy-assistance-form__radio';
+    input.name = radioName;
+    input.id = rid;
+    input.value = value;
+    input.required = true;
+    if (idx === 0) input.checked = true;
+
+    const lab = document.createElement('label');
+    lab.className = 'energy-assistance-form__radio-label';
+    lab.htmlFor = rid;
+    lab.textContent = text;
+
+    row.append(input, lab);
+    behalfFs.append(row);
   });
 
-  let programs = null;
-  if (checks.childElementCount > 0) {
-    programs = createFieldGroup({
-      legendText: config.programsSectionHeading,
-      className: 'energy-assistance-form__fieldset energy-assistance-form__fieldset--programs',
-    });
-    programs.append(checks);
-  }
-
-  const comments = createTextAreaField({
-    uid, name: 'comments', labelText: config.commentsLabel, rows: 4,
-  });
-
-  const consentWrap = document.createElement('div');
-  consentWrap.className = 'energy-assistance-form__consent';
-  const consentId = `${uid}-consent`;
-  const consentInput = document.createElement('input');
-  consentInput.type = 'checkbox';
-  consentInput.className = 'energy-assistance-form__checkbox';
-  consentInput.id = consentId;
-  consentInput.name = 'consent';
-  consentInput.required = true;
-  consentInput.value = 'yes';
-
-  const consentLabel = document.createElement('label');
-  consentLabel.className = 'energy-assistance-form__consent-label';
-  consentLabel.htmlFor = consentId;
-  if (config.consentHtml) {
-    consentLabel.innerHTML = config.consentHtml;
-  }
-
-  consentWrap.append(consentInput, consentLabel);
+  termsWrap.append(behalfFs);
 
   const actions = document.createElement('div');
-  actions.className = 'energy-assistance-form__actions';
+  actions.className = 'energy-assistance-form__actions energy-assistance-form__actions--center';
 
   const submitBtn = document.createElement('button');
   submitBtn.type = 'submit';
   submitBtn.className = 'button';
   submitBtn.textContent = config.submitLabel;
-
   actions.append(submitBtn);
 
   if (config.resetLabel.trim()) {
@@ -363,12 +574,14 @@ export default function decorate(block) {
     actions.append(resetBtn);
   }
 
-  const sections = [contact, address];
-  if (programs) {
-    sections.push(programs);
-  }
-  sections.push(comments, consentWrap, actions);
-  form.append(...sections);
+  form.append(
+    eligibility,
+    customerOwner,
+    spouseFs,
+    contactFs,
+    termsWrap,
+    actions,
+  );
   root.append(form);
 
   form.addEventListener('submit', (event) => {

@@ -11,25 +11,15 @@
               "name": "Energy Assistance Form",
               "model": "energy-assistance-form",
               "key-value": true,
-              "heading": "Energy assistance",
-              "contact-section-heading": "Your information",
-              "first-name-label": "First name",
-              "last-name-label": "Last name",
-              "email-label": "Email",
-              "phone-label": "Phone",
-              "account-number-label": "Account number (optional)",
-              "address-section-heading": "Service address",
-              "street-label": "Street address",
-              "city-label": "City",
-              "state-label": "State",
-              "zip-label": "ZIP code",
-              "programs-section-heading": "How can we help?",
-              "program-1-label": "Heating / energy bill assistance (LIHEAP)",
-              "program-2-label": "Payment arrangement or budget billing",
-              "program-3-label": "Weatherization or energy efficiency programs",
-              "comments-label": "Additional details",
-              "submit-label": "Submit request",
-              "success-message": "Thank you. Your request has been received. We will contact you soon."
+              "heading": "Complete the SERV application below",
+              "eligibility-section-heading": "ELIGIBILITY",
+              "household-income-label": "Household Size and Income",
+              "household-income-options": "3-person household with annual income less than $66,625\n4-person household with annual income less than $75,000",
+              "household-hint-left": "Number of people in the household",
+              "household-hint-right": "Annual household income in dollars",
+              "customer-information-heading": "CUSTOMER INFORMATION",
+              "account-owner-subheading": "ACCOUNT OWNER",
+              "submit-label": "Apply for Energy Assistance"
             }
           }
         }
@@ -54,95 +44,170 @@
         },
         {
           "component": "text",
+          "name": "eligibility-section-heading",
+          "label": "Eligibility Section Heading"
+        },
+        {
+          "component": "text",
+          "name": "household-income-label",
+          "label": "Household Income Label"
+        },
+        {
+          "component": "text",
+          "name": "household-income-options",
+          "label": "Household Income Options (one per line)"
+        },
+        {
+          "component": "text",
+          "name": "household-hint-left",
+          "label": "Household Hint Left"
+        },
+        {
+          "component": "text",
+          "name": "household-hint-right",
+          "label": "Household Hint Right"
+        },
+        {
+          "component": "text",
+          "name": "customer-information-heading",
+          "label": "Customer Information Heading"
+        },
+        {
+          "component": "text",
+          "name": "account-owner-subheading",
+          "label": "Account Owner Subheading"
+        },
+        {
+          "component": "text",
+          "name": "owner-first-name-label",
+          "label": "Owner First Name Label"
+        },
+        {
+          "component": "text",
+          "name": "owner-first-name-hint",
+          "label": "Owner First Name Hint"
+        },
+        {
+          "component": "text",
+          "name": "owner-last-name-label",
+          "label": "Owner Last Name Label"
+        },
+        {
+          "component": "text",
+          "name": "owner-last-name-hint",
+          "label": "Owner Last Name Hint"
+        },
+        {
+          "component": "text",
+          "name": "spouse-section-heading",
+          "label": "Spouse Section Heading"
+        },
+        {
+          "component": "text",
+          "name": "spouse-first-name-label",
+          "label": "Spouse First Name Label"
+        },
+        {
+          "component": "text",
+          "name": "spouse-first-name-hint",
+          "label": "Spouse First Name Hint"
+        },
+        {
+          "component": "text",
+          "name": "spouse-last-name-label",
+          "label": "Spouse Last Name Label"
+        },
+        {
+          "component": "text",
+          "name": "spouse-last-name-hint",
+          "label": "Spouse Last Name Hint"
+        },
+        {
+          "component": "text",
           "name": "contact-section-heading",
           "label": "Contact Section Heading"
         },
         {
           "component": "text",
-          "name": "first-name-label",
-          "label": "First Name Label"
+          "name": "applicant-email-label",
+          "label": "Applicant Email Label"
         },
         {
           "component": "text",
-          "name": "last-name-label",
-          "label": "Last Name Label"
+          "name": "applicant-email-hint",
+          "label": "Applicant Email Hint"
         },
         {
           "component": "text",
-          "name": "email-label",
-          "label": "Email Label"
+          "name": "applicant-phone-label",
+          "label": "Applicant Phone Label"
         },
         {
           "component": "text",
-          "name": "phone-label",
-          "label": "Phone Label"
+          "name": "applicant-phone-hint",
+          "label": "Applicant Phone Hint"
         },
         {
           "component": "text",
-          "name": "account-number-label",
-          "label": "Account Number Label"
+          "name": "primary-holder-label",
+          "label": "Primary Account Holder Label"
         },
         {
           "component": "text",
-          "name": "address-section-heading",
-          "label": "Address Section Heading"
+          "name": "primary-holder-hint",
+          "label": "Primary Account Holder Hint"
         },
         {
           "component": "text",
-          "name": "street-label",
-          "label": "Street Label"
+          "name": "primary-holder-placeholder",
+          "label": "Primary Account Holder Placeholder"
         },
         {
           "component": "text",
-          "name": "city-label",
-          "label": "City Label"
+          "name": "primary-holder-option-yes",
+          "label": "Primary Account Holder Option Yes"
         },
         {
           "component": "text",
-          "name": "state-label",
-          "label": "State Label"
+          "name": "primary-holder-option-no",
+          "label": "Primary Account Holder Option No"
         },
         {
           "component": "text",
-          "name": "zip-label",
-          "label": "Zip Label"
-        },
-        {
-          "component": "text",
-          "name": "programs-section-heading",
-          "label": "Programs Section Heading"
-        },
-        {
-          "component": "text",
-          "name": "program-1-label",
-          "label": "Program 1 Label"
-        },
-        {
-          "component": "text",
-          "name": "program-2-label",
-          "label": "Program 2 Label"
-        },
-        {
-          "component": "text",
-          "name": "program-3-label",
-          "label": "Program 3 Label"
-        },
-        {
-          "component": "text",
-          "name": "comments-label",
-          "label": "Comments Label"
+          "name": "terms-toggle-label",
+          "label": "Terms Toggle Label"
         },
         {
           "component": "richtext",
-          "name": "consent",
-          "label": "Consent",
+          "name": "terms-body",
+          "label": "Terms Body",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "text",
-          "name": "consent-label",
-          "label": "Consent Label"
+          "name": "terms-checkbox-legend",
+          "label": "Terms Checkbox Legend"
+        },
+        {
+          "component": "text",
+          "name": "terms-checkbox-affirm-label",
+          "label": "Terms Checkbox Affirm Label"
+        },
+        {
+          "component": "text",
+          "name": "behalf-question-label",
+          "label": "Behalf Question Label"
+        },
+        {
+          "component": "text",
+          "name": "behalf-option-self-label",
+          "label": "Behalf Option Self Label"
+        },
+        {
+          "component": "text",
+          "name": "behalf-option-behalf-label",
+          "label": "Behalf Option Behalf Label"
         },
         {
           "component": "text",
