@@ -1,10 +1,15 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
 const DEFAULTS = {
-  eyebrow: 'Billing & Payment Options',
   'bill-label': 'Total Amount Due',
-  'amount-due': '$127.35',
+  'amount-due': '$150.53',
+  'due-date': 'Pay before May 15, 2026',
+  'billing-period': 'Mar 30, 2026 - Apr 30, 2026',
   'bill-cta-label': 'Pay Bill',
+  'bill-cta-link': '/billing-payment',
+  'high-bill-alert-title': 'High Bill Alert',
+  'high-bill-alert-message': '18% higher compared to last month',
+  'high-bill-alert-cta-label': 'See why & Take Action',
 };
 
 /** Static demo insights (not authorable; wireframe / journey reference). */
@@ -45,21 +50,18 @@ function plainFromMarkup(html) {
 
 function normalizeConfig(config) {
   return {
-    eyebrow: toText(config.eyebrow),
+    eyebrow: toText(config.eyebrow, ''),
     billLabel: toText(config['bill-label'], DEFAULTS['bill-label']),
     amountDue: toText(config['amount-due'], DEFAULTS['amount-due']),
+    dueDate: toText(config['due-date'], DEFAULTS['due-date']),
+    billingPeriod: toText(config['billing-period'], DEFAULTS['billing-period']),
     billCtaLabel: toText(config['bill-cta-label'], DEFAULTS['bill-cta-label']),
-    billCtaLink: config['bill-cta-link'],
-    highBillAlertTitle: toText(config['high-bill-alert-title'], ''),
-    highBillAlertMessage: toText(config['high-bill-alert-message'], ''),
-    highBillAlertCtaLabel: toText(config['high-bill-alert-cta-label'], ''),
+    billCtaLink: config['bill-cta-link'] || DEFAULTS['bill-cta-link'],
+    highBillAlertTitle: toText(config['high-bill-alert-title'], DEFAULTS['high-bill-alert-title']),
+    highBillAlertMessage: toText(config['high-bill-alert-message'], DEFAULTS['high-bill-alert-message']),
+    highBillAlertCtaLabel: toText(config['high-bill-alert-cta-label'], DEFAULTS['high-bill-alert-cta-label']),
     content: toMarkup(config.content),
   };
-}
-
-function hasHighBillAlertCopy(config) {
-  return [config.highBillAlertTitle, config.highBillAlertMessage, config.highBillAlertCtaLabel]
-    .some((value) => String(value || '').trim());
 }
 
 function createMetricCell({
@@ -302,14 +304,17 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'bill-card__wrapper';
 
-  const topBar = document.createElement('div');
-  topBar.className = 'bill-card__top';
+  if (config.eyebrow.trim()) {
+    const topBar = document.createElement('div');
+    topBar.className = 'bill-card__top';
 
-  const eyebrow = document.createElement('p');
-  eyebrow.className = 'bill-card__eyebrow';
-  eyebrow.textContent = config.eyebrow;
+    const eyebrow = document.createElement('p');
+    eyebrow.className = 'bill-card__eyebrow';
+    eyebrow.textContent = config.eyebrow;
 
-  topBar.append(eyebrow);
+    topBar.append(eyebrow);
+    wrapper.append(topBar);
+  }
 
   const billCard = document.createElement('div');
   billCard.className = 'bill-card__bill-card';
@@ -317,8 +322,8 @@ export default function decorate(block) {
   const billRow = document.createElement('div');
   billRow.className = 'bill-card__bill-row';
 
-  const billMeta = document.createElement('div');
-  billMeta.className = 'bill-card__bill-meta';
+  const billSummary = document.createElement('div');
+  billSummary.className = 'bill-card__bill-summary';
 
   const billLabel = document.createElement('p');
   billLabel.className = 'bill-card__bill-label';
@@ -328,15 +333,28 @@ export default function decorate(block) {
   billAmount.className = 'bill-card__bill-amount';
   billAmount.textContent = config.amountDue;
 
-  billMeta.append(billLabel, billAmount);
-  billRow.append(billMeta, createButton(config.billCtaLabel, config.billCtaLink));
+  billSummary.append(billLabel, billAmount);
+
+  const dueEl = document.createElement('p');
+  dueEl.className = 'bill-card__bill-due';
+  dueEl.textContent = config.dueDate;
+  billSummary.append(dueEl);
+
+  const periodEl = document.createElement('p');
+  periodEl.className = 'bill-card__bill-period';
+  periodEl.textContent = config.billingPeriod;
+  billSummary.append(periodEl);
+
+  const ctaWrap = document.createElement('div');
+  ctaWrap.className = 'bill-card__bill-cta';
+  ctaWrap.append(createButton(config.billCtaLabel, config.billCtaLink));
+
+  billRow.append(billSummary, ctaWrap);
   billCard.append(billRow);
 
-  if (hasHighBillAlertCopy(config)) {
-    appendHighBillAlert(billCard, config);
-  }
+  appendHighBillAlert(billCard, config);
 
-  wrapper.append(topBar, billCard);
+  wrapper.append(billCard);
 
   const contentPlain = plainFromMarkup(config.content);
   if (contentPlain) {

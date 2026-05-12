@@ -272,6 +272,16 @@
       },
       {
         "component": "text",
+        "name": "due-date",
+        "label": "Due date"
+      },
+      {
+        "component": "text",
+        "name": "billing-period",
+        "label": "Billing period"
+      },
+      {
+        "component": "text",
         "name": "bill-cta-label",
         "label": "Bill CTA Label"
       },

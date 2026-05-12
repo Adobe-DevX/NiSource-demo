@@ -68,11 +68,58 @@
 }
 
 .bill-card__bill-row {
-  align-items: center;
+  align-items: stretch;
   display: flex;
   flex-direction: column;
   gap: var(--nisource-space-3);
   justify-content: space-between;
+}
+
+.bill-card__bill-summary {
+  display: grid;
+  flex: 1;
+  gap: var(--nisource-space-2);
+  min-width: 0;
+  width: 100%;
+}
+
+.bill-card__bill-cta {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.bill-card__bill-cta .button {
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .bill-card {
+    padding: var(--nisource-space-4);
+  }
+
+  .bill-card__bill-card {
+    padding: var(--nisource-space-3) var(--nisource-space-4);
+  }
+
+  .bill-card__bill-row {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: var(--nisource-space-4);
+  }
+
+  .bill-card__bill-cta {
+    align-self: flex-start;
+    margin-top: var(--nisource-space-1);
+    width: auto;
+  }
+
+  .bill-card__bill-cta .button {
+    min-width: 16rem;
+    width: auto;
+  }
 }
 
 .bill-card__high-bill-alert {
@@ -368,9 +415,16 @@
   text-decoration: underline;
 }
 
-.bill-card__bill-meta {
-  display: grid;
-  gap: var(--nisource-space-1);
+/* Small paragraph — 14px regular (design.md 1.2) */
+.bill-card__bill-due,
+.bill-card__bill-period {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Small header / button — 14px bold (design.md §1.2) */
@@ -413,19 +467,4 @@
 
 .bill-card .button.disabled {
   pointer-events: none;
-}
-
-@media (min-width: 900px) {
-  .bill-card {
-    padding: var(--nisource-space-4);
-  }
-
-  .bill-card__bill-card {
-    padding: var(--nisource-space-3) var(--nisource-space-4);
-  }
-
-  .bill-card__bill-row {
-    flex-direction: row;
-    gap: var(--nisource-space-4);
-  }
 }
