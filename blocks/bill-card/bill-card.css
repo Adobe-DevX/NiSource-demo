@@ -11,6 +11,33 @@
   gap: var(--nisource-space-3);
 }
 
+/* Paragraph — default body copy (design.md 1.2) */
+.bill-card__content {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
+}
+
+.bill-card__content > :first-child {
+  margin-top: 0;
+}
+
+.bill-card__content > :last-child {
+  margin-bottom: 0;
+}
+
+.bill-card__content a:any-link {
+  color: var(--nisource-color-primary);
+  text-decoration: underline;
+}
+
+.bill-card__content a:any-link:hover,
+.bill-card__content a:any-link:focus {
+  color: var(--nisource-color-primary-hover);
+}
+
 .bill-card__top {
   align-items: center;
   display: flex;
@@ -28,7 +55,6 @@
 }
 
 .bill-card__bill-card {
-  align-items: center;
   background: var(--nisource-color-bg-page);
   border: var(--shape-border-width-1) solid var(--nisource-color-border);
   border-radius: var(--shape-border-radius-2);
@@ -36,8 +62,73 @@
   display: flex;
   flex-direction: column;
   gap: var(--nisource-space-3);
-  justify-content: space-between;
   padding: var(--nisource-space-3);
+}
+
+.bill-card__bill-row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-3);
+  justify-content: space-between;
+}
+
+.bill-card__high-bill-alert {
+  background: var(--nisource-color-high-bill-alert-bg);
+  border-radius: var(--shape-border-radius-2);
+  color: var(--nisource-color-high-bill-alert-text);
+  display: grid;
+  gap: var(--nisource-space-1);
+  margin-top: var(--nisource-space-1);
+  padding: var(--nisource-space-3);
+}
+
+/* Small text — 12px (design.md 1.2) */
+.bill-card__high-bill-alert-title {
+  color: var(--nisource-color-high-bill-alert-muted);
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Body bold / emphasis on dark */
+.bill-card__high-bill-alert-message {
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.bill-card .bill-card__high-bill-alert-cta:any-link {
+  color: var(--nisource-color-high-bill-alert-link);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  justify-self: start;
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin-top: var(--nisource-space-1);
+  text-decoration: underline;
+}
+
+.bill-card .bill-card__high-bill-alert-cta:any-link:hover,
+.bill-card .bill-card__high-bill-alert-cta:any-link:focus {
+  color: var(--nisource-color-high-bill-alert-link-hover);
+}
+
+.bill-card__high-bill-alert-cta--disabled {
+  color: var(--nisource-color-high-bill-alert-muted);
+  cursor: default;
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  margin-top: var(--nisource-space-1);
+  text-decoration: underline;
 }
 
 .bill-card__bill-meta {
@@ -93,8 +184,11 @@
   }
 
   .bill-card__bill-card {
+    padding: var(--nisource-space-3) var(--nisource-space-4);
+  }
+
+  .bill-card__bill-row {
     flex-direction: row;
     gap: var(--nisource-space-4);
-    padding: var(--nisource-space-3) var(--nisource-space-4);
   }
 }

@@ -165,6 +165,13 @@
   /* design.md App colors — Sky Blue for insights / accent icon */
   --nisource-color-insights-icon: #4fa6ff;
 
+  /* High bill alert strip (Gray 70 on white card, journey wireframe) */
+  --nisource-color-high-bill-alert-bg: #26333a;
+  --nisource-color-high-bill-alert-text: #fff;
+  --nisource-color-high-bill-alert-muted: #e2e2e2;
+  --nisource-color-high-bill-alert-link: #62b5e5;
+  --nisource-color-high-bill-alert-link-hover: #eff3fc;
+
   /* Black — heading text in header chrome */
   --nisource-color-header-text: #000;
 

@@ -14,7 +14,10 @@
               "eyebrow": "Billing & Payment Options",
               "bill-label": "Total Amount Due",
               "amount-due": "$127.35",
-              "bill-cta-label": "Pay Bill"
+              "bill-cta-label": "Pay Bill",
+              "high-bill-alert-title": "High Bill Alert",
+              "high-bill-alert-message": "18% higher compared to last month",
+              "high-bill-alert-cta-label": "See why & Take Action"
             }
           }
         }
@@ -49,6 +52,33 @@
           "component": "aem-content",
           "name": "bill-cta-link",
           "label": "Bill CTA Link"
+        },
+        {
+          "component": "text",
+          "name": "high-bill-alert-title",
+          "label": "High bill alert — title"
+        },
+        {
+          "component": "text",
+          "name": "high-bill-alert-message",
+          "label": "High bill alert — message"
+        },
+        {
+          "component": "text",
+          "name": "high-bill-alert-cta-label",
+          "label": "High bill alert — CTA label"
+        },
+        {
+          "component": "aem-content",
+          "name": "high-bill-alert-cta-link",
+          "label": "High bill alert — CTA link"
+        },
+        {
+          "component": "richtext",
+          "name": "content",
+          "label": "Content",
+          "valueType": "string",
+          "value": ""
         },
         {
           "component": "select",

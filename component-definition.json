@@ -206,7 +206,10 @@
                   "eyebrow": "Billing & Payment Options",
                   "bill-label": "Total Amount Due",
                   "amount-due": "$127.35",
-                  "bill-cta-label": "Pay Bill"
+                  "bill-cta-label": "Pay Bill",
+                  "high-bill-alert-title": "High Bill Alert",
+                  "high-bill-alert-message": "18% higher compared to last month",
+                  "high-bill-alert-cta-label": "See why & Take Action"
                 }
               }
             }

@@ -281,6 +281,33 @@
         "label": "Bill CTA Link"
       },
       {
+        "component": "text",
+        "name": "high-bill-alert-title",
+        "label": "High bill alert — title"
+      },
+      {
+        "component": "text",
+        "name": "high-bill-alert-message",
+        "label": "High bill alert — message"
+      },
+      {
+        "component": "text",
+        "name": "high-bill-alert-cta-label",
+        "label": "High bill alert — CTA label"
+      },
+      {
+        "component": "aem-content",
+        "name": "high-bill-alert-cta-link",
+        "label": "High bill alert — CTA link"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "value": ""
+      },
+      {
         "component": "select",
         "name": "classes_placement",
         "label": "Column placement (in Two Column section)",
