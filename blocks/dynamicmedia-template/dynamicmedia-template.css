@@ -1,0 +1,12 @@
+.dynamicmedia-template-wrapper {
+  margin-inline: auto;
+  max-width: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.dynamicmedia-template .dm-template-image {
+  border-radius: var(--shape-border-radius-2);
+  height: auto;
+  max-width: 100%;
+}

@@ -53,7 +53,22 @@
           "...": "../blocks/my-insights/_*.json#/definitions"
         },
         {
+          "...": "../blocks/energy-assistance-form/_*.json#/definitions"
+        },
+        {
           "...": "../blocks/content-fragment/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/dynamic-media-image/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/dynamic-media-video/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/dynamicmedia-image/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/dynamicmedia-template/_*.json#/definitions"
         }
       ]
     },
