@@ -59,9 +59,6 @@
           "...": "../blocks/content-fragment/_*.json#/definitions"
         },
         {
-          "...": "../blocks/content-fragment-2/_*.json#/definitions"
-        },
-        {
           "...": "../blocks/dynamic-media-image/_*.json#/definitions"
         },
         {

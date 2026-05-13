@@ -678,35 +678,6 @@
     ]
   },
   {
-    "id": "contentfragment2",
-    "fields": [
-      {
-        "component": "aem-content-fragment",
-        "name": "reference",
-        "label": "Content Fragment path",
-        "valueType": "string",
-        "required": true,
-        "variationName": "contentFragmentVariation"
-      },
-      {
-        "component": "text",
-        "name": "contentFragmentVariation",
-        "label": "Selected Variation",
-        "value": "",
-        "valueType": "string",
-        "description": "Persisted variation for publish; leave empty for master.",
-        "condition": {
-          "==": [
-            {
-              "var": "__alwaysFalse"
-            },
-            true
-          ]
-        }
-      }
-    ]
-  },
-  {
     "id": "contentfragment",
     "fields": [
       {
