@@ -21,12 +21,14 @@ const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcl
  * - dmVideoViewerUrl — dynamic-media-video script URL.
  * - dmTemplateWrapperUrl / dmTemplateGraphqlPath — dynamicmedia-template CF mode.
  * - cfWrapperUrl — Fragment block: POST gateway for persisted query on publish.
+ * - publishUrl — Fragment block: AEM publish origin for direct persisted-query GET on publish
+ *   (optional alternative to wrapper + hostname). Meta: publishurl or publish-url.
  * - cfGraphqlPath / cfGraphqlItemKey — Fragment block: override persisted query path /
  *   `data` response key.
  *
- * Meta overrides (getMetadata, kebab-case): authorurl, cf-wrapper-url, cf-graphql-path,
- * cf-graphql-item-key, dm-video-viewer-url, dm-template-wrapper-url, dm-template-graphql-path,
- * experiment-prod-host.
+ * Meta overrides (getMetadata, kebab-case): authorurl, publish-url, cf-wrapper-url,
+ * cf-graphql-path, cf-graphql-item-key, dm-video-viewer-url, dm-template-wrapper-url,
+ * dm-template-graphql-path, experiment-prod-host.
  *
  * Path mapping: `/paths.json` (`getPathMappings`). See docs/ref-demo-eds.md.
  * -----------------------------------------------------------------------------

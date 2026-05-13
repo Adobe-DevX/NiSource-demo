@@ -132,11 +132,19 @@ function resolveCfPersistedQueryConfig(ph) {
     getMetadata('authorurl')
     || CF_AUTHOR_ORIGIN_DEFAULT
   ).replace(/\/$/, '');
+  /** Direct publish origin for persisted-query GET (citisignal-style `publishurl` meta). */
+  const aemPublishUrlDirect = (
+    ph.publishUrl
+    || getMetadata('publishurl')
+    || getMetadata('publish-url')
+    || ''
+  ).trim().replace(/\/$/, '');
   return {
     graphqlPath,
     itemKey,
     wrapperUrl,
     aemAuthorUrl,
+    aemPublishUrlDirect,
   };
 }
 
@@ -145,11 +153,21 @@ function resolveCfPersistedQueryConfig(ph) {
  */
 function buildCfPersistedQueryRequest(p) {
   const suffix = p.graphqlPath.startsWith('/') ? p.graphqlPath : `/${p.graphqlPath}`;
+  const pathVarTs = `;path=${encodeURIComponent(p.cfPath)};variation=${encodeURIComponent(p.variation)};ts=${Date.now()}`;
   if (p.isAuthor) {
     return {
-      url: `${p.aemAuthorUrl}${suffix};path=${encodeURIComponent(p.cfPath)};variation=${encodeURIComponent(p.variation)};ts=${Date.now()}`,
+      url: `${p.aemAuthorUrl}${suffix}${pathVarTs}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
+      credentials: /** @type {RequestCredentials} */ ('include'),
+    };
+  }
+  if (p.aemPublishUrlDirect) {
+    return {
+      url: `${p.aemPublishUrlDirect}${suffix}${pathVarTs}`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: /** @type {RequestCredentials} */ ('include'),
     };
   }
   return {
@@ -176,16 +194,21 @@ async function loadCfNewsCard(cfPath, variation) {
     itemKey,
     wrapperUrl,
     aemAuthorUrl,
+    aemPublishUrlDirect,
   } = resolveCfPersistedQueryConfig(ph);
 
   const hostname = (await getHostname()) || getMetadata('hostname');
   const aemPublishUrl = hostname?.replace('author', 'publish')?.replace(/\/$/, '');
   const isAuthor = isAuthorEnvironment();
 
-  if (!isAuthor && (!wrapperUrl || !aemPublishUrl)) {
+  const canPublishDirect = Boolean(aemPublishUrlDirect);
+  const canPublishWrapper = Boolean(wrapperUrl && aemPublishUrl);
+
+  if (!isAuthor && !canPublishDirect && !canPublishWrapper) {
     // eslint-disable-next-line no-console
     console.warn(
-      'fragment (CF): publish needs CF Wrapper URL + hostname placeholders or meta.',
+      'fragment (CF): on publish set meta/placeholder publishurl for direct GraphQL GET, '
+      + 'or cfWrapperUrl + hostname for the POST wrapper.',
     );
     return null;
   }
@@ -194,6 +217,7 @@ async function loadCfNewsCard(cfPath, variation) {
     isAuthor,
     aemAuthorUrl,
     aemPublishUrl,
+    aemPublishUrlDirect,
     graphqlPath,
     cfPath,
     variation,
@@ -203,6 +227,7 @@ async function loadCfNewsCard(cfPath, variation) {
     method: req.method,
     headers: req.headers,
     ...(req.body && { body: req.body }),
+    ...(req.credentials && { credentials: req.credentials }),
   });
   if (!response.ok) return null;
 
@@ -261,6 +286,22 @@ async function loadCfNewsCard(cfPath, variation) {
 }
 
 /**
+ * Remove Universal Editor instrumentation from the block tree on publish.
+ * @param {Element} root
+ */
+function stripCfBlockInstrumentation(root) {
+  const strip = (el) => {
+    [...el.attributes].forEach(({ name }) => {
+      if (name.startsWith('data-aue-') || name.startsWith('data-richtext-')) {
+        el.removeAttribute(name);
+      }
+    });
+  };
+  strip(root);
+  root.querySelectorAll('*').forEach(strip);
+}
+
+/**
  * Loads a fragment.
  * @param {string} path The path to the fragment
  * @returns {Promise<HTMLElement>} The root element of the fragment
@@ -302,6 +343,9 @@ export default async function decorate(block) {
         block.textContent = '';
         block.classList.add('fragment', 'fragment--cf');
         block.append(card);
+        if (!isAuthorEnvironment()) {
+          stripCfBlockInstrumentation(block);
+        }
         return;
       }
     } catch (e) {
