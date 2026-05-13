@@ -4,12 +4,19 @@
   move-to-http-header="true"
 >
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--
+  Web SDK pre-hiding: hide only nodes you mark for Target/VEC personalization.
+  Default extension CSS targets .personalization-container, which this EDS site does not use.
+  Add data-adobe-target-prehide to wrappers (or replace the CSS string below) so it matches
+  your DOM / Target prehidingSelector. Optional: also hide main > .section:first-of-type
+  if your hero is always personalized (weighs LCP vs. flicker).
+-->
 <script>
     !function(e,a,n,t){var i=e.head;if(i){
     if (a) return;
     var o=e.createElement("style");
     o.id="alloy-prehiding",o.innerText=n,i.appendChild(o),setTimeout(function(){o.parentNode&&o.parentNode.removeChild(o)},t)}}
-    (document, document.location.href.indexOf("adobe_authoring_enabled") !== -1, ".personalization-container { opacity: 0 !important }", 3000);
+    (document, document.location.href.indexOf("adobe_authoring_enabled") !== -1, "[data-adobe-target-prehide] { opacity: 0 !important }", 3000);
   </script>
 <script nonce="aem" type="speculationrules">
     {
