@@ -1,5 +1,11 @@
 import { toCamelCase } from './aem.js';
 
+/**
+ * Default author origin when placeholders omit `hostname`;
+ * used to derive publish (`author` → `publish`).
+ */
+const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcloud.com';
+
 /*
  * -----------------------------------------------------------------------------
  * EDS / Ref-Demo–aligned helpers — placeholders & metadata
@@ -10,6 +16,7 @@ import { toCamelCase } from './aem.js';
  * Optional keys (placeholders.json → camelCase) for ported Ref Demo flows:
  *
  * - hostname — content-fragment, DM template CF; publish host (author→publish).
+ *   Falls back to the default author origin in `getHostname()` if unset.
  * - dmurl — dynamicmedia-image (Scene7 base URL).
  * - cfWrapperUrl — content-fragment POST gateway on publish.
  * - cfGraphqlPath — persisted GraphQL path after host (e.g. …/CTAByPath).
@@ -133,15 +140,19 @@ export async function fetchPlaceholders(prefix = 'default') {
 }
 
 /**
- * @returns {Promise<string|undefined>}
+ * @returns {Promise<string>}
  */
 export async function getHostname() {
   try {
     const ph = await fetchPlaceholders();
-    return ph?.hostname;
+    const raw = ph?.hostname;
+    if (raw != null && String(raw).trim() !== '') {
+      return String(raw).trim().replace(/\/$/, '');
+    }
   } catch {
-    return undefined;
+    /* use default */
   }
+  return DEFAULT_PLACEHOLDER_HOSTNAME;
 }
 
 /**
