@@ -5,6 +5,7 @@ import {
   isAuthorEnvironment,
   mapAemPathToSitePath,
 } from '../../scripts/eds-support.js';
+import { normalizeCfBannerItem } from './cf-normalize.js';
 
 /**
  * Resolve persisted-query item from GraphQL JSON (shape varies by query name).
@@ -118,10 +119,14 @@ export default async function decorate(block) {
       return;
     }
 
+    const view = normalizeCfBannerItem(cfReq);
+    const titleProp = view.variant === 'sample' ? 'headline' : 'title';
+    const descProp = view.variant === 'sample' ? 'paragraph' : 'description';
+
     const itemId = `urn:aemconnection:${contentPath}/jcr:content/data/${variationname}`;
     block.setAttribute('data-aue-type', 'container');
 
-    const imgUrl = isAuthor ? cfReq.bannerimage?._authorUrl : cfReq.bannerimage?._publishUrl;
+    const imgUrl = isAuthor ? view.bannerimage?._authorUrl : view.bannerimage?._publishUrl;
 
     const isImageLeft = displayStyle === 'image-left';
     const isImageRight = displayStyle === 'image-right';
@@ -140,7 +145,7 @@ export default async function decorate(block) {
     }
 
     let ctaHref = '#';
-    const cta = cfReq?.ctaurl;
+    const { cta } = view;
     if (cta) {
       if (typeof cta === 'string') {
         ctaHref = /^https?:\/\//i.test(cta) ? cta : `${isAuthor ? (aemAuthorUrl || '') : (aemPublishUrl || '')}${cta}`;
@@ -185,56 +190,68 @@ export default async function decorate(block) {
     const detail = document.createElement('div');
     detail.className = `banner-detail ${alignment}`.trim();
     if (bannerDetailStyle) detail.setAttribute('style', bannerDetailStyle);
-    detail.dataset.aueProp = 'bannerimage';
-    detail.dataset.aueLabel = 'Main Image';
-    detail.dataset.aueType = 'media';
+    if (view.bannerimage) {
+      detail.dataset.aueProp = 'bannerimage';
+      detail.dataset.aueLabel = 'Main Image';
+      detail.dataset.aueType = 'media';
+    }
 
     const h2 = document.createElement('h2');
     h2.className = 'cftitle';
-    h2.dataset.aueProp = 'title';
-    h2.dataset.aueLabel = 'Title';
+    h2.dataset.aueProp = titleProp;
+    h2.dataset.aueLabel = titleProp === 'headline' ? 'Headline' : 'Title';
     h2.dataset.aueType = 'text';
-    h2.textContent = cfReq?.title ?? '';
+    h2.textContent = view.title;
 
-    const h3 = document.createElement('h3');
-    h3.className = 'cfsubtitle';
-    h3.dataset.aueProp = 'subtitle';
-    h3.dataset.aueLabel = 'SubTitle';
-    h3.dataset.aueType = 'text';
-    h3.textContent = cfReq?.subtitle ?? '';
+    const fragment = document.createDocumentFragment();
+    fragment.append(h2);
+
+    if (view.subtitle) {
+      const h3 = document.createElement('h3');
+      h3.className = 'cfsubtitle';
+      h3.dataset.aueProp = 'subtitle';
+      h3.dataset.aueLabel = 'SubTitle';
+      h3.dataset.aueType = 'text';
+      h3.textContent = view.subtitle;
+      fragment.append(h3);
+    }
 
     const descWrap = document.createElement('div');
     descWrap.className = 'cfdescription';
-    descWrap.dataset.aueProp = 'description';
-    descWrap.dataset.aueLabel = 'Description';
+    descWrap.dataset.aueProp = descProp;
+    descWrap.dataset.aueLabel = descProp === 'paragraph' ? 'Paragraph' : 'Description';
     descWrap.dataset.aueType = 'richtext';
     const descP = document.createElement('p');
-    descP.textContent = cfReq?.description?.plaintext || '';
+    descP.textContent = view.descriptionPlain;
     descWrap.append(descP);
+    fragment.append(descWrap);
 
-    const btnP = document.createElement('p');
-    btnP.className = `button-container ${ctaStyle}`.trim();
-    const a = document.createElement('a');
-    a.href = ctaHref;
-    a.dataset.aueProp = 'ctaurl';
-    a.dataset.aueLabel = 'Button Link/URL';
-    a.dataset.aueType = 'reference';
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.dataset.aueFilter = 'page';
-    a.className = 'button';
-    const span = document.createElement('span');
-    span.dataset.aueProp = 'ctalabel';
-    span.dataset.aueLabel = 'Button Label';
-    span.dataset.aueType = 'text';
-    span.textContent = cfReq?.ctalabel ?? '';
-    a.append(span);
-    btnP.append(a);
+    if (view.cta || view.ctalabel) {
+      const btnP = document.createElement('p');
+      btnP.className = `button-container ${ctaStyle}`.trim();
+      const a = document.createElement('a');
+      a.href = ctaHref;
+      a.dataset.aueProp = 'ctaurl';
+      a.dataset.aueLabel = 'Button Link/URL';
+      a.dataset.aueType = 'reference';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.dataset.aueFilter = 'page';
+      a.className = 'button';
+      const span = document.createElement('span');
+      span.dataset.aueProp = 'ctalabel';
+      span.dataset.aueLabel = 'Button Label';
+      span.dataset.aueType = 'text';
+      span.textContent = view.ctalabel;
+      a.append(span);
+      btnP.append(a);
+      fragment.append(btnP);
+    }
 
     const logo = document.createElement('div');
     logo.className = 'banner-logo';
 
-    detail.append(h2, h3, descWrap, btnP);
+    detail.append(fragment);
     root.append(detail, logo);
     block.append(root);
   } catch (error) {
