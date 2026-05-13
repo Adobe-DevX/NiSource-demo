@@ -23,6 +23,20 @@ import {
 import { decorateDMImages } from './dynamic-media.js';
 import { runExperimentation, showExperimentationRail } from './experiment-load.js';
 
+/**
+ * Adobe Target / Web SDK: enable via page metadata `target` (non-empty, e.g. `on`)
+ * or preview with query `?target=on` without publishing metadata.
+ * @returns {boolean}
+ */
+function isAdobeTargetInstrumentationEnabled() {
+  try {
+    if (new URL(window.location.href).searchParams.get('target') === 'on') return true;
+  } catch {
+    /* ignore */
+  }
+  return Boolean(getMetadata('target')?.trim());
+}
+
 function getExperimentationConfig() {
   return {
     prodHost: getMetadata('experiment-prod-host') || window.location.hostname,
@@ -238,7 +252,7 @@ const alloyLoadedPromise = initWebSDK(new URL('./alloy.js', import.meta.url).hre
   datastreamId: '85347b41-c5c9-4249-9d6f-0b6d7b6b0529',
   orgId: '8EBB33FE5E43BA110A495EF8@AdobeOrg',
 });
-if (getMetadata('target')) {
+if (isAdobeTargetInstrumentationEnabled()) {
   alloyLoadedPromise.then(() => getAndApplyRenderDecisions());
 }
 

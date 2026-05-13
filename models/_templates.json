@@ -10,6 +10,24 @@
           "label": "Template",
           "valueType": "string",
           "value": ""
+        },
+        {
+          "component": "select",
+          "name": "target",
+          "label": "Adobe Target (Web SDK)",
+          "valueType": "string",
+          "value": "",
+          "description": "Turn on for pages that use Adobe Target / VEC personalization (loads Alloy decisioning for this page only). Leave off elsewhere to limit LCP impact.",
+          "options": [
+            {
+              "name": "Off",
+              "value": ""
+            },
+            {
+              "name": "On",
+              "value": "on"
+            }
+          ]
         }
       ]
     },
