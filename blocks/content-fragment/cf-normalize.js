@@ -1,6 +1,7 @@
 /**
- * Map persisted-query CF `item` to banner layout fields.
- * Supports SampleFragmentByPath (`headline`, `paragraph.plaintext`) and legacy CTA (`title`, `subtitle`, `description`, `bannerimage`, `ctaurl`, `ctalabel`).
+ * Map persisted-query `item` to banner fields.
+ * Primary: `SampleFragmentByPath` (`headline`, `paragraph.plaintext`).
+ * Also supports legacy CTA banner (`title`, `subtitle`, `description`, `bannerimage`, `ctaurl`).
  * @param {object|undefined|null} item
  * @returns {{
  *   variant: 'sample' | 'legacy',

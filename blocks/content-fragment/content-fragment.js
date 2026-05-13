@@ -5,14 +5,19 @@ import {
   isAuthorEnvironment,
   mapAemPathToSitePath,
 } from '../../scripts/eds-support.js';
+import {
+  CF_DEFAULT_AUTHOR_ORIGIN,
+  CF_DEFAULT_GRAPHQL_ITEM_KEY,
+  CF_DEFAULT_GRAPHQL_PATH,
+} from './cf-config.js';
 import { normalizeCfBannerItem } from './cf-normalize.js';
 
 /**
- * Resolve persisted-query item from GraphQL JSON (shape varies by query name).
+ * GraphQL execute JSON: `data[itemKey].item` (e.g. `sampleFragmentByPath`).
  * @param {object} offer
- * @param {string} itemKey e.g. sampleFragmentByPath (matches persisted query root field)
+ * @param {string} itemKey
  */
-function getCfItem(offer, itemKey) {
+function getPersistedQueryItem(offer, itemKey) {
   return offer?.data?.[itemKey]?.item;
 }
 
@@ -28,24 +33,138 @@ function safeHref(href) {
 }
 
 /**
+ * Merge placeholders + metadata over NiSource persisted-query defaults.
+ * @param {Record<string, string>} ph
+ */
+function resolvePersistedQueryConfig(ph) {
+  const graphqlPath = (
+    ph.cfGraphqlPath
+    || getMetadata('cf-graphql-path')
+    || CF_DEFAULT_GRAPHQL_PATH
+  ).trim();
+
+  const itemKey = (
+    ph.cfGraphqlItemKey
+    || getMetadata('cf-graphql-item-key')
+    || CF_DEFAULT_GRAPHQL_ITEM_KEY
+  ).trim();
+
+  const wrapperUrl = (ph.cfWrapperUrl || getMetadata('cf-wrapper-url') || '').trim();
+
+  const aemAuthorUrl = (
+    getMetadata('authorurl')
+    || CF_DEFAULT_AUTHOR_ORIGIN
+  ).replace(/\/$/, '');
+
+  return {
+    graphqlPath,
+    itemKey,
+    wrapperUrl,
+    aemAuthorUrl,
+  };
+}
+
+/**
+ * @param {object} p
+ * @param {boolean} p.isAuthor
+ * @param {string} p.aemAuthorUrl
+ * @param {string} p.aemPublishUrl
+ * @param {string} p.graphqlPath
+ * @param {string} p.contentPath
+ * @param {string} p.variationname
+ * @param {string} p.wrapperUrl
+ */
+function buildPersistedQueryFetchConfig(p) {
+  const suffix = p.graphqlPath.startsWith('/') ? p.graphqlPath : `/${p.graphqlPath}`;
+  if (p.isAuthor) {
+    return {
+      url: `${p.aemAuthorUrl}${suffix};path=${encodeURIComponent(p.contentPath)};variation=${encodeURIComponent(p.variationname)};ts=${Date.now()}`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+  }
+  return {
+    url: p.wrapperUrl,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      graphQLPath: `${p.aemPublishUrl || ''}${suffix}`,
+      cfPath: p.contentPath,
+      variation: `${p.variationname};ts=${Date.now()}`,
+    }),
+  };
+}
+
+/**
+ * @param {object} p
+ * @param {ReturnType<typeof normalizeCfBannerItem>} p.view
+ * @param {string} p.displayStyle
+ * @param {boolean} p.isAuthor
+ * @param {string} p.aemAuthorUrl
+ * @param {string} p.aemPublishUrl
+ */
+function computeBannerPresentation(p) {
+  const {
+    view,
+    displayStyle,
+    isAuthor,
+    aemAuthorUrl,
+    aemPublishUrl,
+  } = p;
+
+  const imgUrl = isAuthor ? view.bannerimage?._authorUrl : view.bannerimage?._publishUrl;
+  const isImageLeft = displayStyle === 'image-left';
+  const isImageRight = displayStyle === 'image-right';
+  const isImageTop = displayStyle === 'image-top';
+  const isImageBottom = displayStyle === 'image-bottom';
+
+  let bannerContentStyle = '';
+  let bannerDetailStyle = '';
+  if (isImageLeft || isImageRight || isImageTop || isImageBottom) {
+    bannerContentStyle = imgUrl ? `background-image: url(${imgUrl});` : '';
+  } else {
+    bannerDetailStyle = imgUrl
+      ? `background-image: linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.1) 80%) ,url(${imgUrl});`
+      : '';
+  }
+
+  let ctaHref = '#';
+  const { cta } = view;
+  if (cta) {
+    if (typeof cta === 'string') {
+      ctaHref = /^https?:\/\//i.test(cta) ? cta : `${isAuthor ? (aemAuthorUrl || '') : (aemPublishUrl || '')}${cta}`;
+    } else if (typeof cta === 'object') {
+      const authorUrl = cta._authorUrl;
+      const publishUrl = cta._publishUrl || cta._url;
+      const pathOnly = cta._path;
+      if (isAuthor) {
+        ctaHref = authorUrl || (pathOnly ? `${aemAuthorUrl || ''}${pathOnly}` : '#');
+      } else {
+        ctaHref = publishUrl || pathOnly || '#';
+      }
+    }
+  }
+  ctaHref = safeHref(ctaHref);
+
+  return { bannerContentStyle, bannerDetailStyle, ctaHref };
+}
+
+/**
+ * Content Fragment: CF data via AEM persisted GraphQL (`SampleFragmentByPath` by default).
+ * Rows: (1) fragment path, (2) variation, (3) display style, (4) alignment, (5) CTA style.
  * @param {Element} block
  */
 export default async function decorate(block) {
   const ph = await fetchPlaceholders();
-  const wrapperUrl = (ph.cfWrapperUrl || getMetadata('cf-wrapper-url') || '').trim();
-  const graphqlPath = (ph.cfGraphqlPath || getMetadata('cf-graphql-path') || '').trim();
-  const itemKey = (ph.cfGraphqlItemKey || getMetadata('cf-graphql-item-key') || 'sampleFragmentByPath').trim();
-
-  if (!graphqlPath) {
-    // eslint-disable-next-line no-console
-    console.warn('content-fragment: set cfGraphqlPath in placeholders.json or cf-graphql-path metadata.');
-    block.innerHTML = '';
-    return;
-  }
+  const {
+    graphqlPath,
+    itemKey,
+    wrapperUrl,
+    aemAuthorUrl,
+  } = resolvePersistedQueryConfig(ph);
 
   const hostnameFromPlaceholders = await getHostname();
   const hostname = hostnameFromPlaceholders || getMetadata('hostname');
-  const aemAuthorUrl = (getMetadata('authorurl') || '').replace(/\/$/, '');
   const aemPublishUrl = hostname?.replace('author', 'publish')?.replace(/\/$/, '');
 
   const contentPath = block.querySelector(':scope div:nth-child(1) > div a')?.textContent?.trim();
@@ -62,27 +181,22 @@ export default async function decorate(block) {
   block.textContent = '';
   const isAuthor = isAuthorEnvironment();
 
-  const graphqlSuffix = graphqlPath.startsWith('/') ? graphqlPath : `/${graphqlPath}`;
-  const requestConfig = isAuthor
-    ? {
-      url: `${aemAuthorUrl}${graphqlSuffix};path=${encodeURIComponent(contentPath)};variation=${encodeURIComponent(variationname)};ts=${Date.now()}`,
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    }
-    : {
-      url: wrapperUrl,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        graphQLPath: `${aemPublishUrl || ''}${graphqlSuffix}`,
-        cfPath: contentPath,
-        variation: `${variationname};ts=${Date.now()}`,
-      }),
-    };
+  const requestConfig = buildPersistedQueryFetchConfig({
+    isAuthor,
+    aemAuthorUrl,
+    aemPublishUrl,
+    graphqlPath,
+    contentPath,
+    variationname,
+    wrapperUrl,
+  });
 
   if (!isAuthor && (!wrapperUrl || !aemPublishUrl)) {
     // eslint-disable-next-line no-console
-    console.warn('content-fragment: publish mode needs cfWrapperUrl placeholder and hostname for publish host.');
+    console.warn(
+      'content-fragment: publish needs CF Wrapper URL (placeholders / cf-wrapper-url meta) '
+      + 'and hostname (placeholders / hostname meta).',
+    );
     block.innerHTML = '';
     return;
   }
@@ -96,7 +210,7 @@ export default async function decorate(block) {
 
     if (!response.ok) {
       // eslint-disable-next-line no-console
-      console.error(`content-fragment: GraphQL request failed ${response.status}`);
+      console.error(`content-fragment: persisted query failed HTTP ${response.status}`);
       block.innerHTML = '';
       return;
     }
@@ -111,71 +225,44 @@ export default async function decorate(block) {
       return;
     }
 
-    const cfReq = getCfItem(offer, itemKey);
-    if (!cfReq) {
+    const cfItem = getPersistedQueryItem(offer, itemKey);
+    if (!cfItem) {
       // eslint-disable-next-line no-console
-      console.error('content-fragment: no item in GraphQL response', { itemKey, offer });
+      console.error('content-fragment: no `item` for persisted query', { itemKey, offer });
       block.innerHTML = '';
       return;
     }
 
-    const view = normalizeCfBannerItem(cfReq);
+    const view = normalizeCfBannerItem(cfItem);
     const titleProp = view.variant === 'sample' ? 'headline' : 'title';
     const descProp = view.variant === 'sample' ? 'paragraph' : 'description';
-
     const itemId = `urn:aemconnection:${contentPath}/jcr:content/data/${variationname}`;
+
     block.setAttribute('data-aue-type', 'container');
 
-    const imgUrl = isAuthor ? view.bannerimage?._authorUrl : view.bannerimage?._publishUrl;
+    const { bannerContentStyle, bannerDetailStyle, ctaHref } = computeBannerPresentation({
+      view,
+      displayStyle,
+      isAuthor,
+      aemAuthorUrl,
+      aemPublishUrl,
+    });
 
-    const isImageLeft = displayStyle === 'image-left';
-    const isImageRight = displayStyle === 'image-right';
-    const isImageTop = displayStyle === 'image-top';
-    const isImageBottom = displayStyle === 'image-bottom';
-
-    let bannerContentStyle = '';
-    let bannerDetailStyle = '';
-
-    if (isImageLeft || isImageRight || isImageTop || isImageBottom) {
-      bannerContentStyle = imgUrl ? `background-image: url(${imgUrl});` : '';
-    } else {
-      bannerDetailStyle = imgUrl
-        ? `background-image: linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.1) 80%) ,url(${imgUrl});`
-        : '';
-    }
-
-    let ctaHref = '#';
-    const { cta } = view;
-    if (cta) {
-      if (typeof cta === 'string') {
-        ctaHref = /^https?:\/\//i.test(cta) ? cta : `${isAuthor ? (aemAuthorUrl || '') : (aemPublishUrl || '')}${cta}`;
-      } else if (typeof cta === 'object') {
-        const authorUrl = cta._authorUrl;
-        const publishUrl = cta._publishUrl || cta._url;
-        const pathOnly = cta._path;
-        if (isAuthor) {
-          ctaHref = authorUrl || (pathOnly ? `${aemAuthorUrl || ''}${pathOnly}` : '#');
-        } else {
-          ctaHref = publishUrl || pathOnly || '#';
-        }
-      }
-    }
-    ctaHref = safeHref(ctaHref);
-
+    let resolvedCtaHref = ctaHref;
     if (!isAuthor) {
       try {
-        let candidate = ctaHref;
+        let candidate = resolvedCtaHref;
         if (/^https?:\/\//i.test(candidate)) {
           const u = new URL(candidate);
           candidate = u.pathname;
         }
         if (candidate && candidate.startsWith('/content/')) {
           const mapped = await mapAemPathToSitePath(candidate);
-          if (mapped) ctaHref = safeHref(mapped);
+          if (mapped) resolvedCtaHref = safeHref(mapped);
         }
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.warn('content-fragment: path mapping failed', e);
+        console.warn('content-fragment: CTA path mapping failed', e);
       }
     }
 
@@ -185,6 +272,7 @@ export default async function decorate(block) {
     root.dataset.aueLabel = variationname || 'Elements';
     root.dataset.aueType = 'reference';
     root.dataset.aueFilter = 'contentfragment';
+    root.dataset.cfPersistedQuery = graphqlPath;
     if (bannerContentStyle) root.setAttribute('style', bannerContentStyle);
 
     const detail = document.createElement('div');
@@ -230,7 +318,7 @@ export default async function decorate(block) {
       const btnP = document.createElement('p');
       btnP.className = `button-container ${ctaStyle}`.trim();
       const a = document.createElement('a');
-      a.href = ctaHref;
+      a.href = resolvedCtaHref;
       a.dataset.aueProp = 'ctaurl';
       a.dataset.aueLabel = 'Button Link/URL';
       a.dataset.aueType = 'reference';
