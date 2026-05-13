@@ -168,7 +168,7 @@ function initWebSDK(path, config) {
   }
   // Loading and configuring the websdk
   return new Promise((resolve) => {
-    import(path)
+    import(/* webpackIgnore: true */ path)
       .then(() => window.alloy('configure', config))
       .then(resolve);
   });
@@ -211,7 +211,7 @@ async function getAndApplyRenderDecisions() {
   // Get the decisions, but don't render them automatically
   // so we can hook up into the AEM EDS page load sequence
   const response = await window.alloy('sendEvent', { renderDecisions: false });
-  const { propositions } = response;
+  const { propositions = [] } = response;
   onDecoratedElement(async () => {
     await window.alloy('applyPropositions', { propositions });
     // keep track of propositions that were applied
@@ -234,7 +234,7 @@ async function getAndApplyRenderDecisions() {
   });
 }
 
-const alloyLoadedPromise = initWebSDK('./alloy.js', {
+const alloyLoadedPromise = initWebSDK(new URL('./alloy.js', import.meta.url).href, {
   datastreamId: '85347b41-c5c9-4249-9d6f-0b6d7b6b0529',
   orgId: '8EBB33FE5E43BA110A495EF8@AdobeOrg',
 });
