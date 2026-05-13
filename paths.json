@@ -1,6 +1,7 @@
 {
   "mappings": [
     "/content/nisource-demo/:/",
+    "/content/dam/nisource-demo/content-fragments/:/fragments/",
     "/content/nisource-demo/configuration:/.helix/config.json",
     "/content/nisource-demo/headers:/.helix/headers.json",
     "/content/nisource-demo/metadata:/metadata.json",
@@ -8,6 +9,7 @@
   ],
   "includes": [
     "/content/nisource-demo/",
+    "/content/dam/nisource-demo/",
     "/content/aem-boilerplate-commerce/"
   ]
 }
