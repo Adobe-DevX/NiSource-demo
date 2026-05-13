@@ -20,7 +20,7 @@ const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcl
  * - dmurl — dynamicmedia-image (Scene7 base URL).
  * - cfWrapperUrl — content-fragment POST gateway on publish.
  * - cfGraphqlPath — persisted GraphQL path after host (e.g. …/CTAByPath).
- * - cfGraphqlItemKey — JSON path under data.* for CF item (default ctaByPath).
+ * - cfGraphqlItemKey — JSON path under data.* for CF item (e.g. sampleFragmentByPath for SampleFragmentByPath).
  * - dmVideoViewerUrl — dynamic-media-video script URL.
  * - dmTemplateWrapperUrl / dmTemplateGraphqlPath — dynamicmedia-template CF mode.
  *

@@ -9,7 +9,7 @@ import {
 /**
  * Resolve persisted-query item from GraphQL JSON (shape varies by query name).
  * @param {object} offer
- * @param {string} itemKey e.g. ctaByPath
+ * @param {string} itemKey e.g. sampleFragmentByPath (matches persisted query root field)
  */
 function getCfItem(offer, itemKey) {
   return offer?.data?.[itemKey]?.item;
@@ -34,7 +34,7 @@ export default async function decorate(block) {
   const ph = await fetchPlaceholders();
   const wrapperUrl = (ph.cfWrapperUrl || getMetadata('cf-wrapper-url') || '').trim();
   const graphqlPath = (ph.cfGraphqlPath || getMetadata('cf-graphql-path') || '').trim();
-  const itemKey = (ph.cfGraphqlItemKey || getMetadata('cf-graphql-item-key') || 'ctaByPath').trim();
+  const itemKey = (ph.cfGraphqlItemKey || getMetadata('cf-graphql-item-key') || 'sampleFragmentByPath').trim();
 
   if (!graphqlPath) {
     // eslint-disable-next-line no-console
