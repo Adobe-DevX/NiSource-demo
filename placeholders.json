@@ -1,12 +1,3 @@
 {
-  "data": [
-    {
-      "Key": "CF GraphQL Path",
-      "Text": "/graphql/execute.json/nisource-demo/SampleFragmentByPath"
-    },
-    {
-      "Key": "CF GraphQL Item Key",
-      "Text": "sampleFragmentByPath"
-    }
-  ]
+  "data": []
 }

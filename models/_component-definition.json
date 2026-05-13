@@ -56,9 +56,6 @@
           "...": "../blocks/energy-assistance-form/_*.json#/definitions"
         },
         {
-          "...": "../blocks/content-fragment/_*.json#/definitions"
-        },
-        {
           "...": "../blocks/dynamic-media-image/_*.json#/definitions"
         },
         {

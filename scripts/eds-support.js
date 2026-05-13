@@ -15,20 +15,16 @@ const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcl
  *
  * Optional keys (placeholders.json → camelCase) for ported Ref Demo flows:
  *
- * - hostname — content-fragment, DM template CF; publish host (author→publish).
+ * - hostname — dynamicmedia-template CF mode; publish host (author→publish).
  *   Falls back to the default author origin in `getHostname()` if unset.
  * - dmurl — dynamicmedia-image (Scene7 base URL).
- * - cfWrapperUrl — content-fragment POST gateway on publish.
- * - cfGraphqlPath — persisted GraphQL path after host (e.g. …/CTAByPath).
- * - cfGraphqlItemKey — JSON path under data.* for CF item (e.g. sampleFragmentByPath for SampleFragmentByPath).
  * - dmVideoViewerUrl — dynamic-media-video script URL.
  * - dmTemplateWrapperUrl / dmTemplateGraphqlPath — dynamicmedia-template CF mode.
  *
- * Meta overrides (getMetadata, kebab-case): cf-wrapper-url, cf-graphql-path,
- * authorurl, dm-video-viewer-url, dm-template-wrapper-url, dm-template-graphql-path,
- * experiment-prod-host.
+ * Meta overrides (getMetadata, kebab-case): authorurl, dm-video-viewer-url,
+ * dm-template-wrapper-url, dm-template-graphql-path, experiment-prod-host.
  *
- * CF CTA path mapping: /paths.json (getPathMappings). See docs/ref-demo-eds.md.
+ * Path mapping: `/paths.json` (`getPathMappings`). See docs/ref-demo-eds.md.
  * -----------------------------------------------------------------------------
  */
 

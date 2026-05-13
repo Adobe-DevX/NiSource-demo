@@ -13,7 +13,6 @@ NiSource-demo is based on **AEM Boilerplate Commerce**, not the Ref Demo boilerp
 
 | Area | Where in NiSource-demo |
 |------|-------------------------|
-| Content Fragment (GraphQL + banner layout) | `blocks/content-fragment/`, config via `scripts/eds-support.js` placeholders / metadata |
 | Dynamic Media Open API image pipeline | `scripts/dynamic-media.js` (`decorateDMImages`), blocks `dynamic-media-image`, `dynamicmedia-image` |
 | Dynamic Media video (VideoViewer) | `blocks/dynamic-media-video/` |
 | Dynamic Media template (inline + CF) | `blocks/dynamicmedia-template/` |
