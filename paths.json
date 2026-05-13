@@ -1,7 +1,7 @@
 {
   "mappings": [
     "/content/nisource-demo/:/",
-    "/content/dam/nisource-demo/content-fragments/:/fragments/",
+    "/content/dam/nisource-demo/fragments/:/fragments/",
     "/content/nisource-demo/configuration:/.helix/config.json",
     "/content/nisource-demo/headers:/.helix/headers.json",
     "/content/nisource-demo/metadata:/metadata.json",
