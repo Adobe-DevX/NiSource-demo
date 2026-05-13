@@ -15,14 +15,18 @@ const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcl
  *
  * Optional keys (placeholders.json → camelCase) for ported Ref Demo flows:
  *
- * - hostname — dynamicmedia-template CF mode; publish host (author→publish).
+ * - hostname — Fragment block (CF), dynamicmedia-template CF; publish host (author→publish).
  *   Falls back to the default author origin in `getHostname()` if unset.
  * - dmurl — dynamicmedia-image (Scene7 base URL).
  * - dmVideoViewerUrl — dynamic-media-video script URL.
  * - dmTemplateWrapperUrl / dmTemplateGraphqlPath — dynamicmedia-template CF mode.
+ * - cfWrapperUrl — Fragment block: POST gateway for persisted query on publish.
+ * - cfGraphqlPath / cfGraphqlItemKey — Fragment block: override persisted query path /
+ *   `data` response key.
  *
- * Meta overrides (getMetadata, kebab-case): authorurl, dm-video-viewer-url,
- * dm-template-wrapper-url, dm-template-graphql-path, experiment-prod-host.
+ * Meta overrides (getMetadata, kebab-case): authorurl, cf-wrapper-url, cf-graphql-path,
+ * cf-graphql-item-key, dm-video-viewer-url, dm-template-wrapper-url, dm-template-graphql-path,
+ * experiment-prod-host.
  *
  * Path mapping: `/paths.json` (`getPathMappings`). See docs/ref-demo-eds.md.
  * -----------------------------------------------------------------------------
