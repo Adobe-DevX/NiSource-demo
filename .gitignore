@@ -13,3 +13,6 @@ scripts/__dropins__/**/*.map
 .env
 .cursor/*
 .cursor/rules/*
+.agents/skills/*
+.claude/skills/*
+skills-lock.json

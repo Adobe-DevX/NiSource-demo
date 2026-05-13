@@ -2,7 +2,10 @@
  * Fragment Block
  * - Default: include EDS page fragment (.plain.html).
  *   https://www.aem.live/developer/block-collection/fragment
- * - DAM CF path: AEM persisted GraphQL (SampleFragmentByPath) → compact news card.
+ * - DAM CF path: REST GET to persisted GraphQL execute.json (SampleFragmentByPath), e.g.
+ *   {author}/graphql/execute.json/nisource-demo/SampleFragmentByPath;
+ *   path=/content/dam/...;variation=master
+ *   → compact news card.
  * - Path and variation come from the authored block (content fragment picker + persisted
  *   variation); `?variation=` on the link is used when the variation row is empty.
  */
@@ -149,37 +152,71 @@ function resolveCfPersistedQueryConfig(ph) {
 }
 
 /**
+ * Persisted-query REST shape (semicolon parameters after the query name). Slashes stay
+ * unencoded like AEM samples; only `;` in values is escaped so delimiters stay intact.
+ * @param {string} value
+ */
+function persistedQueryParamValue(value) {
+  return String(value).replace(/;/g, '%3B');
+}
+
+/**
+ * Path + query name segment only (no host), e.g.
+ * `/graphql/execute.json/nisource-demo/SampleFragmentByPath`.
+ * @param {string} graphqlPath
+ */
+function persistedQueryBasePath(graphqlPath) {
+  return graphqlPath.startsWith('/') ? graphqlPath : `/${graphqlPath}`;
+}
+
+/**
  * @param {object} p
+ * @param {boolean} p.isAuthor
+ * @param {boolean} p.usePublishWrapper
+ * @param {string} p.publishGetOrigin publish tier origin for direct persisted-query GET
+ * @param {string} p.aemAuthorUrl
+ * @param {string} p.aemPublishUrl publish origin for wrapper POST body (`graphQLPath` prefix)
+ * @param {string} p.wrapperUrl
+ * @param {string} p.graphqlPath
+ * @param {string} p.cfPath
+ * @param {string} p.variation
  */
 function buildCfPersistedQueryRequest(p) {
-  const suffix = p.graphqlPath.startsWith('/') ? p.graphqlPath : `/${p.graphqlPath}`;
-  const pathVarTs = `;path=${encodeURIComponent(p.cfPath)};variation=${encodeURIComponent(p.variation)};ts=${Date.now()}`;
+  const basePath = persistedQueryBasePath(p.graphqlPath);
+  const pathPart = `;path=${persistedQueryParamValue(p.cfPath)};variation=${persistedQueryParamValue(p.variation)}`;
+  const executePath = `${basePath}${pathPart}`;
+  /** Query-string cache buster (not a persisted-query variable). */
+  const cacheBust = `?ts=${Date.now()}`;
+
   if (p.isAuthor) {
     return {
-      url: `${p.aemAuthorUrl}${suffix}${pathVarTs}`,
+      url: `${p.aemAuthorUrl}${executePath}${cacheBust}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       credentials: /** @type {RequestCredentials} */ ('include'),
     };
   }
-  if (p.aemPublishUrlDirect) {
+  if (p.usePublishWrapper) {
     return {
-      url: `${p.aemPublishUrlDirect}${suffix}${pathVarTs}`,
+      url: p.wrapperUrl,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        graphQLPath: `${p.aemPublishUrl || ''}${basePath}`,
+        cfPath: p.cfPath,
+        variation: p.variation,
+      }),
+    };
+  }
+  if (p.publishGetOrigin) {
+    return {
+      url: `${p.publishGetOrigin}${executePath}${cacheBust}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       credentials: /** @type {RequestCredentials} */ ('include'),
     };
   }
-  return {
-    url: p.wrapperUrl,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      graphQLPath: `${p.aemPublishUrl || ''}${suffix}`,
-      cfPath: p.cfPath,
-      variation: `${p.variation};ts=${Date.now()}`,
-    }),
-  };
+  throw new Error('fragment (CF): no persisted-query transport (loadCfNewsCard guard failed)');
 }
 
 /**
@@ -194,30 +231,46 @@ async function loadCfNewsCard(cfPath, variation) {
     itemKey,
     wrapperUrl,
     aemAuthorUrl,
-    aemPublishUrlDirect,
+    aemPublishUrlDirect: publishUrlFromMeta,
   } = resolveCfPersistedQueryConfig(ph);
 
-  const hostname = (await getHostname()) || getMetadata('hostname');
-  const aemPublishUrl = hostname?.replace('author', 'publish')?.replace(/\/$/, '');
+  const hostnameResolved = (
+    (await getHostname())
+    || getMetadata('hostname')
+    || ''
+  ).trim().replace(/\/$/, '');
+  const aemPublishUrl = hostnameResolved.replace('author', 'publish').replace(/\/$/, '');
+  /** Default NiSource AEM Cloud author host → same-program publish tier for persisted GET. */
+  const isAemAuthorCloudHostname = hostnameResolved.includes('author-')
+    && hostnameResolved.includes('adobeaemcloud.com');
+  const usePublishWrapper = Boolean(wrapperUrl && aemPublishUrl);
+  const publishGetOrigin = (() => {
+    if (usePublishWrapper) return '';
+    const fromMeta = publishUrlFromMeta.trim().replace(/\/$/, '');
+    if (fromMeta) return fromMeta;
+    if (isAemAuthorCloudHostname && aemPublishUrl) return aemPublishUrl;
+    return '';
+  })();
+
   const isAuthor = isAuthorEnvironment();
 
-  const canPublishDirect = Boolean(aemPublishUrlDirect);
-  const canPublishWrapper = Boolean(wrapperUrl && aemPublishUrl);
-
-  if (!isAuthor && !canPublishDirect && !canPublishWrapper) {
+  if (!isAuthor && !usePublishWrapper && !publishGetOrigin) {
     // eslint-disable-next-line no-console
     console.warn(
-      'fragment (CF): on publish set meta/placeholder publishurl for direct GraphQL GET, '
-      + 'or cfWrapperUrl + hostname for the POST wrapper.',
+      'fragment (CF): on publish set meta/placeholder publishurl (or placeholders hostname '
+      + 'to an AEM Cloud author URL so publish can be derived), or cfWrapperUrl + hostname '
+      + 'for the POST wrapper.',
     );
     return null;
   }
 
   const req = buildCfPersistedQueryRequest({
     isAuthor,
+    usePublishWrapper,
+    publishGetOrigin,
     aemAuthorUrl,
     aemPublishUrl,
-    aemPublishUrlDirect,
+    wrapperUrl,
     graphqlPath,
     cfPath,
     variation,
@@ -274,7 +327,8 @@ async function loadCfNewsCard(cfPath, variation) {
   p.textContent = bodyPlain;
   body.append(p);
 
-  const foot = document.createElement('footer');
+  /** Use `div`, not `footer`, so page `querySelector('footer')` stays unambiguous. */
+  const foot = document.createElement('div');
   foot.className = 'fragment-cf-news__footer';
   const cite = document.createElement('cite');
   cite.className = 'fragment-cf-news__cite';
