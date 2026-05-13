@@ -1,5 +1,11 @@
 import { toCamelCase } from './aem.js';
 
+/**
+ * Default author origin when placeholders omit `hostname`;
+ * used to derive publish (`author` → `publish`).
+ */
+const DEFAULT_PLACEHOLDER_HOSTNAME = 'https://author-p199216-e2062199.adobeaemcloud.com';
+
 /*
  * -----------------------------------------------------------------------------
  * EDS / Ref-Demo–aligned helpers — placeholders & metadata
@@ -9,19 +15,22 @@ import { toCamelCase } from './aem.js';
  *
  * Optional keys (placeholders.json → camelCase) for ported Ref Demo flows:
  *
- * - hostname — content-fragment, DM template CF; publish host (author→publish).
+ * - hostname — Fragment block (CF), dynamicmedia-template CF; publish host (author→publish).
+ *   Falls back to the default author origin in `getHostname()` if unset.
  * - dmurl — dynamicmedia-image (Scene7 base URL).
- * - cfWrapperUrl — content-fragment POST gateway on publish.
- * - cfGraphqlPath — persisted GraphQL path after host (e.g. …/CTAByPath).
- * - cfGraphqlItemKey — JSON path under data.* for CF item (default ctaByPath).
  * - dmVideoViewerUrl — dynamic-media-video script URL.
  * - dmTemplateWrapperUrl / dmTemplateGraphqlPath — dynamicmedia-template CF mode.
+ * - cfWrapperUrl — Fragment block: POST gateway for persisted query on publish.
+ * - publishUrl — Fragment block: AEM publish origin for direct persisted-query GET on publish
+ *   (optional alternative to wrapper + hostname). Meta: publishurl or publish-url.
+ * - cfGraphqlPath / cfGraphqlItemKey — Fragment block: override persisted query path /
+ *   `data` response key.
  *
- * Meta overrides (getMetadata, kebab-case): cf-wrapper-url, cf-graphql-path,
- * authorurl, dm-video-viewer-url, dm-template-wrapper-url, dm-template-graphql-path,
- * experiment-prod-host.
+ * Meta overrides (getMetadata, kebab-case): authorurl, publish-url, cf-wrapper-url,
+ * cf-graphql-path, cf-graphql-item-key, dm-video-viewer-url, dm-template-wrapper-url,
+ * dm-template-graphql-path, experiment-prod-host.
  *
- * CF CTA path mapping: /paths.json (getPathMappings). See docs/ref-demo-eds.md.
+ * Path mapping: `/paths.json` (`getPathMappings`). See docs/ref-demo-eds.md.
  * -----------------------------------------------------------------------------
  */
 
@@ -133,15 +142,19 @@ export async function fetchPlaceholders(prefix = 'default') {
 }
 
 /**
- * @returns {Promise<string|undefined>}
+ * @returns {Promise<string>}
  */
 export async function getHostname() {
   try {
     const ph = await fetchPlaceholders();
-    return ph?.hostname;
+    const raw = ph?.hostname;
+    if (raw != null && String(raw).trim() !== '') {
+      return String(raw).trim().replace(/\/$/, '');
+    }
   } catch {
-    return undefined;
+    /* use default */
   }
+  return DEFAULT_PLACEHOLDER_HOSTNAME;
 }
 
 /**

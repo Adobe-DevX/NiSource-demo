@@ -1,1 +1,43 @@
-/* stylelint-disable no-empty-source */
+/* Fragment — persisted-query content fragment (small news card), NiSource tokens (design.md) */
+
+.fragment.fragment--cf {
+  margin: 0;
+}
+
+.fragment-cf-news {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: var(--nisource-space-3);
+  font-family: var(--nisource-font-body);
+  color: var(--nisource-color-text-body);
+  background-color: var(--nisource-color-bg-section);
+  border: 1px solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+}
+
+.fragment-cf-news__headline {
+  margin: 0 0 var(--nisource-space-2);
+  font-family: var(--nisource-font-display);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--nisource-color-text-heading);
+}
+
+.fragment-cf-news__body {
+  margin: 0;
+}
+
+.fragment-cf-news__lede {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--nisource-color-text-body);
+}
+
+@media (min-width: 600px) {
+  .fragment-cf-news {
+    max-width: 36rem;
+  }
+}

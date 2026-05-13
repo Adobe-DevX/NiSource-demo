@@ -21,9 +21,21 @@
       "id": "fragment",
       "fields": [
         {
-          "component": "aem-content",
+          "component": "aem-content-fragment",
           "name": "reference",
-          "label": "Reference"
+          "label": "Reference",
+          "valueType": "string",
+          "required": true,
+          "variationName": "contentFragmentVariation"
+        },
+        {
+          "component": "text",
+          "name": "contentFragmentVariation",
+          "label": "Selected variation",
+          "value": "",
+          "valueType": "string",
+          "description": "Persisted variation from the content fragment picker; leave empty for master.",
+          "condition": { "==": [ { "var": "__alwaysFalse" }, true ] }
         }
       ]
     }

@@ -313,7 +313,9 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
+  /** Landmark only — `querySelector('footer')` would match nested footers (e.g. CF card) first. */
+  const pageFooter = doc.body?.querySelector(':scope > footer');
+  if (pageFooter) loadFooter(pageFooter);
 
   loadCommerceLazy();
 
