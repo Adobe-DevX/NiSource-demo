@@ -3,10 +3,12 @@
  * - Default: include EDS page fragment (.plain.html).
  *   https://www.aem.live/developer/block-collection/fragment
  * - DAM CF path: AEM persisted GraphQL (SampleFragmentByPath) → compact news card.
+ * - Path and variation come from the authored block (content fragment picker + persisted
+ *   variation); `?variation=` on the link is used when the variation row is empty.
  */
 
 import { getRootPath } from '@dropins/tools/lib/aem/configs.js';
-import { getMetadata, loadSections } from '../../scripts/aem.js';
+import { getMetadata, loadSections, readBlockConfig } from '../../scripts/aem.js';
 import {
   fetchPlaceholders,
   getHostname,
@@ -48,6 +50,55 @@ function isDamCfGraphqlPath(path) {
   if (!path || typeof path !== 'string') return false;
   return path.includes('/content/dam/')
     && (/\/fragments\//i.test(path) || /content-fragments/i.test(path));
+}
+
+/**
+ * Repository path + variation from Universal Editor output (picker link + optional row 2).
+ * Author-selected variation overrides `?variation=` on the link when row 2 / config has text.
+ * @param {Element} block
+ * @returns {{ path: string, variation: string }}
+ */
+function readFragmentCfInput(block) {
+  const cfg = readBlockConfig(block);
+  const link = block.querySelector(':scope > div:nth-child(1) a')
+    || block.querySelector('a[href*="content/dam"]')
+    || block.querySelector('a');
+  const hrefAttr = link?.getAttribute('href')?.trim() || '';
+  const hrefResolved = link?.href?.trim() || '';
+  const rawForParse = hrefAttr
+    || hrefResolved
+    || cfg.reference
+    || cfg['content-fragment']
+    || cfg['content-fragment-picker']
+    || block.textContent.trim();
+
+  const parsed = parseCfPathAndVariation(rawForParse);
+
+  const row2El = block.querySelector(':scope > div:nth-child(2) > div p')
+    || block.querySelector(':scope > div:nth-child(2) > div');
+  const row2Text = row2El?.textContent?.trim() ?? '';
+  const fromCfg = (
+    (cfg['selected-variation'] && String(cfg['selected-variation']).trim())
+    || (cfg.contentfragmentvariation && String(cfg.contentfragmentvariation).trim())
+    || ''
+  );
+
+  const authorVariation = row2Text || fromCfg;
+  let { variation } = parsed;
+  if (authorVariation) {
+    variation = authorVariation.toLowerCase().replace(/\s+/g, '_');
+  }
+
+  let { path } = parsed;
+  if (!path && rawForParse) {
+    try {
+      path = new URL(rawForParse, window.location.href).pathname.replace(/\.html$/i, '');
+    } catch {
+      /* keep parsed.path */
+    }
+  }
+
+  return { path, variation };
 }
 
 /**
@@ -242,9 +293,7 @@ export async function loadFragment(path) {
 }
 
 export default async function decorate(block) {
-  const link = block.querySelector('a');
-  const rawRef = link ? link.getAttribute('href') : block.textContent.trim();
-  const { path: cfPath, variation } = parseCfPathAndVariation(rawRef || '');
+  const { path: cfPath, variation } = readFragmentCfInput(block);
 
   if (isDamCfGraphqlPath(cfPath)) {
     try {
