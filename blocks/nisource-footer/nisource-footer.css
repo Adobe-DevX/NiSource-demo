@@ -5,13 +5,42 @@
  *   Small Paragraph 14px/1.4 (legal); Small Text 12px/1.4 (copyright)
  * - 1.3 color: White page bg; Yellow 30 top rule; Blue 50 column heads;
  *   Blue 30 links / Blue 40 hover; Gray 50 copyright; Gray 30 divider; Red 30 tel
+ * Full-width shell (border/bg); .nisource-footer__inner max-width 1200px centered.
  */
 
 .nisource-footer {
   background-color: var(--nisource-color-bg-page);
   border-top: var(--shape-border-width-1) solid var(--nisource-color-footer-accent-border);
+  box-sizing: border-box;
   color: var(--nisource-color-text-body);
   font-family: var(--nisource-font-body);
+  margin-inline: 0;
+  max-width: none;
+  width: 100%;
+}
+
+/* Undo blocks/footer/footer.css max-width; match footer shell bg to NiSource block (design.md White) */
+footer:has(.nisource-footer),
+footer:has(.nisource-footer) .footer {
+  background-color: var(--nisource-color-bg-page);
+}
+
+footer .footer > div:has(.nisource-footer) {
+  background-color: var(--nisource-color-bg-page);
+  margin-inline: 0;
+  max-width: none;
+  padding-inline: 0;
+  width: 100%;
+}
+
+footer .section.nisource-footer-container,
+footer .nisource-footer-wrapper {
+  background-color: var(--nisource-color-bg-page);
+  box-sizing: border-box;
+  margin-inline: 0;
+  max-width: none;
+  padding-inline: 0;
+  width: 100%;
 }
 
 .nisource-footer__inner {
@@ -19,6 +48,7 @@
   margin-inline: auto;
   max-width: 1200px;
   padding: var(--nisource-space-4) var(--nisource-space-3) var(--nisource-space-3);
+  width: 100%;
 }
 
 .nisource-footer__nav {
