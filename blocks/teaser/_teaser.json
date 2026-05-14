@@ -10,10 +10,7 @@
             "template": {
               "name": "Teaser",
               "model": "teaser",
-              "key-value": true,
-              "headline": "Shop our Marketplace",
-              "description": "Browse our Marketplace to find smart thermostats, energy-saving devices, and home solutions designed to improve comfort and lower your energy costs.",
-              "cta-label": "Take control"
+              "key-value": true
             }
           }
         }

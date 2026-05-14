@@ -24,8 +24,8 @@
 
 .teaser__content {
   display: grid;
-  gap: var(--nisource-space-2);
-  padding: var(--nisource-space-3);
+  gap: var(--nisource-space-1) 0;
+  padding: var(--nisource-space-3) var(--nisource-space-3) var(--nisource-space-2);
 }
 
 /* H3 — section heading (design.md §1.2); semantic h2 in promos */
@@ -52,7 +52,11 @@
 
 .teaser__cta {
   margin: 0;
-  margin-top: var(--nisource-space-1);
+}
+
+/* Global main a.button uses --spacing-small vertical margin; strip for compact teaser CTAs */
+main .teaser a.button:any-link {
+  margin-block: 0;
 }
 
 .teaser .button-container {
@@ -79,7 +83,7 @@
 
 @media (min-width: 900px) {
   .teaser__content {
-    gap: var(--nisource-space-3);
-    padding: var(--nisource-space-4);
+    gap: var(--nisource-space-2) 0;
+    padding: var(--nisource-space-4) var(--nisource-space-4) var(--nisource-space-3);
   }
 }

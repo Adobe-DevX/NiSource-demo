@@ -1,17 +1,25 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 
-const DEFAULTS = {
-  headline: 'Shop our Marketplace',
-  description: 'Browse our Marketplace to find smart thermostats, energy-saving devices, and home solutions designed to improve comfort and lower your energy costs.',
-  'cta-label': 'Take control',
-};
-
-function toText(value, fallback = '') {
+function joinText(value) {
   if (Array.isArray(value)) {
-    return value.join(' ').trim() || fallback;
+    return value.join(' ').trim();
   }
+  return String(value ?? '').trim();
+}
 
-  return value || fallback;
+/** Plain text for optional fields; treats empty/whitespace and empty richtext as un-authored. */
+function plainFromAuthor(value) {
+  const raw = joinText(value);
+  if (!raw) return '';
+  if (raw.includes('<')) {
+    try {
+      const doc = new DOMParser().parseFromString(raw, 'text/html');
+      return (doc.body.textContent || '').trim();
+    } catch {
+      return raw;
+    }
+  }
+  return raw;
 }
 
 function createCta(label, link) {
@@ -30,14 +38,19 @@ function createCta(label, link) {
 }
 
 export default function decorate(block) {
-  const config = readBlockConfig(block);
+  const {
+    image,
+    headline,
+    description,
+    'image-alt': imageAltRaw,
+    'cta-label': ctaLabelRaw,
+    'cta-link': ctaLink,
+  } = readBlockConfig(block);
 
-  const image = config.image;
-  const imageAlt = toText(config['image-alt'], '');
-  const headline = toText(config.headline, DEFAULTS.headline);
-  const description = toText(config.description, DEFAULTS.description);
-  const ctaLabel = toText(config['cta-label'], DEFAULTS['cta-label']);
-  const ctaLink = config['cta-link'];
+  const imageAlt = joinText(imageAltRaw);
+  const headlineText = plainFromAuthor(headline);
+  const descriptionText = plainFromAuthor(description);
+  const ctaLabel = joinText(ctaLabelRaw);
 
   const wrapper = document.createElement('div');
   wrapper.className = 'teaser__wrapper';
@@ -49,21 +62,32 @@ export default function decorate(block) {
     wrapper.append(media);
   }
 
-  const content = document.createElement('div');
-  content.className = 'teaser__content';
+  const hasContent = headlineText || descriptionText || ctaLabel;
+  if (hasContent) {
+    const content = document.createElement('div');
+    content.className = 'teaser__content';
 
-  const heading = document.createElement('h2');
-  heading.textContent = headline;
+    if (headlineText) {
+      const heading = document.createElement('h2');
+      heading.textContent = headlineText;
+      content.append(heading);
+    }
 
-  const body = document.createElement('p');
-  body.textContent = description;
+    if (descriptionText) {
+      const body = document.createElement('p');
+      body.textContent = descriptionText;
+      content.append(body);
+    }
 
-  const ctaContainer = document.createElement('p');
-  ctaContainer.className = 'teaser__cta';
-  ctaContainer.append(createCta(ctaLabel, ctaLink));
+    if (ctaLabel) {
+      const ctaContainer = document.createElement('p');
+      ctaContainer.className = 'teaser__cta';
+      ctaContainer.append(createCta(ctaLabel, ctaLink));
+      content.append(ctaContainer);
+    }
 
-  content.append(heading, body, ctaContainer);
-  wrapper.append(content);
+    wrapper.append(content);
+  }
 
   block.replaceChildren(wrapper);
 }
