@@ -1356,6 +1356,89 @@
     ]
   },
   {
+    "id": "nisource-footer",
+    "fields": [
+      {
+        "component": "text",
+        "name": "column-1-title",
+        "label": "Column 1 heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "column-1-body",
+        "label": "Column 1 links (use a bullet or numbered list)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "column-2-title",
+        "label": "Column 2 heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "column-2-body",
+        "label": "Column 2 links",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "column-3-title",
+        "label": "Column 3 heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "column-3-body",
+        "label": "Column 3 links",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "column-4-title",
+        "label": "Column 4 heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "column-4-body",
+        "label": "Column 4 links",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "column-5-title",
+        "label": "Column 5 heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "column-5-body",
+        "label": "Column 5 links (e.g. social icons)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "copyright",
+        "label": "Copyright line",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "legal",
+        "label": "Legal row (inline links, e.g. Terms, Privacy, Accessibility)",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "grid-layout",
     "fields": [
       {

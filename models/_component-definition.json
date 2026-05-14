@@ -53,6 +53,9 @@
           "...": "../blocks/my-insights/_*.json#/definitions"
         },
         {
+          "...": "../blocks/nisource-footer/_*.json#/definitions"
+        },
+        {
           "...": "../blocks/energy-assistance-form/_*.json#/definitions"
         },
         {

@@ -182,6 +182,13 @@
   /* Black — heading text in header chrome */
   --nisource-color-header-text: #000;
 
+  /* design.md — Yellow 30 borders; Blue 50 / Blue 30; Gray 50 — marketing footer */
+  --nisource-color-footer-accent-border: #ffc72c;
+  --nisource-color-footer-heading: #004b87;
+  --nisource-color-footer-link: #0072ce;
+  --nisource-color-footer-link-hover: #0061af;
+  --nisource-color-footer-muted: #898d8d;
+
   /* design.md spacing scale (8px base), extended for layout */
   --nisource-space-5: 40px;
   --nisource-space-6: 48px;

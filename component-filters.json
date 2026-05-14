@@ -30,6 +30,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "product-teaser",
       "product-recommendations"
     ]
@@ -53,6 +54,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "product-teaser",
       "product-recommendations"
     ]
@@ -76,6 +78,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "enrichment",
       "product-teaser",
       "product-recommendations",
@@ -101,6 +104,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "enrichment",
       "product-details",
       "product-teaser",
@@ -126,6 +130,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-mini-cart"
     ]
   },
@@ -148,6 +153,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-cart",
       "product-teaser",
       "product-recommendations"
@@ -172,6 +178,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-order-header",
       "commerce-order-status",
       "commerce-shipping-status",
@@ -203,6 +210,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-checkout"
     ]
   },
@@ -225,6 +233,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-search-order"
     ]
   },
@@ -247,6 +256,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "product-list-page"
     ]
   },
@@ -269,6 +279,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-login"
     ]
   },
@@ -291,6 +302,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-forgot-password"
     ]
   },
@@ -313,6 +325,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-create-account"
     ]
   },
@@ -335,6 +348,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-account-sidebar",
       "commerce-account-header",
       "commerce-orders-list",
@@ -362,6 +376,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-account-sidebar",
       "commerce-orders-list"
     ]
@@ -385,6 +400,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-account-sidebar",
       "commerce-addresses"
     ]
@@ -408,6 +424,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-account-sidebar",
       "commerce-returns-list"
     ]
@@ -431,6 +448,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-account-sidebar",
       "commerce-order-header",
       "commerce-order-status",
@@ -460,6 +478,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-search-order"
     ]
   },
@@ -482,6 +501,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-return-header",
       "commerce-order-status",
       "commerce-shipping-status",
@@ -508,6 +528,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-create-return"
     ]
   },
@@ -530,6 +551,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-confirm-account"
     ]
   },
@@ -552,6 +574,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-create-password"
     ]
   },
@@ -574,6 +597,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "commerce-wishlist"
     ]
   },
@@ -615,6 +639,7 @@
       "cards",
       "columns",
       "fragment",
+      "nisource-footer",
       "product-teaser",
       "product-recommendations"
     ]
@@ -645,6 +670,7 @@
       "columns",
       "grid-layout",
       "fragment",
+      "nisource-footer",
       "product-teaser",
       "product-recommendations"
     ]
@@ -676,6 +702,7 @@
       "grid-layout",
       "two-column",
       "fragment",
+      "nisource-footer",
       "product-teaser",
       "product-recommendations"
     ]
