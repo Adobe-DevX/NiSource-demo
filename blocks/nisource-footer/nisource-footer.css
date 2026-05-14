@@ -1,8 +1,16 @@
-/* design.md — Menu & Footer Heading (16px bold), Yellow 30 top accent, Blue 50 / Blue 30 */
+/*
+ * NiSource footer — design.md foundations:
+ * - 1.1 spacing: 8px grid via --nisource-space-*
+ * - 1.2 type: Menu & Footer Heading 16px bold; Paragraph 16px regular/1.5;
+ *   Small Paragraph 14px/1.4 (legal); Small Text 12px/1.4 (copyright)
+ * - 1.3 color: White page bg; Yellow 30 top rule; Blue 50 column heads;
+ *   Blue 30 links / Blue 40 hover; Gray 50 copyright; Gray 30 divider; Red 30 tel
+ */
 
 .nisource-footer {
   background-color: var(--nisource-color-bg-page);
-  border-top: var(--shape-border-width-3) solid var(--nisource-color-footer-accent-border);
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-footer-accent-border);
+  color: var(--nisource-color-text-body);
   font-family: var(--nisource-font-body);
 }
 
@@ -17,6 +25,7 @@
   display: grid;
   gap: var(--nisource-space-4) var(--nisource-space-3);
   grid-template-columns: 1fr;
+  letter-spacing: normal;
   margin: 0;
   padding: 0;
 }
@@ -29,7 +38,7 @@
 
 @media (min-width: 900px) {
   .nisource-footer__nav {
-    gap: var(--nisource-space-3) var(--nisource-space-4);
+    gap: var(--nisource-space-4) var(--nisource-space-4);
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -45,21 +54,25 @@
   min-width: 0;
 }
 
+/* design.md — Menu & Footer Heading (Arial Bold 16px, heading line-height 1.2) */
 .nisource-footer__column-title {
   color: var(--nisource-color-footer-heading);
   font-family: var(--nisource-font-body);
-  font-size: 1.6rem;
+  font-size: var(--nisource-type-footer-heading-size);
   font-weight: var(--font-weight-bold, 700);
   letter-spacing: normal;
-  line-height: 1.25;
+  line-height: var(--nisource-type-footer-heading-lh);
   margin: 0 0 var(--nisource-space-2);
 }
 
+/* design.md — Paragraph for link lists (16px, body line-height 1.5) */
 .nisource-footer__column-body {
   color: var(--nisource-color-footer-link);
-  font-size: 1.6rem;
+  font-family: var(--nisource-font-body);
+  font-size: var(--nisource-type-footer-body-size);
   font-weight: var(--font-weight-regular, 400);
-  line-height: 1.5;
+  letter-spacing: normal;
+  line-height: var(--nisource-type-footer-body-lh);
 }
 
 .nisource-footer__column-body :first-child {
@@ -89,12 +102,28 @@
   text-decoration: none;
 }
 
+.nisource-footer__column-body a[href^="tel:"]:any-link {
+  color: var(--nisource-color-footer-phone);
+}
+
 .nisource-footer__column-body a:hover,
 .nisource-footer__column-body a:focus-visible {
   color: var(--nisource-color-footer-link-hover);
   text-decoration: underline;
 }
 
+.nisource-footer__column-body a[href^="tel:"]:hover,
+.nisource-footer__column-body a[href^="tel:"]:focus-visible {
+  color: var(--nisource-color-footer-phone);
+  text-decoration: underline;
+}
+
+.nisource-footer__column-body a:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-footer-focus-ring);
+  outline-offset: var(--nisource-space-1);
+}
+
+/* design.md Gray 30 — divider above subfooter */
 .nisource-footer__subfooter {
   border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
   display: flex;
@@ -105,18 +134,25 @@
   padding-top: var(--nisource-space-3);
 }
 
+/* design.md — Small Text (12px) + Gray 50 secondary */
 .nisource-footer__copyright {
   color: var(--nisource-color-footer-muted);
-  font-size: 1.4rem;
+  font-family: var(--nisource-font-body);
+  font-size: var(--nisource-type-footer-copyright-size);
   font-weight: var(--font-weight-regular, 400);
-  line-height: 1.4;
+  letter-spacing: normal;
+  line-height: var(--nisource-type-footer-copyright-lh);
   margin: 0;
 }
 
+/* design.md — Small Paragraph (14px) for legal row */
 .nisource-footer__legal {
   color: var(--nisource-color-footer-link);
-  font-size: 1.4rem;
-  line-height: 1.4;
+  font-family: var(--nisource-font-body);
+  font-size: var(--nisource-type-footer-legal-size);
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: var(--nisource-type-footer-legal-lh);
 }
 
 .nisource-footer__legal a:any-link {
@@ -128,6 +164,11 @@
 .nisource-footer__legal a:focus-visible {
   color: var(--nisource-color-footer-link-hover);
   text-decoration: underline;
+}
+
+.nisource-footer__legal a:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-footer-focus-ring);
+  outline-offset: var(--nisource-space-1);
 }
 
 .nisource-footer__legal p {

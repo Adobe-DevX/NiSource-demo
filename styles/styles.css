@@ -182,12 +182,28 @@
   /* Black — heading text in header chrome */
   --nisource-color-header-text: #000;
 
-  /* design.md — Yellow 30 borders; Blue 50 / Blue 30; Gray 50 — marketing footer */
+  /* design.md — Yellow 30 borders; Blue 50 / Blue 30 / Blue 40 hover; Gray 50 — marketing footer */
   --nisource-color-footer-accent-border: #ffc72c;
   --nisource-color-footer-heading: #004b87;
   --nisource-color-footer-link: #0072ce;
   --nisource-color-footer-link-hover: #0061af;
   --nisource-color-footer-muted: #898d8d;
+
+  /* design.md Red 30 — emergency / high-visibility phone in footer */
+  --nisource-color-footer-phone: #a00;
+
+  /* design.md Blue 20 — focus ring on footer links */
+  --nisource-color-footer-focus-ring: #62b5e5;
+
+  /* design.md typography roles: Menu & Footer Heading; Paragraph; Small Paragraph; Small Text (html font-size 62.5%) */
+  --nisource-type-footer-heading-size: 1.6rem;
+  --nisource-type-footer-heading-lh: 1.2;
+  --nisource-type-footer-body-size: 1.6rem;
+  --nisource-type-footer-body-lh: 1.5;
+  --nisource-type-footer-legal-size: 1.4rem;
+  --nisource-type-footer-legal-lh: 1.4;
+  --nisource-type-footer-copyright-size: 1.2rem;
+  --nisource-type-footer-copyright-lh: 1.4;
 
   /* design.md spacing scale (8px base), extended for layout */
   --nisource-space-5: 40px;
