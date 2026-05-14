@@ -205,6 +205,41 @@ footer .nisource-footer-wrapper {
   margin: 0;
 }
 
+/* Social icons: vertical stack; tight row rhythm (gap + hit area sized to icon + 8px grid) */
+.nisource-footer__column-body ul.nisource-footer__social {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 4px;
+}
+
+.nisource-footer__column-body ul.nisource-footer__social li {
+  margin: 0;
+}
+
+.nisource-footer__column-body ul.nisource-footer__social a:any-link {
+  align-items: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: flex-start;
+  min-height: 3.2rem;
+  min-width: 3.2rem;
+  transition: transform 0.15s ease;
+}
+
+.nisource-footer__column-body ul.nisource-footer__social a:hover,
+.nisource-footer__column-body ul.nisource-footer__social a:focus-visible {
+  text-decoration: none;
+  transform: scale(1.05);
+  transform-origin: left center;
+}
+
+.nisource-footer__column-body ul.nisource-footer__social svg {
+  display: block;
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
 @media (min-width: 900px) {
   .nisource-footer__inner {
     padding: var(--nisource-space-4) var(--nisource-space-4) var(--nisource-space-3);

@@ -207,6 +207,14 @@
   --nisource-type-footer-copyright-size: 1.2rem;
   --nisource-type-footer-copyright-lh: 1.4;
 
+  /* Social brand fills — default footer icon row */
+  --nisource-social-facebook: #1877f2;
+  --nisource-social-x: #000;
+  --nisource-social-linkedin: #0a66c2;
+  --nisource-social-instagram-a: #f58529;
+  --nisource-social-instagram-b: #dd2a7b;
+  --nisource-social-instagram-c: #8134af;
+
   /* design.md spacing scale (8px base), extended for layout */
   --nisource-space-5: 40px;
   --nisource-space-6: 48px;

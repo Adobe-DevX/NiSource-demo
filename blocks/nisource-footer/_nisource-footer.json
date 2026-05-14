@@ -82,7 +82,7 @@
         {
           "component": "richtext",
           "name": "column-5-body",
-          "label": "Column 5 links (e.g. social icons)",
+          "label": "Column 5 links (default: Facebook, Instagram, X, LinkedIn)",
           "valueType": "string",
           "value": ""
         },
