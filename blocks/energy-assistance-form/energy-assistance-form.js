@@ -137,6 +137,11 @@ function normalizeConfig(config, introHtml, termsBodyHtml) {
     submitLabel: toText(config['submit-label'], DEFAULTS['submit-label']),
     resetLabel: toText(config['reset-label'], DEFAULTS['reset-label']),
     successMessage: toText(config['success-message'], DEFAULTS['success-message']),
+    /**
+     * Relative to site root (after codeBasePath). Empty = default demo JSON.
+     * Set block field to `none` to disable fetch.
+     */
+    prefillJsonPath: toText(config['prefill-json-path'], '').trim(),
     formAction: config['form-action'] || '',
   };
 }
@@ -325,11 +330,125 @@ function createFieldsetSection(legendText, extraClass = '') {
   return fs;
 }
 
-export default function decorate(block) {
+/**
+ * Default SERV demo prefill (same-origin JSON).
+ * Override path via block key `prefill-json-path`.
+ */
+const DEFAULT_PREFILL_JSON_PATH = 'blocks/energy-assistance-form/energy-assistance-prefill.json';
+
+function prefillJsonUrl(pathFromConfig) {
+  const base = (typeof window !== 'undefined' && window.hlx?.codeBasePath)
+    ? String(window.hlx.codeBasePath).replace(/\/$/, '')
+    : '';
+  const path = (pathFromConfig || DEFAULT_PREFILL_JSON_PATH).replace(/^\//, '');
+  return base ? `${base}/${path}` : `/${path}`;
+}
+
+async function fetchEnergyAssistancePrefill(pathFromConfig) {
+  const url = prefillJsonUrl(pathFromConfig);
+  try {
+    const res = await fetch(url, { credentials: 'same-origin' });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+function setSelectOptionByLabel(selectEl, labelText) {
+  if (!selectEl || labelText == null) return;
+  const want = String(labelText).trim();
+  if (!want) return;
+  const opts = [...selectEl.options];
+  const match = opts.find((o) => o.textContent.trim() === want);
+  if (match) {
+    selectEl.value = match.value;
+  }
+}
+
+function setPrimaryAccountHolder(selectEl, yesNo) {
+  if (!selectEl || yesNo == null) return;
+  const v = String(yesNo).trim().toLowerCase();
+  if (v === 'yes' || v === 'y' || v === 'true' || v === '1') {
+    selectEl.value = 'yes';
+  } else if (v === 'no' || v === 'n' || v === 'false' || v === '0') {
+    selectEl.value = 'no';
+  }
+}
+
+function setBehalfRadios(form, submittingOnBehalf) {
+  if (!form || submittingOnBehalf == null) return;
+  const v = String(submittingOnBehalf).trim().toLowerCase();
+  const self = form.querySelector('input[name="submitOnBehalf"][value="self"]');
+  const behalf = form.querySelector('input[name="submitOnBehalf"][value="behalf"]');
+  if (v === 'yes' || v === 'y' || v === 'true' || v === '1' || v === 'behalf') {
+    if (behalf) behalf.checked = true;
+  } else if (self) {
+    self.checked = true;
+  }
+}
+
+function setInputValue(form, name, value) {
+  if (value == null) return;
+  const el = form.querySelector(`input[name="${name}"]`);
+  if (el) el.value = String(value);
+}
+
+/**
+ * Applies same-origin JSON prefill to the live form (optional; skips missing fields).
+ * @param {HTMLFormElement} form
+ * @param {Record<string, unknown>} data
+ */
+function applyEnergyAssistancePrefill(form, data) {
+  if (!form || !data || typeof data !== 'object') return;
+
+  const elig = data.eligibility?.householdSizeAndIncome;
+  if (elig?.displayText) {
+    setSelectOptionByLabel(form.querySelector('select[name="householdIncome"]'), elig.displayText);
+  }
+
+  const owner = data.customerInformation?.accountOwner;
+  if (owner) {
+    setInputValue(form, 'ownerFirstName', owner.firstName);
+    setInputValue(form, 'ownerLastName', owner.lastName);
+  }
+
+  const spouse = data.customerInformation?.accountOwnerSpouse;
+  if (spouse) {
+    setInputValue(form, 'spouseFirstName', spouse.firstName);
+    setInputValue(form, 'spouseLastName', spouse.lastName);
+  }
+
+  const info = data.yourInformation;
+  if (info) {
+    setInputValue(form, 'applicantEmail', info.applicantEmail);
+    setInputValue(form, 'applicantPhone', info.applicantPhone);
+    setPrimaryAccountHolder(form.querySelector('select[name="primaryAccountHolder"]'), info.isPrimaryAccountHolder);
+  }
+
+  const agree = data.agreement;
+  if (agree && typeof agree.agreedToTermsAndConditions === 'boolean') {
+    const cb = form.querySelector('input[name="termsAgree"]');
+    if (cb) cb.checked = agree.agreedToTermsAndConditions;
+  }
+
+  if (agree?.submittingOnBehalfOfAccountHolder != null) {
+    setBehalfRadios(form, agree.submittingOnBehalfOfAccountHolder);
+  }
+}
+
+export default async function decorate(block) {
   const introHtml = readCellInnerHTML(block, 'intro', 'introduction');
   const termsBodyHtml = readCellInnerHTML(block, 'terms-body', 'terms-body-copy');
   const raw = readBlockConfig(block);
   const config = normalizeConfig(raw, introHtml, termsBodyHtml);
+
+  const prefillDisabled = ['none', 'off', 'false'].includes(
+    String(config.prefillJsonPath || '').trim().toLowerCase(),
+  );
+  const prefillPromise = prefillDisabled
+    ? Promise.resolve(null)
+    : fetchEnergyAssistancePrefill(config.prefillJsonPath || undefined);
 
   const placement = toText(
     raw['classes-placement'] || raw['column-placement-in-two-column-section'],
@@ -596,6 +715,9 @@ export default function decorate(block) {
       status.hidden = false;
     }
   });
+
+  const prefillData = await prefillPromise;
+  applyEnergyAssistancePrefill(form, prefillData);
 
   block.replaceChildren(root);
 }

@@ -1,0 +1,28 @@
+{
+  "eligibility": {
+    "householdSizeAndIncome": {
+      "householdSize": 3,
+      "annualIncome": 66625,
+      "displayText": "3-person household with annual income less than $66,625"
+    }
+  },
+  "customerInformation": {
+    "accountOwner": {
+      "firstName": "Jamie",
+      "lastName": "Williams"
+    },
+    "accountOwnerSpouse": {
+      "firstName": "Randy",
+      "lastName": "Williams"
+    }
+  },
+  "yourInformation": {
+    "applicantEmail": "jwilliams@gmail.com",
+    "applicantPhone": "678-555-3849",
+    "isPrimaryAccountHolder": "Yes"
+  },
+  "agreement": {
+    "agreedToTermsAndConditions": false,
+    "submittingOnBehalfOfAccountHolder": "No"
+  }
+}

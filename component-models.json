@@ -1266,6 +1266,13 @@
         "label": "Form Action"
       },
       {
+        "component": "text",
+        "name": "prefill-json-path",
+        "label": "Prefill JSON Path",
+        "value": "",
+        "description": "Optional. Repo-relative path after code base, e.g. blocks/energy-assistance-form/energy-assistance-prefill.json. Leave empty for default demo prefill. Set to none to disable."
+      },
+      {
         "component": "select",
         "name": "classes_placement",
         "label": "Column placement (in Two Column section)",
