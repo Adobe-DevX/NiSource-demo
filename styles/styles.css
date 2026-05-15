@@ -221,13 +221,79 @@
   --nisource-space-8: 64px;
 }
 
-/* fallback font */
+/* Local metric shim for Adobe Clean (fixed / mono stack); keeps text visible while webfonts load */
 @font-face {
   font-family: adobe-clean;
   size-adjust: 100%;
   src: local("Helvetica");
+  font-display: swap;
 }
-  
+
+/*
+ * Roboto / Roboto Condensed metric fallbacks: align local Arial to webfont metrics to reduce CLS
+ * when font-display swap occurs. Values from @capsizecss/metrics (latin xWidthAvg) and the Chrome
+ * "Improved font fallbacks" sizing formula (developer.chrome.com/blog/font-fallbacks).
+ */
+@font-face {
+  font-family: roboto-fallback;
+  src: local("Arial");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+  size-adjust: 98.1379%;
+  ascent-override: 94.5336%;
+  descent-override: 24.8772%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: roboto-fallback;
+  src: local("Arial");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  size-adjust: 99.8027%;
+  ascent-override: 92.9569%;
+  descent-override: 24.4627%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: roboto-fallback;
+  src: local("Arial");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+  size-adjust: 100.6571%;
+  ascent-override: 92.1682%;
+  descent-override: 24.2304%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: roboto-fallback;
+  src: local("Arial");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  size-adjust: 101.4239%;
+  ascent-override: 91.4704%;
+  descent-override: 24.0546%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: roboto-condensed-fallback;
+  src: local("Arial");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  size-adjust: 90.471%;
+  ascent-override: 102.5395%;
+  descent-override: 26.9789%;
+  line-gap-override: 0%;
+}
+
 html, body {
   min-height: 100%;
 }

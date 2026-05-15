@@ -23,12 +23,20 @@ import {
 import { decorateDMImages } from './dynamic-media.js';
 import { runExperimentation, showExperimentationRail } from './experiment-load.js';
 
-function getExperimentationConfig() {
+/**
+ * Experimentation audience helpers use a viewport width snapshot so we do not call
+ * `window.innerWidth` after layout-invalidating DOM work (forced reflow / long tasks).
+ *
+ * @param {number} [viewportWidthPx] Width in CSS pixels; default reads once at call time.
+ * @returns {{ prodHost: string, audiences: { mobile: () => boolean, desktop: () => boolean } }}
+ */
+function getExperimentationConfig(viewportWidthPx = typeof window !== 'undefined' ? window.innerWidth : 0) {
+  const w = viewportWidthPx;
   return {
     prodHost: getMetadata('experiment-prod-host') || window.location.hostname,
     audiences: {
-      mobile: () => window.innerWidth < 600,
-      desktop: () => window.innerWidth >= 600,
+      mobile: () => w < 600,
+      desktop: () => w >= 600,
     },
   };
 }
@@ -159,7 +167,16 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  await runExperimentation(doc, getExperimentationConfig());
+  const viewportWidthPx = typeof window !== 'undefined' ? window.innerWidth : 0;
+  let fontsLoadedInSession = false;
+  try {
+    fontsLoadedInSession = Boolean(sessionStorage.getItem('fonts-loaded'));
+  } catch {
+    fontsLoadedInSession = false;
+  }
+  const shouldEagerLoadFonts = viewportWidthPx >= 900 || fontsLoadedInSession;
+
+  await runExperimentation(doc, getExperimentationConfig(viewportWidthPx));
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
 
@@ -180,7 +197,7 @@ async function loadEager(doc) {
 
   try {
     /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
-    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
+    if (shouldEagerLoadFonts) {
       loadFonts();
     }
   } catch (e) {
@@ -193,6 +210,7 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
+  const viewportWidthPx = typeof window !== 'undefined' ? window.innerWidth : 0;
   const main = doc.querySelector('main');
   await loadSections(main);
 
@@ -209,7 +227,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
-  await showExperimentationRail(doc, getExperimentationConfig());
+  await showExperimentationRail(doc, getExperimentationConfig(viewportWidthPx));
 }
 
 /**

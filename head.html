@@ -40,7 +40,46 @@
     }
 </script>
 
-<link rel="stylesheet" href="/styles/styles.css" />
+<!--
+  Avoid a synchronous stylesheet in head (Lighthouse: render-blocking / LCP).
+  Critical bits inlined below; full tokens + layout load after DOMContentLoaded when
+  window.hlx.codeBasePath is set by aem.js.
+-->
+<style>
+  body:not(.appear) {
+    display: none;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+</style>
+<script nonce="aem">
+  (function () {
+    function stylesHref() {
+      var p = (typeof window !== 'undefined' && window.hlx && window.hlx.codeBasePath != null)
+        ? String(window.hlx.codeBasePath)
+        : '';
+      return p.replace(/\/$/, '') + '/styles/styles.css';
+    }
+    function apply() {
+      var href = stylesHref();
+      var links = document.head.querySelectorAll('link[rel="stylesheet"][href$="styles/styles.css"]');
+      if (links.length) return;
+      var el = document.createElement('link');
+      el.rel = 'stylesheet';
+      el.href = href;
+      if ('fetchPriority' in el) el.fetchPriority = 'high';
+      document.head.appendChild(el);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', apply, { once: true });
+    } else {
+      apply();
+    }
+  })();
+</script>
+<noscript><link rel="stylesheet" href="/styles/styles.css" /></noscript>
 
 <script nonce="aem" type="module">
     if (!(HTMLScriptElement.supports?.('importmap'))) {

@@ -1,3 +1,6 @@
+/* font-display: swap keeps text visible while files load; metric fallbacks are in styles.css.
+   For zero swap-induced layout shift (sometimes skipping the webfont), use font-display: optional. */
+
 @font-face {
     font-family: adobe-clean;
     src: url('../fonts/adobe-clean-normal-400.woff2') format('woff2');

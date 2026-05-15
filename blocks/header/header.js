@@ -175,10 +175,18 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
+  const brandLink = navBrand?.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
+  }
+
+  /* LCP: logo must not use native lazy-load; prioritize fetch (Lighthouse / web.dev LCP). */
+  const brandImg = navBrand?.querySelector('img');
+  if (brandImg) {
+    brandImg.setAttribute('loading', 'eager');
+    brandImg.setAttribute('fetchpriority', 'high');
+    brandImg.setAttribute('decoding', 'sync');
   }
 
   const navSections = nav.querySelector('.nav-sections');
