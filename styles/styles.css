@@ -169,17 +169,17 @@
   /* design.md App colors — Sky Blue for insights / accent icon */
   --nisource-color-insights-icon: #4fa6ff;
 
-  /* High bill alert strip (Gray 70 on white card, journey wireframe) */
-  --nisource-color-high-bill-alert-bg: #26333a;
-  --nisource-color-high-bill-alert-text: #fff;
-  --nisource-color-high-bill-alert-muted: #e2e2e2;
-  --nisource-color-high-bill-alert-link: #62b5e5;
-  --nisource-color-high-bill-alert-link-hover: #eff3fc;
-  /* High bill expanded: chart on light panel (Gray 20), body text Gray 70 */
+  /* High bill alert + insights — design.md Blue 10 surface, Gray 70 text, Blue 30 links */
+  --nisource-color-high-bill-alert-bg: #eff3fc;
+  --nisource-color-high-bill-alert-text: #26333a;
+  --nisource-color-high-bill-alert-muted: #898d8d;
+  --nisource-color-high-bill-alert-link: #0072ce;
+  --nisource-color-high-bill-alert-link-hover: #004b87;
+  /* High bill expanded: chart on Gray 20; metric rules use border token */
   --nisource-color-high-bill-chart-bg: #f2f2f2;
   --nisource-color-high-bill-chart-line: #0072ce;
   --nisource-color-high-bill-chart-grid: #e2e2e2;
-  --nisource-color-high-bill-metric-divider: #535454;
+  --nisource-color-high-bill-metric-divider: #e2e2e2;
 
   /* Black — heading text in header chrome */
   --nisource-color-header-text: #000;

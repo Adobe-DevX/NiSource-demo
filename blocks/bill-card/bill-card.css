@@ -188,7 +188,7 @@
 }
 
 .bill-card__high-bill-insights {
-  border-top: var(--shape-border-width-1) solid var(--nisource-color-high-bill-metric-divider);
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -229,6 +229,7 @@
 
 /* Body bold — 16px (design.md 1.2) */
 .bill-card__high-bill-metric-value {
+  color: var(--nisource-color-text-heading);
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
   font-weight: var(--font-weight-bold, 700);
@@ -432,8 +433,9 @@
   margin: 0;
 }
 
-/* Body bold / emphasis on dark */
+/* Body bold — alert emphasis on light panel (design.md 1.2) */
 .bill-card__high-bill-alert-message {
+  color: var(--nisource-color-text-heading);
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
   font-weight: var(--font-weight-bold, 700);
