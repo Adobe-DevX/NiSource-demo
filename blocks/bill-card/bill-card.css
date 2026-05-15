@@ -335,6 +335,8 @@
   display: block;
   height: auto;
   max-width: 100%;
+  object-fit: contain;
+  width: 100%;
 }
 
 /* H4 — 20px black for promo title on light panel (design.md 1.2) */

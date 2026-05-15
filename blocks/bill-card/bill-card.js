@@ -96,6 +96,11 @@ function normalizeConfig(config) {
     highBillAlertCtaLabel: toText(config['high-bill-alert-cta-label'], DEFAULTS['high-bill-alert-cta-label']),
     highBillChartImage: firstImageRef(config['high-bill-chart-image']),
     highBillChartImageAlt: toText(config['high-bill-chart-image-alt'], ''),
+    highBillSaveHeading: toMarkup(config['high-bill-save-heading'], ''),
+    highBillSaveCtaLabel: toText(config['high-bill-save-cta-label'], ''),
+    highBillSaveCtaLink: config['high-bill-save-cta-link'] || '',
+    highBillSaveImage: firstImageRef(config['high-bill-save-image']),
+    highBillSaveImageAlt: toText(config['high-bill-save-image-alt'], ''),
     content: toMarkup(config.content),
   };
 }
@@ -209,8 +214,62 @@ function appendChartBody(chartMedia, { chartImageSrc, chartImageAlt }, uid) {
   chartMedia.append(createChartPlaceholder(s.chartAriaLabel, uid));
 }
 
-function appendStaticInsightsPanel(insightsPanel, uid, chartBodyOpts) {
+function appendHighBillSaveTeaser(parent, {
+  headingHtml,
+  ctaLabel,
+  ctaLink,
+  imageSrc,
+  imageAlt,
+}) {
+  const headingMarkup = String(headingHtml || '').trim();
+  const cta = String(ctaLabel || '').trim() || STATIC_INSIGHTS.saveCtaLabel;
+  const link = String(ctaLink || '').trim();
+  const imgSrc = String(imageSrc || '').trim();
+
+  const save = document.createElement('div');
+  save.className = 'bill-card__high-bill-save';
+
+  if (imgSrc) {
+    const media = document.createElement('div');
+    media.className = 'bill-card__high-bill-save-media';
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = String(imageAlt || '').trim();
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    media.append(img);
+    save.append(media);
+  }
+
+  const saveCopy = document.createElement('div');
+  saveCopy.className = 'bill-card__high-bill-save-copy';
+
+  const sh = document.createElement('div');
+  sh.className = 'bill-card__high-bill-save-heading';
+  if (headingMarkup) {
+    sh.innerHTML = headingMarkup;
+  } else {
+    const shp = document.createElement('p');
+    shp.textContent = STATIC_INSIGHTS.saveHeading;
+    sh.append(shp);
+  }
+  saveCopy.append(sh, createButton(cta, link || null));
+
+  save.append(saveCopy);
+  parent.append(save);
+}
+
+function appendStaticInsightsPanel(insightsPanel, uid, insightsOpts = {}) {
   const s = STATIC_INSIGHTS;
+  const {
+    chartImageSrc,
+    chartImageAlt,
+    saveHeadingHtml,
+    saveCtaLabel,
+    saveCtaLink,
+    saveImageSrc,
+    saveImageAlt,
+  } = insightsOpts;
 
   const metricsRow = document.createElement('div');
   metricsRow.className = 'bill-card__high-bill-metrics';
@@ -242,22 +301,17 @@ function appendStaticInsightsPanel(insightsPanel, uid, chartBodyOpts) {
   chartBlock.append(ch);
   const chartMedia = document.createElement('div');
   chartMedia.className = 'bill-card__high-bill-chart-body';
-  appendChartBody(chartMedia, chartBodyOpts, uid);
+  appendChartBody(chartMedia, { chartImageSrc, chartImageAlt }, uid);
   chartBlock.append(chartMedia);
   insightsPanel.append(chartBlock);
 
-  const save = document.createElement('div');
-  save.className = 'bill-card__high-bill-save';
-  const saveCopy = document.createElement('div');
-  saveCopy.className = 'bill-card__high-bill-save-copy';
-  const sh = document.createElement('div');
-  sh.className = 'bill-card__high-bill-save-heading';
-  const shp = document.createElement('p');
-  shp.textContent = s.saveHeading;
-  sh.append(shp);
-  saveCopy.append(sh, createButton(s.saveCtaLabel, null));
-  save.append(saveCopy);
-  insightsPanel.append(save);
+  appendHighBillSaveTeaser(insightsPanel, {
+    headingHtml: saveHeadingHtml,
+    ctaLabel: saveCtaLabel,
+    ctaLink: saveCtaLink,
+    imageSrc: saveImageSrc,
+    imageAlt: saveImageAlt,
+  });
 
   const footer = document.createElement('div');
   footer.className = 'bill-card__high-bill-insights-footer';
@@ -321,6 +375,11 @@ function appendHighBillAlert(billCard, config) {
   const collapseBtn = appendStaticInsightsPanel(insightsPanel, uid, {
     chartImageSrc: config.highBillChartImage,
     chartImageAlt: config.highBillChartImageAlt,
+    saveHeadingHtml: config.highBillSaveHeading,
+    saveCtaLabel: config.highBillSaveCtaLabel,
+    saveCtaLink: config.highBillSaveCtaLink,
+    saveImageSrc: config.highBillSaveImage,
+    saveImageAlt: config.highBillSaveImageAlt,
   });
 
   let insightsOpen = false;

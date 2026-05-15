@@ -324,6 +324,35 @@
       },
       {
         "component": "richtext",
+        "name": "high-bill-save-heading",
+        "label": "High bill save heading",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "high-bill-save-cta-label",
+        "label": "High bill save CTA label"
+      },
+      {
+        "component": "aem-content",
+        "name": "high-bill-save-cta-link",
+        "label": "High bill save CTA link"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "high-bill-save-image",
+        "label": "High bill save image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "high-bill-save-image-alt",
+        "label": "High bill save image alt"
+      },
+      {
+        "component": "richtext",
         "name": "content",
         "label": "Content",
         "valueType": "string",
