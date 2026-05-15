@@ -281,7 +281,6 @@
   background: var(--nisource-color-high-bill-chart-bg);
   border-radius: var(--shape-border-radius-2);
   overflow: hidden;
-  padding: var(--nisource-space-2);
 }
 
 .bill-card__high-bill-chart-body picture,
@@ -330,19 +329,27 @@
     linear-gradient(
       100deg,
       var(--nisource-color-bg-page) 0%,
-      color-mix(in srgb, var(--nisource-color-bg-page) 88%, transparent) 45%,
-      color-mix(in srgb, var(--nisource-color-bg-page) 40%, transparent) 100%
+      color-mix(in srgb, var(--nisource-color-bg-page) 92%, transparent) 38%,
+      color-mix(in srgb, var(--nisource-color-bg-page) 55%, transparent) 68%,
+      color-mix(in srgb, var(--nisource-color-bg-page) 22%, transparent) 100%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--nisource-color-high-bill-alert-text) 12%, transparent),
+      color-mix(in srgb, var(--nisource-color-high-bill-alert-text) 22%, transparent)
     ),
     var(--bill-card-save-bg-image, none);
-  background-position: left center, right center;
+  background-position: left center, center center, right center;
   background-repeat: no-repeat;
-  background-size: cover, cover;
-  min-height: 12rem;
+  background-size: cover, cover, cover;
+  min-height: 17.5rem;
+  padding-block: var(--nisource-space-4);
+  padding-inline: var(--nisource-space-3);
 }
 
 @media (min-width: 600px) {
   .bill-card__high-bill-save--has-bg {
-    min-height: 14rem;
+    min-height: 17.5rem;
   }
 }
 
