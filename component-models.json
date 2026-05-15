@@ -311,6 +311,18 @@
         "label": "High bill alert — CTA link"
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "high-bill-chart-image",
+        "label": "High bill chart image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "high-bill-chart-image-alt",
+        "label": "High bill chart image alt"
+      },
+      {
         "component": "richtext",
         "name": "content",
         "label": "Content",

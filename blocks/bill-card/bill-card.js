@@ -75,6 +75,13 @@ function appendBillDateline(container, labelText, valueText) {
   container.append(row);
 }
 
+function firstImageRef(value) {
+  if (Array.isArray(value)) {
+    return String(value[0] || '').trim();
+  }
+  return String(value || '').trim();
+}
+
 function normalizeConfig(config) {
   return {
     eyebrow: toText(config.eyebrow, ''),
@@ -87,6 +94,8 @@ function normalizeConfig(config) {
     highBillAlertTitle: toText(config['high-bill-alert-title'], DEFAULTS['high-bill-alert-title']),
     highBillAlertMessage: toText(config['high-bill-alert-message'], DEFAULTS['high-bill-alert-message']),
     highBillAlertCtaLabel: toText(config['high-bill-alert-cta-label'], DEFAULTS['high-bill-alert-cta-label']),
+    highBillChartImage: firstImageRef(config['high-bill-chart-image']),
+    highBillChartImageAlt: toText(config['high-bill-chart-image-alt'], ''),
     content: toMarkup(config.content),
   };
 }
@@ -184,7 +193,23 @@ function createButton(label, link) {
   return button;
 }
 
-function appendStaticInsightsPanel(insightsPanel, uid) {
+function appendChartBody(chartMedia, { chartImageSrc, chartImageAlt }, uid) {
+  const src = String(chartImageSrc || '').trim();
+  if (src) {
+    const img = document.createElement('img');
+    img.className = 'bill-card__high-bill-chart-img';
+    img.src = src;
+    img.alt = String(chartImageAlt || '').trim();
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    chartMedia.append(img);
+    return;
+  }
+  const s = STATIC_INSIGHTS;
+  chartMedia.append(createChartPlaceholder(s.chartAriaLabel, uid));
+}
+
+function appendStaticInsightsPanel(insightsPanel, uid, chartBodyOpts) {
   const s = STATIC_INSIGHTS;
 
   const metricsRow = document.createElement('div');
@@ -217,7 +242,7 @@ function appendStaticInsightsPanel(insightsPanel, uid) {
   chartBlock.append(ch);
   const chartMedia = document.createElement('div');
   chartMedia.className = 'bill-card__high-bill-chart-body';
-  chartMedia.append(createChartPlaceholder(s.chartAriaLabel, uid));
+  appendChartBody(chartMedia, chartBodyOpts, uid);
   chartBlock.append(chartMedia);
   insightsPanel.append(chartBlock);
 
@@ -293,7 +318,10 @@ function appendHighBillAlert(billCard, config) {
   insightsPanel.className = 'bill-card__high-bill-insights';
   insightsPanel.setAttribute('hidden', '');
 
-  const collapseBtn = appendStaticInsightsPanel(insightsPanel, uid);
+  const collapseBtn = appendStaticInsightsPanel(insightsPanel, uid, {
+    chartImageSrc: config.highBillChartImage,
+    chartImageAlt: config.highBillChartImageAlt,
+  });
 
   let insightsOpen = false;
 

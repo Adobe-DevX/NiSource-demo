@@ -290,6 +290,11 @@
   max-width: 100%;
 }
 
+.bill-card__high-bill-chart-img {
+  width: 100%;
+  object-fit: contain;
+}
+
 .bill-card__high-bill-chart-placeholder {
   max-height: 16rem;
 }
