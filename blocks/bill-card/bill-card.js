@@ -225,20 +225,20 @@ function appendHighBillSaveTeaser(parent, {
   const cta = String(ctaLabel || '').trim() || STATIC_INSIGHTS.saveCtaLabel;
   const link = String(ctaLink || '').trim();
   const imgSrc = String(imageSrc || '').trim();
+  const alt = String(imageAlt || '').trim();
 
   const save = document.createElement('div');
   save.className = 'bill-card__high-bill-save';
 
   if (imgSrc) {
-    const media = document.createElement('div');
-    media.className = 'bill-card__high-bill-save-media';
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = String(imageAlt || '').trim();
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    media.append(img);
-    save.append(media);
+    save.classList.add('bill-card__high-bill-save--has-bg');
+    save.style.setProperty(
+      '--bill-card-save-bg-image',
+      `url(${JSON.stringify(imgSrc)})`,
+    );
+    if (alt) {
+      save.title = alt;
+    }
   }
 
   const saveCopy = document.createElement('div');

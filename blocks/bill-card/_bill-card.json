@@ -19,7 +19,9 @@
               "bill-cta-link": "/billing-payment",
               "high-bill-alert-title": "High Bill Alert",
               "high-bill-alert-message": "18% higher compared to last month",
-              "high-bill-alert-cta-label": "See why & Take Action"
+              "high-bill-alert-cta-label": "See why & Take Action",
+              "high-bill-save-heading": "<p>Recommended smart thermostats to help you save</p>",
+              "high-bill-save-cta-label": "Shop marketplace"
             }
           }
         }
@@ -102,12 +104,13 @@
           "name": "high-bill-save-heading",
           "label": "High bill save heading",
           "valueType": "string",
-          "value": ""
+          "value": "<p>Recommended smart thermostats to help you save</p>"
         },
         {
           "component": "text",
           "name": "high-bill-save-cta-label",
-          "label": "High bill save CTA label"
+          "label": "High bill save CTA label",
+          "value": "Shop marketplace"
         },
         {
           "component": "aem-content",

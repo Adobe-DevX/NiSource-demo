@@ -327,12 +327,13 @@
         "name": "high-bill-save-heading",
         "label": "High bill save heading",
         "valueType": "string",
-        "value": ""
+        "value": "<p>Recommended smart thermostats to help you save</p>"
       },
       {
         "component": "text",
         "name": "high-bill-save-cta-label",
-        "label": "High bill save CTA label"
+        "label": "High bill save CTA label",
+        "value": "Shop marketplace"
       },
       {
         "component": "aem-content",
