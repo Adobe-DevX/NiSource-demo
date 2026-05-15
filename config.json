@@ -1,7 +1,7 @@
 {
   "public": {
     "default": {
-      "commerce-endpoint": "https://citisignal-com792.adobedemo.com/graphql",
+      "commerce-endpoint": "https://edge-sandbox-graph.adobe.io/api/037237d4-23e0-4d60-b5ab-9cfc285e5976/graphql",
       "headers": {
         "all": {
           "Store": "default"
