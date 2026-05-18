@@ -2,7 +2,7 @@
   "public": {
     "default": {
       "commerce-core-endpoint": "https://com792.adobedemo.com/graphql",
-      "commerce-endpoint": "https://catalog-service.adobe.io/graphql",
+      "commerce-endpoint": "https://catalog-service-sandbox.adobe.io/graphql",
       "headers": {
         "all": {
           "Store": "citisignal_us"
@@ -11,7 +11,7 @@
           "Magento-Store-Code": "citisignal_store",
           "Magento-Store-View-Code": "citisignal_us",
           "Magento-Website-Code": "citisignal",
-          "x-api-key": "0f190a42162c4064a06a568988c0a0ab",
+          "x-api-key": "4054232f6db24098a0a69da0fe2ba16e",
           "Magento-Environment-Id": "0522efc9-84ba-4860-8a55-8c11f8cda35c"
         }
       },
