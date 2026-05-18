@@ -1,7 +1,7 @@
 {
   "public": {
     "default": {
-      "commerce-core-endpoint": "https://com792.adobedemo.com/graphql",
+      "commerce-core-endpoint": "https://edge-sandbox-graph.adobe.io/api/037237d4-23e0-4d60-b5ab-9cfc285e5976/graphql",
       "commerce-endpoint": "https://catalog-service-sandbox.adobe.io/graphql",
       "headers": {
         "all": {
