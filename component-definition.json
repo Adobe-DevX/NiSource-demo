@@ -159,16 +159,19 @@
           }
         },
         {
-          "title": "NiSource Footer",
-          "id": "nisource-footer",
+          "title": "Modal",
+          "id": "modal",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "NiSource Footer",
-                  "model": "nisource-footer",
-                  "key-value": true
+                  "name": "Modal",
+                  "model": "modal",
+                  "key-value": true,
+                  "trigger-label": "Open modal",
+                  "title": "Modal heading",
+                  "body": "Add modal content here."
                 }
               }
             }
@@ -224,7 +227,9 @@
                   "bill-cta-link": "/billing-payment",
                   "high-bill-alert-title": "High Bill Alert",
                   "high-bill-alert-message": "18% higher compared to last month",
-                  "high-bill-alert-cta-label": "See why & Take Action"
+                  "high-bill-alert-cta-label": "See why & Take Action",
+                  "high-bill-save-heading": "<p>Recommended smart thermostats to help you save</p>",
+                  "high-bill-save-cta-label": "Shop marketplace"
                 }
               }
             }
@@ -244,6 +249,22 @@
                   "heading-icon": "fa-solid fa-chart-pie",
                   "footer-text": "Check to see how your usage has changed month to month.",
                   "footer-link-text": "View Detailed Usage"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "NiSource Footer",
+          "id": "nisource-footer",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "NiSource Footer",
+                  "model": "nisource-footer",
+                  "key-value": true
                 }
               }
             }
