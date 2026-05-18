@@ -1,4 +1,8 @@
+import { getCustomer } from '@dropins/storefront-account/api.js';
 import { loadCSS, readBlockConfig } from '../../scripts/aem.js';
+import { checkIsAuthenticated } from '../../scripts/commerce.js';
+
+import '../../scripts/initializers/account.js';
 
 const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
 
@@ -21,6 +25,17 @@ function toText(value, fallback = '') {
   }
 
   return value || fallback;
+}
+
+/** Builds "Hi … !" from Commerce `firstName` / `lastName`. @param {object} [customer] */
+function greetingFromCustomer(customer) {
+  if (!customer) return null;
+  const name = [customer.firstName, customer.lastName]
+    .map((part) => (typeof part === 'string' ? part.trim() : ''))
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+  return name ? `Hi ${name} !` : null;
 }
 
 function createFaIcon(classValue, fallbackClass = 'fa-house') {
@@ -131,6 +146,18 @@ export default async function decorate(block) {
   const greeting = document.createElement('p');
   greeting.className = 'account-information__greeting';
   greeting.textContent = data.greeting;
+
+  if (checkIsAuthenticated()) {
+    try {
+      const customer = await getCustomer();
+      const fromCommerce = greetingFromCustomer(customer);
+      if (fromCommerce) {
+        greeting.textContent = fromCommerce;
+      }
+    } catch {
+      /* keep authored greeting if the customer query fails */
+    }
+  }
 
   const account = document.createElement('p');
   account.className = 'account-information__meta';
