@@ -41,7 +41,7 @@ header nav {
   color: var(--nisource-color-header-text);
 }
 
-/* All-caps nav chrome; panels and fields reset below */
+/* All-caps nav chrome; flyouts, panels, and fields reset below */
 header nav .nav-brand,
 header nav .nav-sections,
 header nav .nav-tools {
@@ -51,6 +51,7 @@ header nav .nav-tools {
 header nav .nav-tools-panel,
 header nav .wishlist-panel,
 header nav .minicart-panel,
+header nav .nav-sections .submenu-wrapper,
 header nav input,
 header nav textarea,
 header nav select {
@@ -399,12 +400,12 @@ header nav .nav-sections ul > li:empty {
     background-color: var(--nisource-color-bg-section);
   }
 
-  /* Mega menu / flyout links — Small Paragraph 14 + clear targets (design.md §1.2) */
+  /* Mega menu / flyout links — +2px vs small paragraph (design.md §1.2) */
   header nav .nav-sections .default-content-wrapper > ul > li ul > li a {
     border-radius: var(--shape-border-radius-2);
     color: var(--nisource-color-text-heading);
     display: block;
-    font-size: 1.4rem;
+    font-size: calc(1.4rem + 2px);
     font-weight: var(--font-weight-regular, 400);
     letter-spacing: normal;
     line-height: 1.4;
@@ -800,7 +801,7 @@ li
   header nav .nav-sections ul > li ul > li {
     border-radius: var(--shape-border-radius-2);
     font-family: var(--nisource-font-body);
-    font-size: 1.6rem;
+    font-size: calc(1.6rem + 2px);
     font-weight: var(--font-weight-regular, 400);
     letter-spacing: normal;
     line-height: 1.5;
@@ -828,7 +829,7 @@ li
     color: var(--nisource-color-text-heading);
     display: block;
     font-family: var(--nisource-font-body);
-    font-size: 1.6rem;
+    font-size: calc(1.6rem + 2px);
     font-weight: var(--font-weight-regular, 400);
     letter-spacing: normal;
     line-height: 1.5;
@@ -909,7 +910,7 @@ li
     border-radius: var(--shape-border-radius-2);
     color: var(--nisource-color-text-heading);
     font-family: var(--nisource-font-body);
-    font-size: 1.6rem;
+    font-size: calc(1.6rem + 2px);
     font-weight: var(--font-weight-bold, 700);
     height: 2.2em;
     letter-spacing: normal;
@@ -936,13 +937,12 @@ li
     border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
     color: var(--nisource-color-text-secondary);
     font-family: var(--nisource-font-body);
-    font-size: 1.2rem;
+    font-size: calc(1.2rem + 2px);
     font-weight: var(--font-weight-bold, 700);
     letter-spacing: 0.04em;
     line-height: 1.4;
     margin: 0;
     padding: var(--nisource-space-2) var(--nisource-space-3);
-    text-transform: uppercase;
   }
 }
 
