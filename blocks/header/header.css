@@ -112,7 +112,22 @@ header nav .nav-hamburger button {
   white-space: initial;
 }
 
+header nav .nav-tools-wrapper > button {
+  background: transparent;
+  border: unset;
+  color: var(--nisource-color-header-text);
+  cursor: pointer;
+  height: var(--nisource-space-5);
+  padding: var(--nisource-space-2);
+  width: var(--nisource-space-5);
+}
+
 header nav .nav-hamburger button:focus-visible {
+  outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+  outline-offset: var(--nisource-space-1);
+}
+
+header nav .nav-tools-wrapper > button:focus-visible {
   outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
   outline-offset: var(--nisource-space-1);
 }
@@ -318,29 +333,28 @@ header nav .nav-sections ul > li:empty {
 
   header nav .nav-sections .nav-drop[aria-expanded='true'] ul {
     flex-flow: column wrap;
-    max-height: calc(var(--desktop-panel-max-height) - 2 * var(--nisource-space-5));
-    min-height: calc(var(--desktop-panel-min-height) - 2 * var(--nisource-space-5));
+    gap: calc(var(--nisource-space-1) / 2) var(--nisource-space-1);
+    max-height: calc(var(--desktop-panel-max-height) - 2 * var(--nisource-space-3));
+    min-height: unset;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper {
     background-color: var(--nisource-color-bg-page);
+    border: var(--shape-border-width-1) solid var(--nisource-color-border);
+    border-radius: var(--shape-border-radius-2);
+    box-shadow: var(--shape-shadow-2);
     box-sizing: border-box;
+    color: var(--nisource-color-text-body);
     left: 0;
     max-height: var(--desktop-panel-max-height);
-    min-height: var(--desktop-panel-min-height);
-
-    /* Grow past narrow parent `li` so labels stay inside the panel */
-    width: max-content;
-    min-width: max(100%, var(--desktop-item-panel-min-width));
     max-width: min(var(--desktop-large-panel-width), calc(100vw - 2 * var(--nisource-space-4)));
-    padding: var(--nisource-space-5);
+    min-width: max(100%, var(--desktop-item-panel-min-width));
+    overflow-wrap: anywhere;
+    padding: var(--nisource-space-3);
     position: absolute;
-    /* Flush under the trigger `li` so the pointer never crosses “dead” space outside `nav` */
     top: 100%;
-    color: var(--nisource-color-text-body);
-    border: var(--shape-border-width-1) solid var(--nisource-color-border);
-    border-radius: 0 0 var(--shape-border-radius-2) var(--shape-border-radius-2);
-    overflow-wrap: break-word;
+    width: max-content;
+    z-index: 5;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li .submenu-header {
@@ -358,30 +372,22 @@ header nav .nav-sections ul > li:empty {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] ul {
+    align-content: start;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
+    gap: calc(var(--nisource-space-1) / 2) var(--nisource-space-1);
     margin: 0 auto;
+    max-width: min(var(--desktop-large-panel-width), 100%);
     overflow-x: visible;
     width: 100%;
-    max-width: min(var(--desktop-large-panel-width), 100%);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li ul::before {
-    content: '';
-    position: absolute;
-    top: calc(-1 * var(--nisource-space-1));
-    left: var(--nisource-space-2);
-    width: 0;
-    height: 0;
-    border-left: var(--nisource-space-1) solid transparent;
-    border-right: var(--nisource-space-1) solid transparent;
-    border-bottom: var(--nisource-space-1) solid var(--nisource-color-border);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul > li {
-    min-width: var(--desktop-item-panel-min-width);
+    border-radius: var(--shape-border-radius-2);
     max-width: var(--desktop-item-panel-max-width);
+    min-width: var(--desktop-item-panel-min-width);
+    transition: background-color 0.15s ease;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li:hover,
@@ -389,18 +395,31 @@ header nav .nav-sections ul > li:empty {
     background-color: var(--nisource-color-bg-section);
   }
 
-  /* Mega menu links — Paragraph 16 (design.md §1.2) */
-  header nav .nav-sections .default-content-wrapper > ul > li ul > li,
+  header nav .nav-sections .default-content-wrapper > ul > li ul > li:hover {
+    background-color: var(--nisource-color-bg-section);
+  }
+
+  /* Mega menu / flyout links — Small Paragraph 14 + clear targets (design.md §1.2) */
   header nav .nav-sections .default-content-wrapper > ul > li ul > li a {
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 1.5;
+    border-radius: var(--shape-border-radius-2);
+    color: var(--nisource-color-text-heading);
+    display: block;
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-regular, 400);
     letter-spacing: normal;
-    color: var(--nisource-color-primary);
+    line-height: 1.4;
+    padding: var(--nisource-space-1) var(--nisource-space-2);
+    text-decoration: none;
+    transition: color 0.15s ease, background-color 0.15s ease;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul > li a:hover {
-    color: var(--nisource-color-primary-hover);
+    color: var(--nisource-color-primary);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li ul > li a:focus-visible {
+    outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -433,21 +452,6 @@ header nav .nav-tools {
   flex-shrink: 0;
   background: transparent;
   z-index: 3;
-}
-
-header nav .nav-tools-wrapper > button {
-  color: var(--nisource-color-header-text);
-  background: transparent;
-  padding: var(--nisource-space-2);
-  border: unset;
-  cursor: pointer;
-  height: var(--nisource-space-5);
-  width: var(--nisource-space-5);
-}
-
-header nav .nav-tools-wrapper > button:focus-visible {
-  outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
-  outline-offset: var(--nisource-space-1);
 }
 
 header nav .nav-tools button.nav-cart-button {
@@ -794,27 +798,52 @@ li
   }
 
   header nav .nav-sections ul > li ul > li {
+    border-radius: var(--shape-border-radius-2);
     font-family: var(--nisource-font-body);
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: var(--font-weight-regular, 400);
     letter-spacing: normal;
     line-height: 1.5;
-    padding: var(--nisource-space-1);
+    margin: 0 var(--nisource-space-1);
+    padding: 0;
+    transition: background-color 0.15s ease;
     width: auto;
-  }
-
-  header nav .nav-sections ul > li ul > li a {
-    font-family: var(--nisource-font-body);
-    font-size: 1.6rem;
-    font-weight: 400;
-    letter-spacing: normal;
-    line-height: 1.5;
-    color: var(--nisource-color-primary);
   }
 
   header nav .nav-sections ul > li ul > li:has(img) {
     margin: var(--nisource-space-2) 0;
     padding: 0;
+  }
+
+  header nav .nav-sections ul li:empty {
+    display: none;
+  }
+
+  header nav .nav-sections ul > li ul > li:hover {
+    background-color: var(--nisource-color-bg-section);
+  }
+
+  header nav .nav-sections ul > li ul > li a {
+    border-radius: var(--shape-border-radius-2);
+    color: var(--nisource-color-text-heading);
+    display: block;
+    font-family: var(--nisource-font-body);
+    font-size: 1.6rem;
+    font-weight: var(--font-weight-regular, 400);
+    letter-spacing: normal;
+    line-height: 1.5;
+    padding: var(--nisource-space-1) var(--nisource-space-2);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  header nav .nav-sections ul > li ul > li a:hover {
+    color: var(--nisource-color-primary);
+  }
+
+  header nav .nav-sections ul > li ul > li a:focus-visible {
+    outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+    outline-offset: 2px;
   }
 
   header nav[aria-expanded='true'] .nav-brand {
@@ -842,9 +871,14 @@ li
 
   header nav .nav-sections ul > li.nav-drop.active .submenu-wrapper {
     background: var(--nisource-color-bg-page);
+    border-radius: 0;
+    box-shadow: none;
+    box-sizing: border-box;
     display: block;
     height: 100%;
     left: 0;
+    overflow: hidden auto;
+    padding: 0;
     position: absolute;
     top: 0;
     width: 100%;
@@ -853,13 +887,18 @@ li
 
   header nav .nav-sections ul > li.nav-drop.active ul {
     display: block;
-    padding-bottom: var(--nisource-space-8);
+    padding: var(--nisource-space-1) var(--nisource-space-3) var(--nisource-space-8);
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header {
+    align-items: center;
     background: var(--nisource-color-bg-page);
+    border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
+    box-sizing: border-box;
+    display: flex;
     height: var(--nisource-space-8);
     left: 0;
+    padding: 0 var(--nisource-space-2);
     position: fixed;
     top: 0;
     width: 320px;
@@ -867,21 +906,25 @@ li
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header .back-link {
+    border-radius: var(--shape-border-radius-2);
+    color: var(--nisource-color-text-heading);
     font-family: var(--nisource-font-body);
     font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: normal;
+    font-weight: var(--font-weight-bold, 700);
     height: 2.2em;
+    letter-spacing: normal;
     line-height: 2.2em;
-    padding: 0 var(--nisource-space-3);
-    color: var(--nisource-color-text-heading);
+    margin: 0;
+    padding: 0 var(--nisource-space-2);
+  }
+
+  header nav .nav-sections ul > li.nav-drop .submenu-header .back-link:focus-visible {
+    outline: var(--shape-border-width-3) solid var(--nisource-color-primary);
+    outline-offset: 2px;
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-header hr {
-    margin: 0;
-    position: absolute;
-    top: var(--nisource-space-8);
-    width: 320px;
+    display: none;
   }
 
   header nav .nav-sections ul > li .submenu-header .back-link::before {
@@ -890,17 +933,16 @@ li
   }
 
   header nav .nav-sections ul > li.nav-drop .submenu-title {
+    border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
+    color: var(--nisource-color-text-secondary);
     font-family: var(--nisource-font-body);
-    font-size: 1.4rem;
-    font-weight: 400;
-    letter-spacing: normal;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-bold, 700);
+    letter-spacing: 0.04em;
     line-height: 1.4;
-    color: var(--nisource-color-text-body);
-    margin-bottom: var(--nisource-space-2);
-  }
-
-  header nav .nav-sections ul li:empty {
-    display: none;
+    margin: 0;
+    padding: var(--nisource-space-2) var(--nisource-space-3);
+    text-transform: uppercase;
   }
 }
 
