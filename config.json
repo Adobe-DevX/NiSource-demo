@@ -1,16 +1,16 @@
 {
   "public": {
     "default": {
-      "commerce-core-endpoint": "https://citisignal-com792.adobedemo.com/graphql",
+      "commerce-core-endpoint": "https://com792.adobedemo.com/graphql",
       "commerce-endpoint": "https://catalog-service.adobe.io/graphql",
       "headers": {
         "all": {
-          "Store": "default"
+          "Store": "citisignal_us"
         },
         "cs": {
-          "Magento-Store-Code": "main_website_store",
-          "Magento-Store-View-Code": "default",
-          "Magento-Website-Code": "base",
+          "Magento-Store-Code": "citisignal_store",
+          "Magento-Store-View-Code": "citisignal_us",
+          "Magento-Website-Code": "citisignal",
           "x-api-key": "0f190a42162c4064a06a568988c0a0ab",
           "Magento-Environment-Id": "0522efc9-84ba-4860-8a55-8c11f8cda35c"
         }
@@ -23,20 +23,20 @@
         "base-currency-code": "USD",
         "environment": "Testing",
         "environment-id": "0522efc9-84ba-4860-8a55-8c11f8cda35c",
-        "store-code": "main_website_store",
-        "store-id": "main_website_store",
-        "store-name": "Default Store View",
+        "store-code": "citisignal_store",
+        "store-id": "citisignal_store",
+        "store-name": "Citisignal Store",
         "store-url": "https://com792.adobedemo.com/",
-        "store-view-code": "default",
-        "store-view-id": "default",
-        "store-view-name": "Default Store View",
-        "website-code": "base",
-        "website-id": "base",
-        "website-name": "Main Website"
+        "store-view-code": "citisignal_us",
+        "store-view-id": "citisignal_us",
+        "store-view-name": "Citisignal US Store View",
+        "website-code": "citisignal",
+        "website-id": "citisignal",
+        "website-name": "Citisignal Website"
       },
       "plugins": {
         "picker": {
-          "rootCategory": "2"
+          "rootCategory": "3"
         }
       }
     }
