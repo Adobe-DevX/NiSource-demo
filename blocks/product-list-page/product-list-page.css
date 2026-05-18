@@ -1,92 +1,187 @@
+/* Product list / discovery — NiSource foundations (design.md §1.1–1.3, --nisource-* in styles.css) */
 
 .block.product-list-page .search__wrapper {
-    display: grid;
-    margin-block: var(--spacing-small);
-    grid-template-areas:
-        "result-info"
-        "view-facets"
-        "facets"
-        "product-sort"
-        "product-list"
-        "pagination";
+  box-sizing: border-box;
+  color: var(--nisource-color-text-body);
+  display: grid;
+  font-family: var(--nisource-font-body);
+  grid-template-areas:
+    "result-info"
+    "view-facets"
+    "facets"
+    "product-sort"
+    "product-list"
+    "pagination";
+  margin-block: var(--nisource-space-3);
+}
+
+.block.product-list-page .dropin-design {
+  font-family: var(--nisource-font-body);
 }
 
 .block.product-list-page .search__result-info {
-    grid-area: result-info;
-    align-self: center;
-    margin-block-end: var(--spacing-small);
+  align-self: center;
+  color: var(--nisource-color-text-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  grid-area: result-info;
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .search__result-info strong {
-    font-weight: 600;
+  color: var(--nisource-color-text-heading);
+  font-weight: var(--font-weight-bold, 700);
 }
 
 .block.product-list-page .search__view-facets {
-    grid-area: view-facets;
-    margin-block-end: var(--spacing-small);
+  grid-area: view-facets;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .search__view-facets button {
-    justify-content: start;
-    width: 100%;
-    position: relative;
+  justify-content: start;
+  position: relative;
+  width: 100%;
 }
 
 .block.product-list-page .search__view-facets button[data-count]::after {
-    align-items: center;
-    background-color: var(--color-brand-700);
-    border-radius: 50%;
-    color: var(--color-neutral-100);
-    content: attr(data-count);
-    display: flex;
-    font-size: 0.8em;
-    height: 1.75em;
-    justify-content: center;
-    line-height: 1;
-    position: absolute;
-    right: 0.5em;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.75em;
+  align-items: center;
+  background-color: var(--nisource-color-primary);
+  border-radius: 50%;
+  color: var(--nisource-color-bg-page);
+  content: attr(data-count);
+  display: flex;
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+  height: 2.4rem;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: var(--nisource-space-1);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.4rem;
 }
 
 .block.product-list-page .search__facets {
-    grid-area: facets;
-    margin-block-end: var(--spacing-small);
-    display: none;
+  display: none;
+  grid-area: facets;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .search__facets--visible {
-    display: block;
+  display: block;
 }
 
 .block.product-list-page .search__product-sort {
-    grid-area: product-sort;
-    margin-block-end: var(--spacing-small);
+  grid-area: product-sort;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .search__product-list {
-    grid-area: product-list;
-    margin-block-end: var(--spacing-small);
+  grid-area: product-list;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .search__pagination {
-    grid-area: pagination;
-    margin-block-end: var(--spacing-small);
+  grid-area: pagination;
+  margin-block-end: var(--nisource-space-3);
 }
 
 .block.product-list-page .product-discovery-product-actions {
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-xxsmall);
+  display: flex;
+  flex-direction: row;
+  gap: var(--nisource-space-1);
 }
 
-/* Empty State */
+/* Facets — borders & rhythm */
+.block.product-list-page .product-discovery-facet {
+  padding-block: var(--nisource-space-3);
+}
 
+.block.product-list-page .product-discovery-facet:not(.product-discovery-facet--last) {
+  border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
+}
+
+.block.product-list-page .product-discovery-facet__header {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+.block.product-list-page .product-discovery-facet-list__selected-filters {
+  row-gap: var(--nisource-space-1);
+}
+
+.block.product-list-page .product-discovery-facet-list__selected-filters button {
+  border-radius: var(--shape-border-radius-2);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+/* Product grid & cards */
+.block.product-list-page .product-discovery-product-list__grid {
+  gap: var(--nisource-space-3);
+}
+
+.block.product-list-page .product-discovery-product-list__grid .dropin-product-item-card {
+  background: var(--nisource-color-bg-page);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-2);
+  box-shadow: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.block.product-list-page .dropin-product-item-card__content {
+  padding: var(--nisource-space-2) var(--nisource-space-2) var(--nisource-space-3);
+}
+
+.block.product-list-page .dropin-product-item-card__title {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+.block.product-list-page .dropin-product-item-card__title a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.block.product-list-page .dropin-product-item-card__title a:any-link:hover,
+.block.product-list-page .dropin-product-item-card__title a:any-link:focus {
+  color: var(--nisource-color-primary);
+  text-decoration: underline;
+}
+
+.block.product-list-page .dropin-product-item-card__price {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin-top: var(--nisource-space-1);
+}
+
+.block.product-list-page .dropin-product-item-card__image {
+  background: var(--nisource-color-bg-section);
+}
+
+/* Empty state */
 .block.product-list-page.product-list-page--empty .search__wrapper {
-    grid-template-areas:
-        "product-list";
-    grid-template-columns: 1fr;
+  grid-template-areas: "product-list";
+  grid-template-columns: 1fr;
 }
 
 .block.product-list-page.product-list-page--empty .search__result-info,
@@ -94,30 +189,38 @@
 .block.product-list-page.product-list-page--empty .search__facets,
 .block.product-list-page.product-list-page--empty .search__product-sort,
 .block.product-list-page.product-list-page--empty .search__pagination {
-    display: none;
+  display: none;
 }
 
-/* Media Queries */
-@media only screen and (min-width: 768px) {
-    .block.product-list-page .search__wrapper {
-        grid-template-areas:
-            "result-info product-sort"
-            "facets product-list"
-            ". pagination";
-        grid-template-columns: 270px 1fr;
-    }
+.block.product-list-page .product-discovery-search-alert-message__wrapper {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
 
-    .block.product-list-page .search__view-facets {
-        display: none;
-    }
+@media only screen and (min-width: 900px) {
+  .block.product-list-page .search__wrapper {
+    grid-template-areas:
+      "result-info product-sort"
+      "facets product-list"
+      ". pagination";
+    grid-template-columns: minmax(0, 27.2rem) 1fr;
+  }
 
-    .block.product-list-page .search__facets {
-        display: unset;
-        margin-right: var(--spacing-small);
-    }
+  .block.product-list-page .search__view-facets {
+    display: none;
+  }
 
-    .block.product-list-page .search__product-sort {
-        display: flex;
-        justify-content: flex-end;
-    }
+  .block.product-list-page .search__facets {
+    display: unset;
+    margin-inline-end: var(--nisource-space-3);
+    padding-inline-end: var(--nisource-space-3);
+    border-inline-end: var(--shape-border-width-1) solid var(--nisource-color-border);
+  }
+
+  .block.product-list-page .search__product-sort {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

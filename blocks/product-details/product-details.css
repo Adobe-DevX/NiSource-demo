@@ -1,117 +1,244 @@
-.product-details__wrapper {
+/* Product details (PDP) — NiSource foundations (design.md §1.1–1.3) */
+
+.block.product-details .product-details__wrapper {
+  box-sizing: border-box;
+  color: var(--nisource-color-text-body);
   display: grid;
-  grid-template-columns: repeat(var(--grid-1-columns), 1fr);
+  font-family: var(--nisource-font-body);
   grid-column-gap: var(--grid-1-gutters);
-  margin-top: var(--spacing-medium);
+  grid-template-columns: repeat(var(--grid-1-columns), 1fr);
+  margin-top: var(--nisource-space-4);
 }
 
-.product-details__left-column {
+.block.product-details .dropin-design {
+  font-family: var(--nisource-font-body);
+}
+
+.block.product-details .product-details__left-column {
   display: none;
 }
 
-.product-details__right-column {
+.block.product-details .product-details__right-column {
+  color: var(--nisource-color-text-body);
   grid-column: 1 / span 4;
-  color: var(--color-neutral-800);
 }
 
-.product-details__alert {
-  margin-top: var(--spacing-small);
-  margin-bottom: var(--spacing-small);
+.block.product-details .product-details__alert {
+  margin-bottom: var(--nisource-space-3);
+  margin-top: var(--nisource-space-3);
 }
 
-.product-details__alert:empty {
+.block.product-details .product-details__alert:empty {
   display: none;
 }
 
-.product-details__header {
-  margin-bottom: var(--spacing-medium);
+.block.product-details .product-details__header {
+  margin-bottom: var(--nisource-space-4);
 }
 
-.product-details__price {
-  margin-top: var(--spacing-medium);
+.block.product-details .product-details__price {
+  margin-top: var(--nisource-space-4);
 }
 
-.product-details__gallery .pdp-carousel {
+/* H2 — page-level product name (design.md §1.2) */
+.block.product-details .pdp-header__title {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-size: clamp(2.8rem, 2.2rem + 2vw, 4rem);
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+/* Small paragraph — SKU (design.md §1.2) */
+.block.product-details .pdp-header__sku {
+  color: var(--nisource-color-text-secondary);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.4;
+  margin-top: var(--nisource-space-1);
+}
+
+/* Price block */
+.block.product-details .pdp-price {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+.block.product-details .pdp-price .dropin-price {
+  font-family: inherit;
+}
+
+.block.product-details .product-details__gallery .pdp-carousel {
   max-height: 60vh;
 }
 
-.product-details__gallery .pdp-carousel--thumbnailsRow {
+.block.product-details .product-details__gallery .pdp-carousel--thumbnailsRow {
   max-height: 80vh;
 }
 
-.product-details__gallery .pdp-overlay__content .pdp-carousel,
-.product-details__gallery .pdp-overlay__content .pdp-carousel--thumbnailsRow
-{
-  max-height: unset;;
+.block.product-details .product-details__gallery .pdp-overlay__content .pdp-carousel,
+.block.product-details .product-details__gallery .pdp-overlay__content .pdp-carousel--thumbnailsRow {
+  max-height: unset;
 }
 
+/* Large paragraph — lead / intro (design.md §1.2) */
+.block.product-details .pdp-short-description {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin-top: var(--nisource-space-3);
+}
 
-.product-details__configuration {
-  grid-column: 1 / span 4;
+.block.product-details .pdp-short-description a:any-link,
+.block.product-details .pdp-description a:any-link {
+  color: var(--nisource-color-primary);
+}
+
+.block.product-details .pdp-short-description a:any-link:hover,
+.block.product-details .pdp-short-description a:any-link:focus,
+.block.product-details .pdp-description a:any-link:hover,
+.block.product-details .pdp-description a:any-link:focus {
+  color: var(--nisource-color-primary-hover);
+}
+
+.block.product-details .product-details__configuration {
   display: grid;
+  gap: var(--grid-1-gutters);
   grid-auto-flow: row;
-  gap: var(--grid-1-gutters);
   grid-auto-rows: max-content;
-  margin-bottom: var(--spacing-xxbig);
-  margin-top: var(--spacing-big);
+  grid-column: 1 / span 4;
+  margin-bottom: var(--nisource-space-6);
+  margin-top: var(--nisource-space-6);
 }
 
-.product-details__buttons {
+.block.product-details .product-details__buttons {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: var(--grid-1-gutters);
   grid-auto-rows: max-content;
+  grid-template-columns: 1fr auto;
 }
 
-.product-details__buttons > div {
+.block.product-details .product-details__buttons > div {
   display: contents;
 }
 
-.product-details__attributes {
-  margin-top: var(--spacing-xsmall);
+/* Full description — default body (design.md §1.2) */
+.block.product-details .pdp-description {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: normal;
+  line-height: 1.5;
+  margin-top: var(--nisource-space-4);
+}
+
+.block.product-details .pdp-description h2,
+.block.product-details .pdp-description h3,
+.block.product-details .pdp-description h4 {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-display);
+  font-weight: var(--font-weight-black, 900);
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+.block.product-details .pdp-description h2 {
+  font-size: 2.4rem;
+}
+
+.block.product-details .pdp-description h3 {
+  font-size: 2rem;
+}
+
+.block.product-details .pdp-description h4 {
+  font-size: 1.8rem;
+}
+
+/* Attributes table — design.md table headers */
+.block.product-details .pdp-attributes {
+  margin-top: var(--nisource-space-2);
+}
+
+.block.product-details .pdp-attributes th,
+.block.product-details .pdp-attributes dt {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+.block.product-details .pdp-attributes td,
+.block.product-details .pdp-attributes dd {
+  color: var(--nisource-color-text-body);
+  font-family: var(--nisource-font-body);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
+}
+
+.block.product-details .pdp-gift-card-options__label {
+  color: var(--nisource-color-text-heading);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: normal;
+  line-height: 1.25;
 }
 
 @media (min-width: 900px) {
-  .product-details__wrapper {
-    grid-template-columns: repeat(var(--grid-3-columns), 1fr);
+  .block.product-details .product-details__wrapper {
     grid-column-gap: var(--grid-3-gutters);
+    grid-template-columns: repeat(var(--grid-3-columns), 1fr);
     position: relative;
   }
 
-  .product-details__alert {
+  .block.product-details .product-details__alert {
     grid-column: 1 / span 12;
-    margin-bottom: var(--spacing-medium);
+    margin-bottom: var(--nisource-space-4);
   }
 
-  .product-details__left-column {
+  .block.product-details .product-details__left-column {
     display: block;
     grid-column: 1 / span 6;
   }
-  
-  .product-details__right-column {
+
+  .block.product-details .product-details__right-column {
     grid-column: 7 / span 5;
-    padding-top: var(--spacing-medium);
+    padding-top: var(--nisource-space-4);
   }
 
-  .product-details__right-column .product-details__gallery {
+  .block.product-details .product-details__right-column .product-details__gallery {
     display: none;
   }
 
-  .product-details__configuration {
-    grid-template-columns: repeat(var(--grid-1-columns), 1fr);
+  .block.product-details .product-details__configuration {
     grid-gap: var(--grid-1-gutters);
-    margin-top: var(--spacing-xxbig);
+    grid-template-columns: repeat(var(--grid-1-columns), 1fr);
+    margin-top: var(--nisource-space-8);
   }
 
-  .product-details__options {
+  .block.product-details .product-details__options {
     grid-column: 1 / span 4;
   }
 
-  .product-details__buttons {
+  .block.product-details .product-details__buttons {
     grid-column: 1 / span 4;
   }
 
-  .product-details__quantity {
+  .block.product-details .product-details__quantity {
     grid-column: 1 / span 2;
   }
 }
