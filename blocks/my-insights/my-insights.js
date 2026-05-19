@@ -1,4 +1,5 @@
-import { loadCSS, toClassName } from '../../scripts/aem.js';
+import { createOptimizedPicture, loadCSS, toClassName } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
 
@@ -83,7 +84,14 @@ function createHeadingIcon(iconValue) {
 function parseRows(block) {
   /** @type {Record<string, string>} */
   const metadata = {};
-  /** @type {{ labelCol: HTMLElement, bodyCol: HTMLElement }[]} */
+  /**
+   * @type {Array<{
+   *   labelCol: HTMLElement,
+   *   bodyCol: HTMLElement,
+   *   mediaCol?: HTMLElement,
+   *   altTextCol?: HTMLElement
+   * }>}
+   */
   const items = [];
 
   [...block.children].forEach((row) => {
@@ -96,7 +104,14 @@ function parseRows(block) {
       return;
     }
 
-    items.push({ labelCol: cols[0], bodyCol: cols[1] });
+    const mediaCol = cols.length >= 3 ? cols[2] : undefined;
+    const altTextCol = cols.length >= 4 ? cols[3] : undefined;
+    items.push({
+      labelCol: cols[0],
+      bodyCol: cols[1],
+      mediaCol,
+      altTextCol,
+    });
   });
 
   return { metadata, items };
@@ -128,6 +143,37 @@ function buildFooter(metadata) {
 
   footer.append(a);
   return footer;
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement | undefined} mediaCol
+ * @param {HTMLElement | undefined} altTextCol
+ */
+function appendOptimizedPanelImage(panel, mediaCol, altTextCol) {
+  if (!mediaCol) return;
+  const srcImg = mediaCol.querySelector('img');
+  if (!srcImg?.src) return;
+
+  let alt = (srcImg.alt || '').trim();
+  if (!alt && altTextCol) {
+    alt = altTextCol.textContent.trim();
+  }
+
+  const optimizedPic = createOptimizedPicture(
+    srcImg.src,
+    alt,
+    false,
+    [{ width: '550' }, { width: '750' }],
+  );
+  const newImg = optimizedPic.querySelector('img');
+  if (newImg) {
+    moveInstrumentation(srcImg, newImg);
+  }
+  const wrap = document.createElement('div');
+  wrap.className = 'my-insights__panel-media';
+  wrap.append(optimizedPic);
+  panel.append(wrap);
 }
 
 export default async function decorate(block) {
@@ -175,13 +221,24 @@ export default async function decorate(block) {
   list.className = 'my-insights__list';
 
   const sourceItems = items.length > 0
-    ? items.map(({ labelCol, bodyCol }) => ({
+    ? items.map(({
+      labelCol, bodyCol, mediaCol, altTextCol,
+    }) => ({
       title: labelCol.innerHTML.trim(),
       body: bodyCol.innerHTML.trim(),
+      mediaCol,
+      altTextCol,
     }))
-    : DEFAULT_ITEMS.map(({ title, body }) => ({ title, body }));
+    : DEFAULT_ITEMS.map(({ title, body }) => ({
+      title,
+      body,
+      mediaCol: undefined,
+      altTextCol: undefined,
+    }));
 
-  sourceItems.forEach(({ title: labelHtml, body: bodyHtml }) => {
+  sourceItems.forEach(({
+    title: labelHtml, body: bodyHtml, mediaCol, altTextCol,
+  }) => {
     const details = document.createElement('details');
     details.className = 'my-insights__item';
 
@@ -191,8 +248,12 @@ export default async function decorate(block) {
 
     const panel = document.createElement('div');
     panel.className = 'my-insights__panel';
+    appendOptimizedPanelImage(panel, mediaCol, altTextCol);
     if (bodyHtml) {
-      panel.innerHTML = bodyHtml;
+      const bodyWrap = document.createElement('div');
+      bodyWrap.className = 'my-insights__panel-body';
+      bodyWrap.innerHTML = bodyHtml;
+      panel.append(bodyWrap);
     }
 
     details.append(summary, panel);

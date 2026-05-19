@@ -99,9 +99,31 @@
 
 .my-insights__panel {
   color: var(--nisource-color-text-body);
+  display: grid;
   font-size: 1.6rem;
+  gap: var(--nisource-space-2);
   line-height: 1.5;
   padding: 0 0 var(--nisource-space-2);
+}
+
+.my-insights__panel-media {
+  border-radius: var(--shape-border-radius-2);
+  overflow: hidden;
+}
+
+.my-insights__panel-media img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.my-insights__panel-body > :first-child {
+  margin-top: 0;
+}
+
+.my-insights__panel-body > :last-child {
+  margin-bottom: 0;
 }
 
 .my-insights__footer {

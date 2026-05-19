@@ -245,10 +245,27 @@
                 "template": {
                   "name": "My Insights",
                   "model": "my-insights",
+                  "key-value": true,
+                  "filter": "my-insights-items",
                   "heading": "My Insights",
                   "heading-icon": "fa-solid fa-chart-pie",
                   "footer-text": "Check to see how your usage has changed month to month.",
                   "footer-link-text": "View Detailed Usage"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "My Insights Item",
+          "id": "my-insights-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "My Insights Item",
+                  "model": "my-insights-item"
                 }
               }
             }

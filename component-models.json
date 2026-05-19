@@ -1530,6 +1530,35 @@
     ]
   },
   {
+    "id": "my-insights-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Accordion title"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Panel content",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "panel-image",
+        "label": "Panel image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "panel-image-alt",
+        "label": "Panel image alt text"
+      }
+    ]
+  },
+  {
     "id": "nisource-footer",
     "fields": [
       {

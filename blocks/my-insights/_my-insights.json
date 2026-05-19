@@ -10,10 +10,27 @@
             "template": {
               "name": "My Insights",
               "model": "my-insights",
+              "key-value": true,
+              "filter": "my-insights-items",
               "heading": "My Insights",
               "heading-icon": "fa-solid fa-chart-pie",
               "footer-text": "Check to see how your usage has changed month to month.",
               "footer-link-text": "View Detailed Usage"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "My Insights Item",
+      "id": "my-insights-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "My Insights Item",
+              "model": "my-insights-item"
             }
           }
         }
@@ -71,7 +88,43 @@
           ]
         }
       ]
+    },
+    {
+      "id": "my-insights-item",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Accordion title"
+        },
+        {
+          "component": "richtext",
+          "name": "body",
+          "label": "Panel content",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "panel-image",
+          "label": "Panel image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "panel-image-alt",
+          "label": "Panel image alt text"
+        }
+      ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "my-insights-items",
+      "components": [
+        "my-insights-item"
+      ]
+    }
+  ]
 }
