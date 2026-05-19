@@ -21,11 +21,26 @@ const DEFAULTS = {
   footerLink: '',
 };
 
+/** Hardcoded DAM image for the 3rd accordion when its panel has no authored content. */
+const NEIGHBOR_COMPARISON_IMG_SRC = '/content/dam/nisource-demo/energy-comparison-neighbor.png';
+const NEIGHBOR_COMPARISON_IMG_ALT = 'Comparison of your energy usage with neighbors';
+const NEIGHBOR_ITEM_INDEX = 2;
+
 const DEFAULT_ITEMS = [
   { title: 'Compare My Bill to a Previous Bill', body: '' },
   { title: 'View My Projected Bill', body: '' },
-  { title: 'Compare My Usage to My Neighbors', body: '' },
+  {
+    title: 'Compare My Usage to My Neighbors',
+    body: `<img class="my-insights__dam-image" src="${NEIGHBOR_COMPARISON_IMG_SRC}" alt="${NEIGHBOR_COMPARISON_IMG_ALT}" loading="lazy" decoding="async" />`,
+  },
 ];
+
+function panelBodyIsEffectivelyEmpty(bodyHtml, mediaCol) {
+  if (mediaCol?.querySelector?.('img')) return false;
+  const html = String(bodyHtml || '');
+  if (/<img\b/i.test(html)) return false;
+  return html.replace(/<[^>]*>/g, '').trim().length === 0;
+}
 
 function extractColumnValue(col) {
   if (col.querySelector('a')) {
@@ -240,6 +255,12 @@ export default async function decorate(block) {
       mediaCol: undefined,
       altTextCol: undefined,
     }));
+
+  sourceItems.forEach((item, idx) => {
+    if (idx !== NEIGHBOR_ITEM_INDEX) return;
+    if (!panelBodyIsEffectivelyEmpty(item.body, item.mediaCol)) return;
+    item.body = `<img class="my-insights__dam-image" src="${NEIGHBOR_COMPARISON_IMG_SRC}" alt="${NEIGHBOR_COMPARISON_IMG_ALT}" loading="lazy" decoding="async" />`;
+  });
 
   sourceItems.forEach(({
     title: labelHtml, body: bodyHtml, mediaCol, altTextCol,

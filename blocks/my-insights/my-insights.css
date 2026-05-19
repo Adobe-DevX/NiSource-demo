@@ -118,6 +118,14 @@
   width: 100%;
 }
 
+.my-insights .my-insights__dam-image {
+  border-radius: var(--shape-border-radius-2);
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
 .my-insights__panel-body > :first-child {
   margin-top: 0;
 }
