@@ -1,6 +1,5 @@
 // Product Discovery Dropins
 import SearchResults from '@dropins/storefront-product-discovery/containers/SearchResults.js';
-import Facets from '@dropins/storefront-product-discovery/containers/Facets.js';
 import SortBy from '@dropins/storefront-product-discovery/containers/SortBy.js';
 import Pagination from '@dropins/storefront-product-discovery/containers/Pagination.js';
 import { render as provider } from '@dropins/storefront-product-discovery/render.js';
@@ -29,18 +28,12 @@ export default async function decorate(block) {
 
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
-      <div class="search__result-info"></div>
-      <div class="search__view-facets"></div>
-      <div class="search__facets"></div>
       <div class="search__product-sort"></div>
       <div class="search__product-list"></div>
       <div class="search__pagination"></div>
     </div>
   `);
 
-  const $resultInfo = fragment.querySelector('.search__result-info');
-  const $viewFacets = fragment.querySelector('.search__view-facets');
-  const $facets = fragment.querySelector('.search__facets');
   const $productSort = fragment.querySelector('.search__product-sort');
   const $productList = fragment.querySelector('.search__product-list');
   const $pagination = fragment.querySelector('.search__pagination');
@@ -124,18 +117,6 @@ export default async function decorate(block) {
       },
     })($pagination),
 
-    // View Facets Button
-    UI.render(Button, {
-      children: labels.Global?.Filters,
-      icon: Icon({ source: 'Burger' }),
-      variant: 'secondary',
-      onClick: () => {
-        $facets.classList.toggle('search__facets--visible');
-      },
-    })($viewFacets),
-
-    // Facets
-    provider.render(Facets, {})($facets),
     // Product List
     provider.render(SearchResults, {
       routeProduct: (product) => getProductLink(product.urlKey, product.sku),
@@ -181,18 +162,6 @@ export default async function decorate(block) {
     const totalCount = payload.result?.totalCount || 0;
 
     block.classList.toggle('product-list-page--empty', totalCount === 0);
-
-    // Results Info
-    $resultInfo.innerHTML = payload.request?.phrase
-      ? `${totalCount} results found for <strong>"${payload.request.phrase}"</strong>.`
-      : `${totalCount} results found.`;
-
-    // Update the view facets button with the number of filters
-    if (payload.request.filter.length > 0) {
-      $viewFacets.querySelector('button').setAttribute('data-count', payload.request.filter.length);
-    } else {
-      $viewFacets.querySelector('button').removeAttribute('data-count');
-    }
   }, { eager: true });
 
   // Listen for search results (event is fired after the block is rendered; eager: false)

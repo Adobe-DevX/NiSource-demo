@@ -6,74 +6,15 @@
   display: grid;
   font-family: var(--nisource-font-body);
   grid-template-areas:
-    "result-info"
-    "view-facets"
-    "facets"
     "product-sort"
     "product-list"
     "pagination";
+  grid-template-columns: 1fr;
   margin-block: var(--nisource-space-3);
 }
 
 .block.product-list-page .dropin-design {
   font-family: var(--nisource-font-body);
-}
-
-.block.product-list-page .search__result-info {
-  align-self: center;
-  color: var(--nisource-color-text-body);
-  font-size: 1.6rem;
-  font-weight: var(--font-weight-regular, 400);
-  grid-area: result-info;
-  letter-spacing: normal;
-  line-height: 1.5;
-  margin-block-end: var(--nisource-space-3);
-}
-
-.block.product-list-page .search__result-info strong {
-  color: var(--nisource-color-text-heading);
-  font-weight: var(--font-weight-bold, 700);
-}
-
-.block.product-list-page .search__view-facets {
-  grid-area: view-facets;
-  margin-block-end: var(--nisource-space-3);
-}
-
-.block.product-list-page .search__view-facets button {
-  justify-content: start;
-  position: relative;
-  width: 100%;
-}
-
-.block.product-list-page .search__view-facets button[data-count]::after {
-  align-items: center;
-  background-color: var(--nisource-color-primary);
-  border-radius: 50%;
-  color: var(--nisource-color-bg-page);
-  content: attr(data-count);
-  display: flex;
-  font-family: var(--nisource-font-body);
-  font-size: 1.2rem;
-  font-weight: var(--font-weight-bold, 700);
-  height: 2.4rem;
-  justify-content: center;
-  line-height: 1;
-  position: absolute;
-  right: var(--nisource-space-1);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.4rem;
-}
-
-.block.product-list-page .search__facets {
-  display: none;
-  grid-area: facets;
-  margin-block-end: var(--nisource-space-3);
-}
-
-.block.product-list-page .search__facets--visible {
-  display: block;
 }
 
 .block.product-list-page .search__product-sort {
@@ -97,38 +38,23 @@
   gap: var(--nisource-space-1);
 }
 
-/* Facets — borders & rhythm */
-.block.product-list-page .product-discovery-facet {
-  padding-block: var(--nisource-space-3);
-}
-
-.block.product-list-page .product-discovery-facet:not(.product-discovery-facet--last) {
-  border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
-}
-
-.block.product-list-page .product-discovery-facet__header {
-  color: var(--nisource-color-text-heading);
-  font-family: var(--nisource-font-display);
-  font-size: 1.6rem;
-  font-weight: var(--font-weight-black, 900);
-  letter-spacing: normal;
-  line-height: 1.2;
-}
-
-.block.product-list-page .product-discovery-facet-list__selected-filters {
-  row-gap: var(--nisource-space-1);
-}
-
-.block.product-list-page .product-discovery-facet-list__selected-filters button {
-  border-radius: var(--shape-border-radius-2);
-  font-family: var(--nisource-font-body);
-  font-size: 1.4rem;
-  line-height: 1.25;
-}
-
 /* Product grid & cards */
 .block.product-list-page .product-discovery-product-list__grid {
+  display: grid;
   gap: var(--nisource-space-3);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media only screen and (min-width: 600px) {
+  .block.product-list-page .product-discovery-product-list__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .block.product-list-page .product-discovery-product-list__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .block.product-list-page .product-discovery-product-list__grid .dropin-product-item-card {
@@ -184,9 +110,6 @@
   grid-template-columns: 1fr;
 }
 
-.block.product-list-page.product-list-page--empty .search__result-info,
-.block.product-list-page.product-list-page--empty .search__view-facets,
-.block.product-list-page.product-list-page--empty .search__facets,
 .block.product-list-page.product-list-page--empty .search__product-sort,
 .block.product-list-page.product-list-page--empty .search__pagination {
   display: none;
@@ -200,25 +123,6 @@
 }
 
 @media only screen and (min-width: 900px) {
-  .block.product-list-page .search__wrapper {
-    grid-template-areas:
-      "result-info product-sort"
-      "facets product-list"
-      ". pagination";
-    grid-template-columns: minmax(0, 27.2rem) 1fr;
-  }
-
-  .block.product-list-page .search__view-facets {
-    display: none;
-  }
-
-  .block.product-list-page .search__facets {
-    display: unset;
-    margin-inline-end: var(--nisource-space-3);
-    padding-inline-end: var(--nisource-space-3);
-    border-inline-end: var(--shape-border-width-1) solid var(--nisource-color-border);
-  }
-
   .block.product-list-page .search__product-sort {
     display: flex;
     justify-content: flex-end;
