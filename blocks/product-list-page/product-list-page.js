@@ -21,6 +21,85 @@ import { fetchPlaceholders, getProductLink } from '../../scripts/commerce.js';
 import '../../scripts/initializers/search.js';
 import '../../scripts/initializers/wishlist.js';
 
+/**
+ * @param {{ value?: number, currency?: string } | undefined} amount
+ * @returns {string}
+ */
+function formatSearchPriceAmount(amount) {
+  if (amount == null || amount.value == null || !amount.currency) return '';
+  return new Intl.NumberFormat(undefined, {
+    style: 'currency',
+    currency: amount.currency,
+  }).format(amount.value);
+}
+
+/**
+ * Regular + final amounts from product discovery search payload.
+ * @param {{ typename?: string, price?: object, priceRange?: object }} product
+ * @returns {{ final?: { value: number, currency: string },
+ *   regular?: { value: number, currency: string } }}
+ */
+function getSearchProductPriceAmounts(product) {
+  if (product.typename === 'ComplexProductView' && product.priceRange?.minimum) {
+    const min = product.priceRange.minimum;
+    return {
+      final: min.final?.amount,
+      regular: min.regular?.amount,
+    };
+  }
+  if (product.price?.final?.amount) {
+    return {
+      final: product.price.final.amount,
+      regular: product.price.regular?.amount,
+    };
+  }
+  return { final: undefined, regular: undefined };
+}
+
+/**
+ * @param {{ replaceWith: (el: Element) => void, product: object }} ctx
+ */
+function renderProductCardPrice(ctx) {
+  const wrap = document.createElement('div');
+  wrap.className = 'product-list-page__card-price';
+
+  const { final, regular } = getSearchProductPriceAmounts(ctx.product);
+  const finalStr = formatSearchPriceAmount(final);
+  if (!finalStr) {
+    ctx.replaceWith(wrap);
+    return;
+  }
+
+  const regStr = formatSearchPriceAmount(regular);
+  const hasDiscount = Boolean(
+    regular
+    && final
+    && regular.currency === final.currency
+    && Number(regular.value) > Number(final.value),
+  );
+
+  if (hasDiscount && regStr) {
+    const del = document.createElement('del');
+    del.className = 'product-list-page__card-price-regular';
+    del.textContent = regStr;
+
+    const sale = document.createElement('span');
+    sale.className = 'product-list-page__card-price-final';
+    sale.textContent = finalStr;
+
+    wrap.append(del, document.createTextNode('\u00a0'), sale);
+    wrap.setAttribute(
+      'aria-label',
+      `Sale price ${finalStr}, regular price ${regStr}`,
+    );
+  } else {
+    wrap.textContent = finalStr;
+    wrap.classList.add('product-list-page__card-price--single');
+  }
+
+  ctx.replaceWith(wrap);
+}
+
 export default async function decorate(block) {
   const labels = await fetchPlaceholders();
 
@@ -135,6 +214,9 @@ export default async function decorate(block) {
               height: defaultImageProps.height,
             },
           });
+        },
+        ProductPrice: (ctx) => {
+          renderProductCardPrice(ctx);
         },
         ProductActions: (ctx) => {
           const actionsWrapper = document.createElement('div');

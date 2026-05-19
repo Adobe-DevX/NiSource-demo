@@ -1,4 +1,4 @@
-/* Product list / discovery — NiSource foundations (design.md §1.1–1.3, --nisource-* in styles.css) */
+/* Product list / discovery — NiSource foundations (design.md spacing, palette, type; --nisource-* in styles.css) */
 
 .block.product-list-page .search__wrapper {
   box-sizing: border-box;
@@ -35,6 +35,52 @@
 .block.product-list-page .product-discovery-product-actions {
   display: flex;
   flex-direction: row;
+  gap: var(--nisource-space-1);
+}
+
+/* Add to cart — primary CTA per design.md (app primary, Arial bold 14px); align with bill-card .button */
+.block.product-list-page .product-discovery-product-actions__add-to-cart {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button.dropin-button--primary {
+  background-color: var(--nisource-color-primary);
+  border: var(--shape-border-width-1) solid transparent;
+  border-radius: var(--shape-border-radius-2);
+  box-sizing: border-box;
+  color: var(--nisource-color-bg-page);
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold, 700);
+  justify-content: center;
+  letter-spacing: normal;
+  line-height: 1.25;
+  min-height: 40px;
+  padding-block: var(--nisource-space-1);
+  padding-inline: var(--nisource-space-2);
+  width: 100%;
+}
+
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button.dropin-button--primary:hover,
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button.dropin-button--primary:focus {
+  background-color: var(--nisource-color-primary-hover);
+  color: var(--nisource-color-bg-page);
+}
+
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button.dropin-button--primary:focus-visible {
+  outline: 2px solid var(--nisource-color-primary);
+  outline-offset: 2px;
+}
+
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button.dropin-button--primary:disabled {
+  background-color: var(--nisource-color-border);
+  color: var(--nisource-color-text-secondary);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.block.product-list-page .product-discovery-product-actions__add-to-cart .dropin-button--with-icon {
   gap: var(--nisource-space-1);
 }
 
@@ -90,7 +136,7 @@
   text-decoration: underline;
 }
 
-.block.product-list-page .dropin-product-item-card__price {
+.block.product-list-page .product-list-page__card-price {
   color: var(--nisource-color-text-body);
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
@@ -98,6 +144,24 @@
   letter-spacing: normal;
   line-height: 1.5;
   margin-top: var(--nisource-space-1);
+}
+
+.block.product-list-page .product-list-page__card-price-regular {
+  color: var(--nisource-color-text-secondary);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  margin-inline-end: var(--nisource-space-1);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.block.product-list-page .product-list-page__card-price-final {
+  color: var(--nisource-color-text-body);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.block.product-list-page .product-list-page__card-price--single {
+  font-weight: var(--font-weight-regular, 400);
 }
 
 .block.product-list-page .dropin-product-item-card__image {
