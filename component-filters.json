@@ -632,12 +632,6 @@
     ]
   },
   {
-    "id": "my-insights-items",
-    "components": [
-      "my-insights-item"
-    ]
-  },
-  {
     "id": "cards",
     "components": [
       "card"
@@ -701,6 +695,12 @@
       "fragment",
       "product-teaser",
       "product-recommendations"
+    ]
+  },
+  {
+    "id": "my-insights-items",
+    "components": [
+      "my-insights-item"
     ]
   },
   {

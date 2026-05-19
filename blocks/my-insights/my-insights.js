@@ -189,10 +189,15 @@ export default async function decorate(block) {
   const headingIconRaw = toText(metadata['heading-icon'], '');
   const iconValue = headingIconRaw || DEFAULTS.headingIcon;
 
-  const placement = toText(
+  let placement = toText(
     metadata['classes-placement'] || metadata['column-placement-in-two-column-section'],
     '',
   );
+  if (!placement && block.classList.contains('place-right')) {
+    placement = 'place-right';
+  } else if (!placement && block.classList.contains('place-left')) {
+    placement = 'place-left';
+  }
   if (placement === 'place-left' || placement === 'place-right') {
     block.classList.add(placement);
   }

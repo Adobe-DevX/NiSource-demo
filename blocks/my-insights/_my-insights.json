@@ -10,7 +10,6 @@
             "template": {
               "name": "My Insights",
               "model": "my-insights",
-              "key-value": true,
               "filter": "my-insights-items",
               "heading": "My Insights",
               "heading-icon": "fa-solid fa-chart-pie",
@@ -22,7 +21,7 @@
       }
     },
     {
-      "title": "My Insights Item",
+      "title": "My Insights row",
       "id": "my-insights-item",
       "plugins": {
         "xwalk": {
