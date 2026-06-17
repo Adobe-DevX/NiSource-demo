@@ -1,41 +1,34 @@
 /*
- * NiSource footer — design.md foundations:
- * - 1.1 spacing: 8px grid via --nisource-space-*
- * - 1.2 type: Menu & Footer Heading 16px bold; Paragraph 16px regular/1.5;
- *   Small Paragraph 14px/1.4 (legal); Small Text 12px/1.4 (copyright)
- * - 1.3 color: White page bg; Yellow 30 top rule; Blue 50 column heads;
- *   Blue 30 links / Blue 40 hover; Gray 50 copyright; Gray 30 divider; Red 30 tel
- * Full-width shell (border/bg); .nisource-footer__inner max-width 1200px centered.
+ * NiSource compact footer — matches uploaded design:
+ * dark full-width shell with centered legal links, brand line, and copyright.
  */
 
 .nisource-footer {
-  background-color: var(--nisource-color-bg-page);
-  border-top: var(--shape-border-width-1) solid var(--nisource-color-footer-accent-border);
+  background-color: var(--nisource-color-footer-compact-bg);
   box-sizing: border-box;
-  color: var(--nisource-color-text-body);
+  color: var(--nisource-color-footer-compact-text);
   font-family: var(--nisource-font-body);
   margin-inline: 0;
   max-width: none;
   width: 100%;
 }
 
-/* Undo blocks/footer/footer.css max-width; match footer shell bg to NiSource block (design.md White) */
 footer:has(.nisource-footer),
 footer:has(.nisource-footer) .footer {
-  background-color: var(--nisource-color-bg-page);
+  background-color: var(--nisource-color-footer-compact-bg);
 }
 
 footer .footer > div:has(.nisource-footer) {
-  background-color: var(--nisource-color-bg-page);
+  background-color: var(--nisource-color-footer-compact-bg);
   margin-inline: 0;
   max-width: none;
-  padding-inline: 0;
+  padding: 0;
   width: 100%;
 }
 
 footer .section.nisource-footer-container,
 footer .nisource-footer-wrapper {
-  background-color: var(--nisource-color-bg-page);
+  background-color: var(--nisource-color-footer-compact-bg);
   box-sizing: border-box;
   margin-inline: 0;
   max-width: none;
@@ -44,129 +37,22 @@ footer .nisource-footer-wrapper {
 }
 
 .nisource-footer__inner {
+  align-items: center;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nisource-space-1);
   margin-inline: auto;
   max-width: 1200px;
-  padding: var(--nisource-space-4) var(--nisource-space-3) var(--nisource-space-3);
+  padding: var(--nisource-space-2) var(--nisource-space-3);
+  text-align: center;
   width: 100%;
 }
 
-.nisource-footer__nav {
-  display: grid;
-  gap: var(--nisource-space-4) var(--nisource-space-3);
-  grid-template-columns: 1fr;
-  letter-spacing: normal;
-  margin: 0;
-  padding: 0;
-}
-
-@media (min-width: 600px) {
-  .nisource-footer__nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 900px) {
-  .nisource-footer__nav {
-    gap: var(--nisource-space-4) var(--nisource-space-4);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1200px) {
-  .nisource-footer__nav {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
-.nisource-footer__column {
-  margin: 0;
-  min-width: 0;
-}
-
-/* design.md — Menu & Footer Heading (Arial Bold 16px, heading line-height 1.2) */
-.nisource-footer__column-title {
-  color: var(--nisource-color-footer-heading);
-  font-family: var(--nisource-font-body);
-  font-size: var(--nisource-type-footer-heading-size);
-  font-weight: var(--font-weight-bold, 700);
-  letter-spacing: normal;
-  line-height: var(--nisource-type-footer-heading-lh);
-  margin: 0 0 var(--nisource-space-2);
-}
-
-/* design.md — Paragraph for link lists (16px, body line-height 1.5) */
-.nisource-footer__column-body {
-  color: var(--nisource-color-footer-link);
-  font-family: var(--nisource-font-body);
-  font-size: var(--nisource-type-footer-body-size);
-  font-weight: var(--font-weight-regular, 400);
-  letter-spacing: normal;
-  line-height: var(--nisource-type-footer-body-lh);
-}
-
-.nisource-footer__column-body :first-child {
-  margin-top: 0;
-}
-
-.nisource-footer__column-body :last-child {
-  margin-bottom: 0;
-}
-
-.nisource-footer__column-body ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nisource-footer__column-body li {
-  margin: 0 0 var(--nisource-space-1);
-}
-
-.nisource-footer__column-body li:last-child {
-  margin-bottom: 0;
-}
-
-.nisource-footer__column-body a:any-link {
-  color: var(--nisource-color-footer-link);
-  text-decoration: none;
-}
-
-.nisource-footer__column-body a[href^="tel:"]:any-link {
-  color: var(--nisource-color-footer-phone);
-}
-
-.nisource-footer__column-body a:hover,
-.nisource-footer__column-body a:focus-visible {
-  color: var(--nisource-color-footer-link-hover);
-  text-decoration: underline;
-}
-
-.nisource-footer__column-body a[href^="tel:"]:hover,
-.nisource-footer__column-body a[href^="tel:"]:focus-visible {
-  color: var(--nisource-color-footer-phone);
-  text-decoration: underline;
-}
-
-.nisource-footer__column-body a:focus-visible {
-  outline: var(--shape-border-width-3) solid var(--nisource-color-footer-focus-ring);
-  outline-offset: var(--nisource-space-1);
-}
-
-/* design.md Gray 30 — divider above subfooter */
-.nisource-footer__subfooter {
-  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--nisource-space-2) var(--nisource-space-3);
-  margin-top: var(--nisource-space-4);
-  padding-top: var(--nisource-space-3);
-}
-
-/* design.md — Small Text (12px) + Gray 50 secondary */
+.nisource-footer__legal,
+.nisource-footer__brand,
 .nisource-footer__copyright {
-  color: var(--nisource-color-footer-muted);
+  color: var(--nisource-color-footer-compact-text);
   font-family: var(--nisource-font-body);
   font-size: var(--nisource-type-footer-copyright-size);
   font-weight: var(--font-weight-regular, 400);
@@ -175,73 +61,30 @@ footer .nisource-footer-wrapper {
   margin: 0;
 }
 
-/* design.md — Small Paragraph (14px) for legal row */
 .nisource-footer__legal {
-  color: var(--nisource-color-footer-link);
-  font-family: var(--nisource-font-body);
-  font-size: var(--nisource-type-footer-legal-size);
-  font-weight: var(--font-weight-regular, 400);
-  letter-spacing: normal;
-  line-height: var(--nisource-type-footer-legal-lh);
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nisource-space-1) var(--nisource-space-2);
+  justify-content: center;
+}
+
+.nisource-footer__legal p {
+  display: contents;
 }
 
 .nisource-footer__legal a:any-link {
-  color: var(--nisource-color-footer-link);
-  text-decoration: none;
+  color: var(--nisource-color-footer-compact-text);
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
 }
 
 .nisource-footer__legal a:hover,
 .nisource-footer__legal a:focus-visible {
-  color: var(--nisource-color-footer-link-hover);
-  text-decoration: underline;
+  color: var(--nisource-color-footer-compact-text);
 }
 
 .nisource-footer__legal a:focus-visible {
-  outline: var(--shape-border-width-3) solid var(--nisource-color-footer-focus-ring);
+  outline: var(--shape-border-width-2) solid var(--nisource-color-footer-focus-ring);
   outline-offset: var(--nisource-space-1);
-}
-
-.nisource-footer__legal p {
-  margin: 0;
-}
-
-/* Social icons: vertical stack; tight row rhythm (gap + hit area sized to icon + 8px grid) */
-.nisource-footer__column-body ul.nisource-footer__social {
-  align-items: flex-start;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 4px;
-}
-
-.nisource-footer__column-body ul.nisource-footer__social li {
-  margin: 0;
-}
-
-.nisource-footer__column-body ul.nisource-footer__social a:any-link {
-  align-items: center;
-  box-sizing: border-box;
-  display: inline-flex;
-  justify-content: flex-start;
-  min-height: 3.2rem;
-  min-width: 3.2rem;
-  transition: transform 0.15s ease;
-}
-
-.nisource-footer__column-body ul.nisource-footer__social a:hover,
-.nisource-footer__column-body ul.nisource-footer__social a:focus-visible {
-  text-decoration: none;
-  transform: scale(1.05);
-  transform-origin: left center;
-}
-
-.nisource-footer__column-body ul.nisource-footer__social svg {
-  display: block;
-  height: 2.4rem;
-  width: 2.4rem;
-}
-
-@media (min-width: 900px) {
-  .nisource-footer__inner {
-    padding: var(--nisource-space-4) var(--nisource-space-4) var(--nisource-space-3);
-  }
 }
