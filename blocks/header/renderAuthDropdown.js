@@ -92,10 +92,12 @@ export function renderAuthDropdown(navTools) {
       authDropDownMenuList.style.display = 'block';
       authDropinContainer.style.display = 'none';
       loginButton.textContent = getUserNameCookie || 'John Doe';
+      loginButton.classList.remove('nav-dropdown-button--signed-out');
     } else {
       authDropDownMenuList.style.display = 'none';
       authDropinContainer.style.display = 'block';
-      loginButton.textContent = 'John Doe';
+      loginButton.textContent = 'Sign In';
+      loginButton.classList.add('nav-dropdown-button--signed-out');
     }
   };
 
