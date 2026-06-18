@@ -11,16 +11,9 @@
                 "name": "Account Information",
                 "model": "account-information",
                 "key-value": true,
-                "left-icon": "fa-house",
-                "greeting": "Hi Customer !",
-                "account-label": "Account#",
-                "account-number": "753534557000",
-                "choice-label": "Electric Choice ID",
-                "choice-number": "984302709",
-                "amount-label": "AMOUNT DUE",
-                "amount-value": "$276.56",
-                "options-address": "932 Apple St # Z Frostburg...",
-                "options-link-label": "Account Options"
+                "greeting": "John Doe",
+                "account-label": "Account",
+                "options-address": "Home 7856 Culebra Road, San Antonio, TX"
               }
           }
         }
@@ -33,13 +26,8 @@
       "fields": [
         {
           "component": "text",
-          "name": "left-icon",
-          "label": "Left Icon (Font Awesome class, e.g. fa-house)"
-        },
-        {
-          "component": "text",
           "name": "greeting",
-          "label": "Greeting"
+          "label": "Customer Name (fallback if not signed in)"
         },
         {
           "component": "text",
@@ -48,48 +36,9 @@
         },
         {
           "component": "text",
-          "name": "account-number",
-          "label": "Account Number"
-        },
-        {
-          "component": "text",
-          "name": "choice-label",
-          "label": "Choice Label"
-        },
-        {
-          "component": "text",
-          "name": "choice-number",
-          "label": "Choice Number"
-        },
-        {
-          "component": "text",
-          "name": "amount-label",
-          "label": "Amount Label"
-        },
-        {
-          "component": "text",
-          "name": "amount-value",
-          "label": "Amount Value"
-        },
-        {
-          "component": "aem-content",
-          "name": "amount-link",
-          "label": "Amount Card Link"
-        },
-        {
-          "component": "text",
           "name": "options-address",
-          "label": "Options Address"
-        },
-        {
-          "component": "text",
-          "name": "options-link-label",
-          "label": "Options Link Label"
-        },
-        {
-          "component": "aem-content",
-          "name": "options-link",
-          "label": "Options Card Link"
+          "label": "Account Addresses (one per line or separated by |)",
+          "valueType": "string"
         },
         {
           "component": "select",

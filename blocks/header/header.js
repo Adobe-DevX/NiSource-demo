@@ -124,6 +124,100 @@ const subMenuHeader = document.createElement('div');
 subMenuHeader.classList.add('submenu-header');
 subMenuHeader.innerHTML = '<h5 class="back-link">All Categories</h5><hr />';
 
+function getNavItemLabel(navItem) {
+  return navItem.querySelector(':scope > p, :scope > a')?.textContent?.trim() || '';
+}
+
+function setNavItemLabel(navItem, label) {
+  const labelElement = navItem.querySelector(':scope > p, :scope > a');
+  if (labelElement) labelElement.textContent = label;
+}
+
+function ensureNavItem(navList, label, href = '/') {
+  const hasItem = Array.from(navList.children).some((item) => (
+    getNavItemLabel(item).toLowerCase() === label.toLowerCase()
+  ));
+  if (hasItem) return;
+
+  const item = document.createElement('li');
+  const link = document.createElement('a');
+  link.href = rootLink(href);
+  link.textContent = label;
+  item.append(link);
+  navList.prepend(item);
+}
+
+function decoratePortalNavigation(navSections) {
+  const navList = navSections?.querySelector('.default-content-wrapper > ul');
+  if (!navList || navSections.querySelector('.portal-utility-nav')) return;
+
+  ensureNavItem(navList, 'Home', '/');
+
+  const portalUtilityNav = document.createElement('ul');
+  portalUtilityNav.className = 'portal-utility-nav';
+
+  Array.from(navList.children).forEach((navItem) => {
+    const label = getNavItemLabel(navItem);
+    const normalized = label.toLowerCase();
+
+    if (normalized === 'my account') setNavItemLabel(navItem, 'Account');
+    if (normalized === 'bills & payments') setNavItemLabel(navItem, 'Billing');
+    if (normalized === 'ways to save') setNavItemLabel(navItem, 'Ways To Save');
+    if (normalized === 'help') setNavItemLabel(navItem, 'Contact Us');
+
+    const updatedLabel = getNavItemLabel(navItem).toLowerCase();
+    if (
+      updatedLabel.includes('ways to save')
+      || updatedLabel.includes('outages')
+      || updatedLabel.includes('contact')
+    ) {
+      portalUtilityNav.append(navItem);
+    }
+  });
+
+  if (portalUtilityNav.children.length) {
+    ['ways to save', 'outages', 'contact'].forEach((label) => {
+      const item = Array.from(portalUtilityNav.children).find((navItem) => (
+        getNavItemLabel(navItem).toLowerCase().includes(label)
+      ));
+      if (item) portalUtilityNav.append(item);
+    });
+    navSections.querySelector('.default-content-wrapper').append(portalUtilityNav);
+  }
+
+  const orderedItems = [];
+  ['home', 'account', 'billing', 'services', 'usage'].forEach((label) => {
+    const item = Array.from(navList.children).find((navItem) => (
+      getNavItemLabel(navItem).toLowerCase().includes(label)
+    ));
+    if (item) orderedItems.push(item);
+  });
+  Array.from(navList.children)
+    .filter((navItem) => !orderedItems.includes(navItem))
+    .forEach((navItem) => orderedItems.push(navItem));
+  orderedItems.forEach((navItem) => {
+    navList.append(navItem);
+  });
+}
+
+function renderPortalTools(navTools) {
+  if (!navTools || navTools.querySelector('.portal-language-button')) return;
+
+  const language = document.createElement('button');
+  language.type = 'button';
+  language.className = 'portal-language-button';
+  language.setAttribute('aria-label', 'Change language');
+  language.textContent = 'English';
+  navTools.prepend(language);
+
+  const notifications = document.createElement('button');
+  notifications.type = 'button';
+  notifications.className = 'portal-notifications-button';
+  notifications.setAttribute('aria-label', 'Notifications');
+  notifications.dataset.count = '99+';
+  navTools.append(notifications);
+}
+
 /**
  * Sets up the submenu
  * @param {navSection} navSection The nav section element
@@ -183,6 +277,7 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
+    decoratePortalNavigation(navSections);
     navSections
       .querySelectorAll(':scope .default-content-wrapper > ul > li')
       .forEach((navSection) => {
@@ -209,6 +304,7 @@ export default async function decorate(block) {
   }
 
   const navTools = nav.querySelector('.nav-tools');
+  renderPortalTools(navTools);
 
   /** Wishlist */
   const wishlist = document.createRange().createContextualFragment(`
