@@ -190,6 +190,8 @@
   --nisource-color-footer-link: #0072ce;
   --nisource-color-footer-link-hover: #0061af;
   --nisource-color-footer-muted: #898d8d;
+  --nisource-color-footer-compact-bg: #080a0f;
+  --nisource-color-footer-compact-text: #fff;
 
   /* design.md Red 30 — emergency / high-visibility phone in footer */
   --nisource-color-footer-phone: #a00;

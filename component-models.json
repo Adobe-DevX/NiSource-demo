@@ -171,13 +171,8 @@
     "fields": [
       {
         "component": "text",
-        "name": "left-icon",
-        "label": "Left Icon (Font Awesome class, e.g. fa-house)"
-      },
-      {
-        "component": "text",
         "name": "greeting",
-        "label": "Greeting"
+        "label": "Customer Name (fallback if not signed in)"
       },
       {
         "component": "text",
@@ -186,48 +181,9 @@
       },
       {
         "component": "text",
-        "name": "account-number",
-        "label": "Account Number"
-      },
-      {
-        "component": "text",
-        "name": "choice-label",
-        "label": "Choice Label"
-      },
-      {
-        "component": "text",
-        "name": "choice-number",
-        "label": "Choice Number"
-      },
-      {
-        "component": "text",
-        "name": "amount-label",
-        "label": "Amount Label"
-      },
-      {
-        "component": "text",
-        "name": "amount-value",
-        "label": "Amount Value"
-      },
-      {
-        "component": "aem-content",
-        "name": "amount-link",
-        "label": "Amount Card Link"
-      },
-      {
-        "component": "text",
         "name": "options-address",
-        "label": "Options Address"
-      },
-      {
-        "component": "text",
-        "name": "options-link-label",
-        "label": "Options Link Label"
-      },
-      {
-        "component": "aem-content",
-        "name": "options-link",
-        "label": "Options Card Link"
+        "label": "Account Addresses (one per line or separated by |)",
+        "valueType": "string"
       },
       {
         "component": "select",

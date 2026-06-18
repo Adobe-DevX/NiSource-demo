@@ -1,139 +1,89 @@
 .account-information {
-  border: var(--shape-border-width-1) solid var(--nisource-color-border);
-  border-radius: var(--shape-border-radius-2);
   font-family: var(--nisource-font-body);
-  padding: var(--nisource-space-3) var(--nisource-space-2) var(--nisource-space-2);
+  padding: var(--nisource-space-2) 0;
 }
 
 .account-information__wrapper {
-  display: grid;
-  gap: var(--nisource-space-2);
-}
-
-.account-information__profile {
-  align-items: flex-start;
-  display: flex;
-  gap: var(--nisource-space-2);
-}
-
-.account-information__icon-box {
   align-items: center;
-  border: var(--shape-border-width-1) solid var(--nisource-color-primary);
-  border-radius: var(--shape-border-radius-1);
-  color: var(--nisource-color-primary);
-  display: inline-flex;
-  flex: 0 0 auto;
-  font-size: 1.6rem;
-  height: 3.8rem;
-  justify-content: center;
-  width: 3.8rem;
-}
-
-.account-information__profile-text {
-  display: grid;
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nisource-space-2);
+  justify-content: space-between;
 }
 
 .account-information__greeting {
-  color: var(--nisource-color-primary);
+  color: var(--nisource-color-text-heading);
   font-family: var(--nisource-font-body);
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: var(--font-weight-bold, 700);
-  letter-spacing: normal;
-  line-height: 1.2;
+  line-height: 1.3;
   margin: 0;
 }
 
-.account-information__meta {
-  color: var(--nisource-color-text-body);
-  font-size: 1.7rem;
-  font-weight: var(--font-weight-regular, 400);
-  letter-spacing: normal;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.account-information__meta strong {
-  color: var(--nisource-color-text-heading);
+.account-information__greeting-time,
+.account-information__greeting-name {
   font-weight: var(--font-weight-bold, 700);
 }
 
-.account-information__actions {
-  display: grid;
-  gap: var(--nisource-space-1);
-}
-
-.account-information__card {
+.account-information__account {
   align-items: center;
-  border: var(--shape-border-width-1) solid var(--nisource-color-border);
-  color: inherit;
-  display: grid;
-  gap: var(--nisource-space-1);
-  grid-template-columns: minmax(0, 1fr) auto;
-  min-height: 7.2rem;
-  padding: 1.2rem 1.6rem;
-  text-decoration: none;
-}
-
-.account-information__card-copy {
-  display: grid;
+  display: flex;
   gap: var(--nisource-space-1);
 }
 
-.account-information__card-eyebrow {
-  color: var(--nisource-color-text-heading);
-  font-size: 1.2rem;
-  font-weight: var(--font-weight-bold, 700);
-  letter-spacing: normal;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.account-information__card-value {
-  color: var(--nisource-color-primary);
-  font-size: 2rem;
-  font-weight: var(--font-weight-bold, 700);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.account-information__card-link {
-  color: var(--nisource-color-primary);
-  font-size: 1.7rem;
-  font-weight: var(--font-weight-bold, 700);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.account-information__card:first-child .account-information__card-value {
-  color: var(--nisource-color-primary);
-}
-
-.account-information__card:nth-child(2) .account-information__card-value {
+.account-information__label {
   color: var(--nisource-color-text-body);
   font-size: 1.5rem;
   font-weight: var(--font-weight-regular, 400);
-  overflow: hidden;
+}
+
+.account-information__select-wrapper {
+  position: relative;
+}
+
+.account-information__select {
+  appearance: none;
+  background-color: #fff;
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-1);
+  color: var(--nisource-color-text-heading);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.2;
+  max-width: 28rem;
+  padding: 0.8rem 3.2rem 0.8rem 1.2rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 100%;
 }
 
-.account-information__card-icon {
-  align-items: center;
-  color: var(--nisource-color-primary);
-  display: inline-flex;
-  font-size: 1.8rem;
-  justify-content: center;
+.account-information__select-wrapper::after {
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.6rem solid var(--nisource-color-text-heading);
+  content: '';
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
 }
 
-@media (min-width: 900px) {
-  .account-information__wrapper {
-    align-items: center;
-    gap: var(--nisource-space-3);
-    grid-template-columns: minmax(0, 1fr) minmax(44rem, 58rem);
+.account-information__select:focus-visible {
+  outline: 2px solid var(--nisource-color-primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 600px) {
+  .account-information__greeting {
+    font-size: 2rem;
   }
 
-  .account-information__actions {
-    grid-template-columns: repeat(2, minmax(21rem, 1fr));
+  .account-information__select {
+    max-width: 32rem;
   }
 }

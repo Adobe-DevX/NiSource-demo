@@ -1,13 +1,17 @@
+/* stylelint-disable no-descending-specificity -- Header combines authored nav trees with generated utility controls. */
 :root {
   --desktop-item-panel-max-width: 300px;
   --desktop-item-panel-min-width: 200px;
   --desktop-large-panel-width: 900px;
   --desktop-panel-min-height: 200px;
   --desktop-panel-max-height: 600px;
-  --header-logo-width: 160px;
+  --header-logo-width: 152px;
+  --portal-header-top-height: 8rem;
+  --portal-header-nav-height: 4.8rem;
+  --nav-height: calc(var(--portal-header-top-height) + var(--portal-header-nav-height));
 
   /* Two px smaller than the prior 1.8rem primary nav size */
-  --header-nav-primary-font-size: calc(1.8rem - 2px);
+  --header-nav-primary-font-size: 1.4rem;
 }
 
 /* header and nav layout — design.md menu type (§1.2) */
@@ -20,32 +24,25 @@ header .nav-wrapper {
   box-sizing: border-box;
   z-index: 3;
   position: fixed;
-  border-bottom: var(--shape-border-width-1) solid rgb(0 0 0 / 12%);
+  border-bottom: var(--shape-border-width-1) solid var(--nisource-color-border);
 }
 
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools wrapperPopUpButton' var(--nav-height)
-    'sections sections sections sections' 1fr / auto 1fr auto auto;
+    'hamburger brand tools' var(--portal-header-top-height)
+    'sections sections sections' var(--portal-header-nav-height) / auto 1fr auto;
   align-items: center;
-  gap: 0 var(--nisource-space-2);
+  gap: 0 var(--nisource-space-3);
   margin: auto;
   width: 100%;
-  max-width: min(1264px, 100%);
+  max-width: 100%;
   min-width: 0;
-  height: var(--nav-height);
-  padding: 0 var(--nisource-space-3);
+  min-height: var(--nav-height);
+  padding: 0 var(--nisource-space-7, 56px);
   font-family: var(--nisource-font-body);
   color: var(--nisource-color-header-text);
-}
-
-/* All-caps nav chrome; flyouts, panels, and fields reset below */
-header nav .nav-brand,
-header nav .nav-sections,
-header nav .nav-tools {
-  text-transform: uppercase;
 }
 
 header nav .nav-tools-panel,
@@ -59,25 +56,12 @@ header nav select {
 }
 
 header nav[aria-expanded='true'] {
-  grid-template:
-    'hamburger brand' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
-  overflow-y: auto;
-  min-height: 100dvh;
+  overflow: visible;
 }
 
 @media (min-width: 900px) {
   header nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 0 var(--nisource-space-2);
-    width: 100%;
-    max-width: min(1264px, 100%);
-    min-width: 0;
-
-    /* Tighter right inset so tools sit closer to the viewport edge */
-    padding: 0 var(--nisource-space-2) 0 var(--nisource-space-4);
+    max-width: 100%;
   }
 
   header nav[aria-expanded='true'] {
@@ -195,12 +179,12 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 
 /* brand */
 header nav .nav-brand {
+  grid-area: brand;
   flex-shrink: 0;
   min-width: var(--header-logo-width);
 }
 
 header nav .nav-brand a {
-  grid-area: brand;
   flex-basis: var(--header-logo-width);
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
@@ -221,14 +205,17 @@ header nav .nav-brand img {
   width: var(--header-logo-width);
   height: auto;
   object-fit: contain;
+  display: block;
 }
 
 /* sections */
 header nav .nav-sections {
   grid-area: sections;
-  flex: 1 1 auto;
-  display: none;
-  visibility: hidden;
+  align-self: stretch;
+  border-top: var(--shape-border-width-1) solid var(--nisource-color-border);
+  display: flex;
+  min-width: 0;
+  visibility: visible;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
@@ -248,12 +235,14 @@ header nav .nav-sections ul {
 }
 
 header nav .nav-sections ul > li,
-header nav .nav-sections ul > li > a {
+header nav .nav-sections ul > li > a,
+header nav .nav-sections ul > li > p {
   font-family: var(--nisource-font-body);
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: normal;
   line-height: 1.2;
+  margin: 0;
 }
 
 header nav .nav-brand a:hover {
@@ -285,7 +274,9 @@ header nav .nav-sections ul > li:empty {
   header nav .nav-sections .default-content-wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     min-width: 0;
+    width: 100%;
     flex: 1 1 auto;
   }
 
@@ -294,15 +285,18 @@ header nav .nav-sections ul > li:empty {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {
-    border-radius: var(--shape-border-radius-2);
-    padding: 0 var(--nisource-space-1);
+    border-radius: 0;
+    min-height: var(--portal-header-nav-height);
+    padding: 0 var(--nisource-space-2);
     display: inline-flex;
     align-items: center;
     position: relative;
     flex: 0 1 auto;
+    color: var(--nisource-color-header-text);
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li a {
+  header nav .nav-sections .default-content-wrapper > ul > li a,
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
     text-decoration: none;
     color: inherit;
     display: inline-flex;
@@ -317,14 +311,86 @@ header nav .nav-sections ul > li:empty {
   header nav .nav-sections .default-content-wrapper > ul {
     display: flex;
     align-items: center;
-    gap: var(--nisource-space-1);
+    gap: 0;
   }
 
   /* Primary nav row — heavy weight reads bolder than 700 at this size */
   header nav .nav-sections .default-content-wrapper > ul > li,
-  header nav .nav-sections .default-content-wrapper > ul > li > a {
+  header nav .nav-sections .default-content-wrapper > ul > li > a,
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
     font-size: var(--header-nav-primary-font-size);
-    font-weight: 900;
+    font-weight: 700;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > p,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > a {
+    gap: 6px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > p::after,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > a::after {
+    border: solid currentcolor;
+    border-width: 0 var(--shape-border-width-2) var(--shape-border-width-2) 0;
+    content: '';
+    display: inline-block;
+    height: 6px;
+    margin-block-start: -4px;
+    transform: rotate(45deg);
+    width: 6px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul:not(.portal-utility-nav) > li:first-child {
+    color: var(--nisource-color-primary);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul:not(.portal-utility-nav) > li:first-child::after {
+    background: var(--nisource-color-primary);
+    bottom: 0;
+    content: '';
+    height: var(--shape-border-width-3);
+    left: var(--nisource-space-2);
+    position: absolute;
+    right: var(--nisource-space-2);
+  }
+
+  header nav .nav-sections .portal-utility-nav {
+    margin-left: auto;
+  }
+
+  header nav .nav-sections .portal-utility-nav > li {
+    gap: var(--nisource-space-1);
+    padding-inline: var(--nisource-space-2);
+  }
+
+  header nav .nav-sections .portal-utility-nav > li::before {
+    align-items: center;
+    background: var(--nisource-color-header-text);
+    border-radius: 50%;
+    color: var(--nisource-color-bg-page);
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 700;
+    height: var(--nisource-space-2);
+    justify-content: center;
+    line-height: 1;
+    width: var(--nisource-space-2);
+  }
+
+  header nav .nav-sections .portal-utility-nav > li:has(> p),
+  header nav .nav-sections .portal-utility-nav > li:has(> a) {
+    font-size: 1.3rem;
+  }
+
+  header nav .nav-sections .portal-utility-nav > li:nth-child(1)::before {
+    content: '$';
+  }
+
+  header nav .nav-sections .portal-utility-nav > li:nth-child(2)::before {
+    content: '\26A1';
+  }
+
+  header nav .nav-sections .portal-utility-nav > li:nth-child(3)::before {
+    content: '?';
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul {
@@ -393,7 +459,8 @@ header nav .nav-sections ul > li:empty {
 
   header nav .nav-sections .default-content-wrapper > ul > li:hover,
   header nav .nav-sections .nav-drop[aria-expanded='true'] {
-    background-color: var(--nisource-color-bg-section);
+    background-color: transparent;
+    color: var(--nisource-color-primary);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li ul > li:hover {
@@ -447,12 +514,96 @@ header nav .nav-tools-panel--show {
 header nav .nav-tools {
   grid-area: tools;
   display: flex;
-  height: 100%;
-  gap: var(--nisource-space-1);
+  height: var(--portal-header-top-height);
+  gap: var(--nisource-space-2);
   align-items: center;
   flex-shrink: 0;
   background: transparent;
   z-index: 3;
+}
+
+header nav .wishlist-wrapper,
+header nav .minicart-wrapper,
+header nav .search-wrapper {
+  display: none;
+}
+
+header nav .portal-language-button,
+header nav .portal-notifications-button,
+header nav .nav-tools-wrapper > button {
+  min-height: var(--nisource-space-5);
+}
+
+header nav .portal-language-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--nisource-color-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--nisource-font-body);
+  font-size: 1.4rem;
+  font-weight: 400;
+  gap: 6px;
+  line-height: 1.2;
+  order: 1;
+  padding: 0;
+}
+
+header nav .portal-language-button::after {
+  border: solid currentcolor;
+  border-width: 0 var(--shape-border-width-2) var(--shape-border-width-2) 0;
+  content: '';
+  display: inline-block;
+  height: 6px;
+  margin-block-start: -4px;
+  transform: rotate(45deg);
+  width: 6px;
+}
+
+header nav .portal-notifications-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--nisource-color-header-text);
+  cursor: pointer;
+  display: inline-flex;
+  height: var(--nisource-space-5);
+  justify-content: center;
+  order: 3;
+  padding: 0;
+  position: relative;
+  width: var(--nisource-space-5);
+}
+
+header nav .portal-notifications-button::before {
+  background: currentcolor;
+  content: '';
+  display: block;
+  height: 2.2rem;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 2a1.5 1.5 0 0 0-1.5 1.5v.7A7 7 0 0 0 5 11v3.2c0 .5-.2 1-.6 1.4L3 17h18l-1.4-1.4a2 2 0 0 1-.6-1.4V11a7 7 0 0 0-5.5-6.8v-.7A1.5 1.5 0 0 0 12 2z'/%3E%3Cpath d='M9.5 19a2.5 2.5 0 0 0 5 0z'/%3E%3C/svg%3E") no-repeat center / contain;
+  width: 2.2rem;
+}
+
+header nav .portal-notifications-button::after {
+  align-items: center;
+  background: var(--nisource-color-primary);
+  border: var(--shape-border-width-1) solid var(--nisource-color-bg-page);
+  border-radius: 999px;
+  color: var(--nisource-color-bg-page);
+  content: attr(data-count);
+  display: inline-flex;
+  font-family: var(--nisource-font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  height: 1.6rem;
+  justify-content: center;
+  line-height: 1;
+  min-width: 2rem;
+  padding-inline: 3px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 header nav .nav-tools button.nav-cart-button {
@@ -616,20 +767,49 @@ header .nav-search-input .search_autocomplete .popover-container {
 
 .dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button {
   font-family: var(--nisource-font-body) !important;
-  font-size: 1.6rem !important;
+  font-size: 1.3rem !important;
   font-weight: 700 !important;
   letter-spacing: normal !important;
   line-height: 1.25 !important;
   color: var(--nisource-color-header-text) !important;
-  background-color: transparent;
+  background-color: var(--nisource-color-bg-page);
   margin: 0;
-  padding: 0;
-  border: 0;
+  padding: 0 var(--nisource-space-2);
+  border: var(--shape-border-width-1) solid var(--nisource-color-border);
+  border-radius: var(--shape-border-radius-1);
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--nisource-space-1);
   width: auto;
-  min-width: var(--nisource-space-5);
+  min-width: 13.6rem;
+  order: 2;
+  text-transform: uppercase;
+}
+
+.dropdown-wrapper.nav-tools-wrapper {
+  order: 2;
+}
+
+.dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button::before {
+  background: var(--nisource-color-header-text);
+  content: '';
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 2rem;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4.2a3.3 3.3 0 1 1 0 6.6 3.3 3.3 0 0 1 0-6.6zm0 14.3a8 8 0 0 1-6.1-2.8c.7-2.4 3.3-4.1 6.1-4.1s5.4 1.7 6.1 4.1A8 8 0 0 1 12 20.5z'/%3E%3C/svg%3E") no-repeat center / contain;
+  width: 2rem;
+}
+
+.dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button::after {
+  border: solid currentcolor;
+  border-width: 0 var(--shape-border-width-2) var(--shape-border-width-2) 0;
+  content: '';
+  display: inline-block;
+  height: 6px;
+  margin-block-start: -4px;
+  transform: rotate(45deg);
+  width: 6px;
 }
 
 .dropdown-wrapper.nav-tools-wrapper .nav-dropdown-button:focus-visible {
@@ -730,6 +910,11 @@ li
     position: relative;
   }
 
+  header nav[aria-expanded='false'] .nav-sections {
+    display: none;
+    visibility: hidden;
+  }
+
   header .nav-wrapper.active,
   header .nav-wrapper:has(nav[aria-expanded='true']) {
     width: 320px;
@@ -747,8 +932,13 @@ li
   }
 
   header nav[aria-expanded='true'] {
+    grid-template:
+      'hamburger brand' var(--portal-header-top-height)
+      'sections sections' 1fr
+      'tools tools' var(--portal-header-nav-height) / auto 1fr;
     gap: var(--nisource-space-2);
-    overflow-x: hidden;
+    overflow: hidden auto;
+    min-height: 100dvh;
     width: 320px;
   }
 
