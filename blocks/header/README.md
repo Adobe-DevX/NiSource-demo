@@ -60,6 +60,7 @@ Authors can include nav items such as Account, Billing, Services, Usage, Ways To
 - Ensures a **Home** link exists at the start of the primary nav.
 - Renames authored labels (for example, "My Account" → "Account", "Bills & Payments" → "Billing").
 - Moves utility links (Ways To Save, Outages, Contact Us) into `.portal-utility-nav`.
+- Ensures each utility item is a flat top-level link. Plain-text or dropdown items receive default SEW portal URLs when none are authored; existing authored `href` values are preserved.
 - Orders primary items: Home, Account, Billing, Services, Usage.
 
 ### Portal tools

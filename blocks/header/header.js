@@ -124,13 +124,75 @@ const subMenuHeader = document.createElement('div');
 subMenuHeader.classList.add('submenu-header');
 subMenuHeader.innerHTML = '<h5 class="back-link">All Categories</h5><hr />';
 
+const PORTAL_UTILITY_LINKS = {
+  'ways to save': 'https://myaccount-utility.sewcx.ai/Portal/waystosaveprograms',
+  outages: 'https://myaccount-utility.sewcx.ai/Portal/outages',
+  contact: 'https://myaccount-utility.sewcx.ai/Portal/helpsupport',
+  help: 'https://myaccount-utility.sewcx.ai/Portal/helpsupport',
+};
+
+function matchPortalUtilityKey(label) {
+  const normalized = label.toLowerCase();
+  return Object.keys(PORTAL_UTILITY_LINKS).find((key) => normalized.includes(key));
+}
+
+function normalizeNavItemLink(navItem) {
+  const p = navItem.querySelector(':scope > p');
+  if (!p || p.childElementCount !== 1 || p.firstElementChild.tagName !== 'A') return;
+  navItem.insertBefore(p.firstElementChild, p);
+  p.remove();
+}
+
+function getNavItemLink(navItem) {
+  return navItem.querySelector(':scope > a, :scope > p > a');
+}
+
 function getNavItemLabel(navItem) {
+  const link = getNavItemLink(navItem);
+  if (link) return link.textContent?.trim() || '';
   return navItem.querySelector(':scope > p, :scope > a')?.textContent?.trim() || '';
 }
 
 function setNavItemLabel(navItem, label) {
+  const link = getNavItemLink(navItem);
+  if (link) {
+    link.textContent = label;
+    return;
+  }
   const labelElement = navItem.querySelector(':scope > p, :scope > a');
   if (labelElement) labelElement.textContent = label;
+}
+
+function ensurePortalUtilityLink(navItem, label) {
+  const utilityKey = matchPortalUtilityKey(label);
+  if (!utilityKey) return;
+
+  navItem.querySelectorAll(':scope > ul, :scope > .submenu-wrapper').forEach((el) => {
+    el.remove();
+  });
+  navItem.classList.remove('nav-drop', 'active');
+  navItem.removeAttribute('aria-expanded');
+
+  normalizeNavItemLink(navItem);
+
+  const existingLink = getNavItemLink(navItem);
+  if (existingLink) {
+    if (!existingLink.getAttribute('href') || existingLink.getAttribute('href') === '#') {
+      existingLink.href = PORTAL_UTILITY_LINKS[utilityKey];
+    }
+    return;
+  }
+
+  const labelElement = navItem.querySelector(':scope > p, :scope > a');
+  const text = labelElement?.textContent?.trim() || label;
+  const link = document.createElement('a');
+  link.href = PORTAL_UTILITY_LINKS[utilityKey];
+  link.textContent = text;
+  if (labelElement) {
+    labelElement.replaceWith(link);
+  } else {
+    navItem.prepend(link);
+  }
 }
 
 function ensureNavItem(navList, label, href = '/') {
@@ -157,6 +219,7 @@ function decoratePortalNavigation(navSections) {
   portalUtilityNav.className = 'portal-utility-nav';
 
   Array.from(navList.children).forEach((navItem) => {
+    normalizeNavItemLink(navItem);
     const label = getNavItemLabel(navItem);
     const normalized = label.toLowerCase();
 
@@ -164,6 +227,8 @@ function decoratePortalNavigation(navSections) {
     if (normalized === 'bills & payments') setNavItemLabel(navItem, 'Billing');
     if (normalized === 'ways to save') setNavItemLabel(navItem, 'Ways To Save');
     if (normalized === 'help') setNavItemLabel(navItem, 'Contact Us');
+
+    ensurePortalUtilityLink(navItem, getNavItemLabel(navItem));
 
     const updatedLabel = getNavItemLabel(navItem).toLowerCase();
     if (
@@ -284,7 +349,7 @@ export default async function decorate(block) {
         if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
         setupSubmenu(navSection);
         navSection.addEventListener('click', (event) => {
-          if (event.target.tagName === 'A') return;
+          if (event.target.closest('a')) return;
           if (!isDesktop.matches) {
             navSection.classList.toggle('active');
           }

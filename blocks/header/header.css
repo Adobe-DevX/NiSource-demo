@@ -297,6 +297,8 @@ header nav .nav-sections ul > li:empty {
 
   header nav .nav-sections .default-content-wrapper > ul > li a,
   header nav .nav-sections .default-content-wrapper > ul > li > p {
+    font: inherit;
+    letter-spacing: normal;
     text-decoration: none;
     color: inherit;
     display: inline-flex;
@@ -379,6 +381,13 @@ header nav .nav-sections ul > li:empty {
   header nav .nav-sections .portal-utility-nav > li:has(> p),
   header nav .nav-sections .portal-utility-nav > li:has(> a) {
     font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  header nav .nav-sections .portal-utility-nav > li a {
+    font: inherit;
+    letter-spacing: normal;
+    text-decoration: none;
   }
 
   header nav .nav-sections .portal-utility-nav > li:nth-child(1)::before {
