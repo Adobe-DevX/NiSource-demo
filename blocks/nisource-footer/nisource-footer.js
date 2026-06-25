@@ -7,7 +7,7 @@ function defaultCopyright() {
 }
 
 const DEFAULT_LEGAL = `<p>
-<a href="#">Contact Us</a>
+<a href="https://myaccount-utility.sewcx.ai/Portal/helpsupport">Contact Us</a>
 <a href="#">Terms and Conditions</a>
 <a href="#">Privacy Policy</a>
 </p>`;
